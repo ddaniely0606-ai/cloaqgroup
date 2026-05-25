@@ -11,7 +11,7 @@ const jsonLd = {
   "@type": "MarketingAgency",
   "name": "Mythos Agency",
   "description": "סוכנות שיווק דיגיטלי פרימיום לשוק הישראלי. אסטרטגיית מותג, פרסום ממומן, SEO, תוכן ווידאו.",
-  "url": "https://cloaqgroup-q4dt0c8no-ddaniely0606-ais-projects.vercel.app",
+  "url": "https://mythos-agency.vercel.app",
   "areaServed": "IL",
   "knowsLanguage": ["he", "en"],
   "numberOfEmployees": { "@type": "QuantitativeValue", "value": 4 },

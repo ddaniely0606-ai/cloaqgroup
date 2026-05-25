@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://cloaqgroup-q4dt0c8no-ddaniely0606-ais-projects.vercel.app/sitemap.xml",
+    sitemap: "https://mythos-agency.vercel.app/sitemap.xml",
   };
 }

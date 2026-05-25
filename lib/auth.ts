@@ -13,9 +13,9 @@ export interface CloakSession {
 }
 
 const DEFAULT_USERS: CloakUser[] = [
-  { id: "1", name: "Daniel", email: "daniel@cloaq.io", password: "0000", mustReset: true },
-  { id: "2", name: "Shahar", email: "shahar@cloaq.io", password: "0000", mustReset: true },
-  { id: "3", name: "Staff", email: "staff@cloaq.io", password: "0000", mustReset: true },
+  { id: "1", name: "Daniel", email: "daniel@mythos.agency", password: "0000", mustReset: true },
+  { id: "2", name: "Shahar", email: "shahar@mythos.agency", password: "0000", mustReset: true },
+  { id: "3", name: "Staff", email: "staff@mythos.agency", password: "0000", mustReset: true },
 ];
 
 export function initUsers(): CloakUser[] {
