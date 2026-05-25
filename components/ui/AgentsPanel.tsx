@@ -3,15 +3,17 @@ import { useState } from "react";
 
 const agents = [
   { name: "HeroAgent", role: "Three.js particles + GSAP logo reveal", color: "#a78bfa" },
-  { name: "StatsAgent", role: "Animated count-up KPI metrics", color: "#818cf8" },
-  { name: "ServicesAgent", role: "6 service cards with scroll animations", color: "#c084fc" },
-  { name: "ProcessAgent", role: "6-step client process timeline", color: "#a78bfa" },
-  { name: "PortfolioAgent", role: "Case studies masonry grid", color: "#818cf8" },
-  { name: "TeamAgent", role: "Team members with hover overlays", color: "#c084fc" },
-  { name: "TestimonialsAgent", role: "Infinite auto-scrolling reviews", color: "#a78bfa" },
-  { name: "FAQAgent", role: "FAQ accordion + JSON-LD rich results", color: "#818cf8" },
-  { name: "ContactAgent", role: "Hebrew animated contact form", color: "#c084fc" },
-  { name: "SEO Agent", role: "Schema, sitemap, robots, OpenGraph", color: "#a78bfa" },
+  { name: "LogoStripAgent", role: "Client trust marquee strip", color: "#818cf8" },
+  { name: "StatsAgent", role: "Animated count-up KPI metrics", color: "#c084fc" },
+  { name: "ServicesAgent", role: "6 service cards with scroll animations", color: "#a78bfa" },
+  { name: "ProcessAgent", role: "6-step client process timeline", color: "#818cf8" },
+  { name: "PortfolioAgent", role: "Case studies masonry grid", color: "#c084fc" },
+  { name: "TeamAgent", role: "Team members with hover overlays", color: "#a78bfa" },
+  { name: "TestimonialsAgent", role: "Infinite auto-scrolling reviews", color: "#818cf8" },
+  { name: "FAQAgent", role: "FAQ accordion + JSON-LD rich results", color: "#c084fc" },
+  { name: "CTAAgent", role: "Pre-footer conversion banner", color: "#a78bfa" },
+  { name: "ContactAgent", role: "Hebrew animated contact form", color: "#818cf8" },
+  { name: "SEO Agent", role: "Schema, sitemap, robots, OpenGraph", color: "#c084fc" },
 ];
 
 export default function AgentsPanel() {

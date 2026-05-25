@@ -1,5 +1,6 @@
 import Navbar from "@/components/ui/Navbar";
 import HeroAgent from "@/components/agents/HeroAgent";
+import LogoStripAgent from "@/components/agents/LogoStripAgent";
 import StatsAgent from "@/components/agents/StatsAgent";
 import ServicesAgent from "@/components/agents/ServicesAgent";
 import ProcessAgent from "@/components/agents/ProcessAgent";
@@ -7,6 +8,7 @@ import PortfolioAgent from "@/components/agents/PortfolioAgent";
 import TeamAgent from "@/components/agents/TeamAgent";
 import TestimonialsAgent from "@/components/agents/TestimonialsAgent";
 import FAQAgent from "@/components/agents/FAQAgent";
+import CTAAgent from "@/components/agents/CTAAgent";
 import ContactAgent from "@/components/agents/ContactAgent";
 import Footer from "@/components/ui/Footer";
 import AgentsPanel from "@/components/ui/AgentsPanel";
@@ -23,6 +25,7 @@ export default function Home() {
       <ScrollProgress />
       <Navbar />
       <HeroAgent />
+      <LogoStripAgent />
       <StatsAgent />
       <ServicesAgent />
       <ProcessAgent />
@@ -30,6 +33,7 @@ export default function Home() {
       <TeamAgent />
       <TestimonialsAgent />
       <FAQAgent />
+      <CTAAgent />
       <ContactAgent />
       <Footer />
       <AgentsPanel />

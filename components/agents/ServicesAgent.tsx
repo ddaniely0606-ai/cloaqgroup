@@ -136,10 +136,13 @@ const ServiceCard = React.forwardRef<
       style={{
         padding: "40px",
         background: hovered ? "var(--bg2)" : "var(--bg)",
-        transition: "background 0.4s",
+        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+        boxShadow: hovered ? "0 20px 50px rgba(124,58,237,0.25)" : "0 0 0 rgba(0,0,0,0)",
+        transition: "background 0.4s, transform 0.35s ease, box-shadow 0.35s ease",
         cursor: "default",
         position: "relative",
         overflow: "hidden",
+        zIndex: hovered ? 1 : 0,
       }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: hovered ? "linear-gradient(to right, transparent, rgba(124,58,237,0.7), transparent)" : "transparent", transition: "background 0.4s" }} />
