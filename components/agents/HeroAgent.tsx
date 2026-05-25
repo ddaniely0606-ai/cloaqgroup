@@ -55,20 +55,29 @@ export default function HeroAgent() {
     >
       <ParticleCanvas />
 
+      {/* Ghost hooded figure — brand identity in the background */}
+      <div style={{
+        position:"absolute", right:"-2%", top:"50%", transform:"translateY(-50%)",
+        height:"88%", zIndex:1, pointerEvents:"none", opacity:0.055,
+        display:"flex", alignItems:"center",
+      }}>
+        <img src="/hood.svg" alt="" style={{ height:"100%", objectFit:"contain", filter:"blur(1px)" }} />
+      </div>
+
       {/* Cinematic atmospheric lighting */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
         background: [
-          "radial-gradient(ellipse at 18% 55%, rgba(5,150,105,0.22) 0%, transparent 48%)",
-          "radial-gradient(ellipse at 82% 28%, rgba(16,185,129,0.12) 0%, transparent 42%)",
-          "radial-gradient(ellipse at 50% 110%, rgba(5,150,105,0.18) 0%, transparent 42%)",
+          "radial-gradient(ellipse at 18% 55%, rgba(39,174,96,0.2) 0%, transparent 48%)",
+          "radial-gradient(ellipse at 82% 28%, rgba(39,174,96,0.1) 0%, transparent 42%)",
+          "radial-gradient(ellipse at 50% 110%, rgba(39,174,96,0.15) 0%, transparent 42%)",
         ].join(", "),
       }} />
 
       {/* Grid */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
-        backgroundImage: "linear-gradient(rgba(5,150,105,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(5,150,105,0.06) 1px, transparent 1px)",
+        backgroundImage: "linear-gradient(rgba(39,174,96,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(39,174,96,0.06) 1px, transparent 1px)",
         backgroundSize: "80px 80px",
         maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)",
       }} />
@@ -84,7 +93,7 @@ export default function HeroAgent() {
         maxWidth: "1100px", margin: "0 auto",
       }}>
 
-        {/* MYTHOS */}
+        {/* CLOAK */}
         <div style={{ overflow: "hidden", perspective: "900px", marginBottom: "-0.05em" }}>
           <div
             ref={mythosRef}
@@ -98,13 +107,13 @@ export default function HeroAgent() {
               color: "#ffffff",
             }}
           >
-            {"MYTHOS".split("").map((l, i) => (
+            {"CLOAK".split("").map((l, i) => (
               <span key={i} className="letter" style={{ display: "inline-block" }}>{l}</span>
             ))}
           </div>
         </div>
 
-        {/* AGENCY — gradient emerald */}
+        {/* GROUP — gradient green */}
         <div style={{ overflow: "hidden", perspective: "900px" }}>
           <div
             ref={agencyRef}
@@ -115,13 +124,13 @@ export default function HeroAgent() {
               fontWeight: 900,
               letterSpacing: "0.15em",
               lineHeight: 0.88,
-              background: "linear-gradient(135deg, #6ee7b7 0%, #34d399 40%, #059669 100%)",
+              background: "linear-gradient(135deg, #4ade80 0%, #27AE60 50%, #155228 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
             }}
           >
-            {"AGENCY".split("").map((l, i) => (
+            {"GROUP".split("").map((l, i) => (
               <span key={i} className="letter" style={{ display: "inline-block" }}>{l}</span>
             ))}
           </div>
@@ -132,7 +141,7 @@ export default function HeroAgent() {
           ref={dividerRef}
           style={{
             height: "1px",
-            background: "linear-gradient(to right, transparent, #34d399, #059669, #34d399, transparent)",
+            background: "linear-gradient(to right, transparent, #4ade80, #27AE60, #4ade80, transparent)",
             maxWidth: "520px",
             margin: "36px auto",
             transformOrigin: "center",
@@ -155,11 +164,11 @@ export default function HeroAgent() {
             flexWrap: "wrap",
           }}
         >
-          <span className="brand-en" style={{ color: "#34d399", letterSpacing: "0.15em", fontSize: "0.75rem", textTransform: "uppercase" }}>
-            We Engineer Attention
+          <span className="brand-en" style={{ color: "#27AE60", letterSpacing: "0.15em", fontSize: "0.75rem", textTransform: "uppercase" }}>
+            The Shadows Dominate
           </span>
-          <span style={{ width: "1px", height: "14px", background: "rgba(5,150,105,0.4)", display: "inline-block" }} />
-          <span>אנחנו הופכים מותגים לבלתי ניתנים להתעלמות.</span>
+          <span style={{ width: "1px", height: "14px", background: "rgba(39,174,96,0.4)", display: "inline-block" }} />
+          <span>הצללים שלנו שולטים בשוק שלכם.</span>
         </p>
 
         {/* CTAs */}
@@ -180,7 +189,7 @@ export default function HeroAgent() {
         <span style={{ color: "#8a8a9a", fontSize: "0.7rem", letterSpacing: "0.3em" }}>גלול</span>
         <div style={{
           width: "1px", height: "60px",
-          background: "linear-gradient(to bottom, #059669, transparent)",
+          background: "linear-gradient(to bottom, #27AE60, transparent)",
           animation: "pulse 2s ease-in-out infinite",
         }} />
       </div>
@@ -200,23 +209,23 @@ function HoverButton({ href, primary, children }: { href: string; primary: boole
         textDecoration: "none",
         transition: "all 0.3s",
         display: "inline-block",
-        background: primary ? "#059669" : "rgba(0,0,0,0.45)",
+        background: primary ? "#27AE60" : "rgba(0,0,0,0.45)",
         color: primary ? "#fff" : "#c4c4d4",
-        border: primary ? "1px solid #059669" : "1px solid rgba(5,150,105,0.35)",
+        border: primary ? "1px solid #27AE60" : "1px solid rgba(39,174,96,0.35)",
         backdropFilter: primary ? "none" : "blur(14px)",
         WebkitBackdropFilter: primary ? "none" : "blur(14px)",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = primary ? "#047857" : "rgba(5,150,105,0.15)";
-        e.currentTarget.style.borderColor = primary ? "#047857" : "#059669";
+        e.currentTarget.style.background = primary ? "#1e8f4e" : "rgba(39,174,96,0.12)";
+        e.currentTarget.style.borderColor = primary ? "#1e8f4e" : "#27AE60";
         e.currentTarget.style.color = "#fff";
         e.currentTarget.style.transform = "translateY(-2px)";
         e.currentTarget.style.boxShadow = primary ? "0 8px 24px rgba(5,150,105,0.4)" : "0 4px 16px rgba(5,150,105,0.2)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = primary ? "#059669" : "rgba(0,0,0,0.45)";
+        e.currentTarget.style.background = primary ? "#27AE60" : "rgba(0,0,0,0.45)";
         e.currentTarget.style.color = primary ? "#fff" : "#c4c4d4";
-        e.currentTarget.style.borderColor = primary ? "#059669" : "rgba(5,150,105,0.35)";
+        e.currentTarget.style.borderColor = primary ? "#27AE60" : "rgba(39,174,96,0.35)";
         e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.boxShadow = "none";
       }}
