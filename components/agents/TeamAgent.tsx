@@ -67,6 +67,7 @@ export default function TeamAgent() {
     <section
       id="team"
       ref={sectionRef}
+      className="cv-auto"
       style={{ padding: "120px 40px", background: "var(--bg)" }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>

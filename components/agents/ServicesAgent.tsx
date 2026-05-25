@@ -85,6 +85,7 @@ export default function ServicesAgent() {
     <section
       id="services"
       ref={sectionRef}
+      className="cv-auto"
       style={{ padding: "120px 40px", background: "var(--bg)" }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>

@@ -11,10 +11,12 @@ import AgentsPanel from "@/components/ui/AgentsPanel";
 import Preloader from "@/components/ui/Preloader";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 export default function Home() {
   return (
-    <main>
+    <main className="grain">
+      <CustomCursor />
       <Preloader />
       <ScrollProgress />
       <Navbar />

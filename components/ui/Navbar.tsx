@@ -21,7 +21,7 @@ export default function Navbar() {
       { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.6 }
     );
     const handleScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
