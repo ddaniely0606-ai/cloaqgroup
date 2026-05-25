@@ -218,7 +218,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e)=>setEmail(e.target.value)}
-                placeholder="your@cloaq.io"
+                placeholder="your@mythos.agency"
                 required
                 className="w-full bg-[rgba(255,255,255,0.03)] border border-[rgba(39,174,96,0.2)] px-4 py-3 text-white text-sm outline-none placeholder:text-[#4a4a5a] transition-all duration-200"
                 onFocus={(e)=>{ e.currentTarget.style.borderColor="#27AE60"; e.currentTarget.style.boxShadow="0 0 0 3px #06060e,0 0 0 5px rgba(39,174,96,0.35)"; }}

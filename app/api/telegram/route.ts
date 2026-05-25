@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 
-const REPO = "ddaniely0606-ai/cloaqgroup";
+const REPO = "ddaniely0606-ai/cloaqgroup"; // GitHub repo name unchanged
 const BRANCH = "master";
 
 const SYSTEM_PROMPT = `You are the Mythos Agency development agent — Claude Code running remotely via Telegram.
@@ -14,7 +14,7 @@ PROJECT CONTEXT:
 - Direction: RTL globally. English islands use .brand-en class
 - Fonts: var(--font-syne) for English display, var(--font-heebo) for Hebrew body
 - GitHub repo: ${REPO} (master branch)
-- Live: cloaqgroup.vercel.app
+- Live: mythos-agency.vercel.app
 
 SECTIONS (page order):
 HeroAgent → StatsAgent → ServicesAgent → ProcessAgent → PortfolioAgent → TeamAgent → TestimonialsAgent → ManifestoAgent → FAQAgent → CTAAgent → ContactAgent → Footer
@@ -155,13 +155,13 @@ async function deploy(): Promise<string> {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: "cloaqgroup",
+      name: "mythos-agency",
       gitSource: { type: "github", repoId: REPO, ref: BRANCH },
       target: "production",
     }),
   });
   if (!res.ok) return `Deploy triggered (check Vercel dashboard)`;
-  return "🚀 Deployment triggered → cloaqgroup.vercel.app";
+  return "🚀 Deployment triggered → mythos-agency.vercel.app";
 }
 
 async function runTool(name: string, input: Record<string, string>): Promise<string> {

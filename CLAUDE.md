@@ -1,6 +1,6 @@
 @AGENTS.md
 
-# CloaqGroup — Project Context for Claude
+# Mythos Agency — Project Context for Claude
 
 ## What this is
 Premium Hebrew-first marketing agency website for the Israeli market.
@@ -9,8 +9,8 @@ Stack: Next.js 16 App Router · React 19 · TypeScript · Tailwind v4 · GSAP ·
 ## Design System
 - `--bg`: #050508 (main dark)
 - `--bg2`: #0d0d18 (section alt)
-- `--purple`: #7c3aed
-- `--purple-light`: #a78bfa
+- `--green`: #059669 (primary — emerald)
+- `--green-light`: #4ade80
 - `--text`: #f5f5f7
 - `--muted`: #8a8a9a
 - Display font: `var(--font-syne)` (English/brand marks only)
@@ -59,7 +59,7 @@ Stack: Next.js 16 App Router · React 19 · TypeScript · Tailwind v4 · GSAP ·
 - Push: `git push origin master`
 
 ## Hebrew Notes
-- All visible copy is Hebrew except: logo (CLOAQGROUP), team member English names, service English subtitles
+- All visible copy is Hebrew except: logo (MYTHOS AGENCY), team member English names, service English subtitles
 - Tagline: "אנחנו הופכים מותגים לבלתי ניתנים להתעלמות."
 - Nav labels: שירותים, תהליך, עבודות, צוות, צור קשר
 - CTA: "בואו נדבר"

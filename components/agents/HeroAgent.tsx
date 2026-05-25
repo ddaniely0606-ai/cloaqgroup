@@ -14,29 +14,18 @@ export default function HeroAgent() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ delay: 0.5 });
-
-    if (mythosRef.current) {
-      const letters = mythosRef.current.querySelectorAll(".letter");
-      tl.fromTo(
-        letters,
-        { y: 130, opacity: 0, rotateX: -45 },
-        { y: 0, opacity: 1, rotateX: 0, duration: 1, stagger: 0.06, ease: "power4.out" }
-      );
-    }
-    if (agencyRef.current) {
-      const letters = agencyRef.current.querySelectorAll(".letter");
-      tl.fromTo(
-        letters,
-        { y: 110, opacity: 0, rotateX: -35 },
-        { y: 0, opacity: 1, rotateX: 0, duration: 0.9, stagger: 0.06, ease: "power4.out" },
-        "-=0.6"
-      );
-    }
-    tl.fromTo(dividerRef.current, { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 1, ease: "power3.out" }, "-=0.2");
-    tl.fromTo(taglineRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, "-=0.5");
-    tl.fromTo(ctaRef.current, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.3");
-    tl.fromTo(scrollRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.1");
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay: 0.5 });
+      const mythosLetters = mythosRef.current!.querySelectorAll(".letter");
+      const agencyLetters = agencyRef.current!.querySelectorAll(".letter");
+      tl.fromTo(mythosLetters, { y: 130, opacity: 0, rotateX: -45 }, { y: 0, opacity: 1, rotateX: 0, duration: 1, stagger: 0.06, ease: "power4.out" });
+      tl.fromTo(agencyLetters, { y: 110, opacity: 0, rotateX: -35 }, { y: 0, opacity: 1, rotateX: 0, duration: 0.9, stagger: 0.06, ease: "power4.out" }, "-=0.6");
+      tl.fromTo(dividerRef.current, { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 1, ease: "power3.out" }, "-=0.2");
+      tl.fromTo(taglineRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, "-=0.5");
+      tl.fromTo(ctaRef.current, { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, "-=0.3");
+      tl.fromTo(scrollRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, "-=0.1");
+    });
+    return () => ctx.revert();
   }, []);
 
   return (

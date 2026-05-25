@@ -36,14 +36,15 @@ export default function Navbar() {
   }, [dark]);
 
   useEffect(() => {
-    gsap.fromTo(
-      navRef.current,
-      { y: -80, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.6 }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo(navRef.current, { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.6 });
+    }, navRef);
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      ctx.revert();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (

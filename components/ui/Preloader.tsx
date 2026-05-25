@@ -11,46 +11,24 @@ export default function Preloader() {
   const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.to(overlayRef.current, {
-          yPercent: -100,
-          duration: 1,
-          ease: "power4.inOut",
-          onComplete: () => setDone(true),
-        });
-      },
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          gsap.to(overlayRef.current, {
+            yPercent: -100,
+            duration: 1,
+            ease: "power4.inOut",
+            onComplete: () => setDone(true),
+          });
+        },
+      });
+      tl.fromTo(mythosRef.current!.querySelectorAll(".pl"), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.07, ease: "power3.out" });
+      tl.fromTo(agencyRef.current!.querySelectorAll(".pl"), { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.06, ease: "power3.out" }, "-=0.4");
+      tl.fromTo(lineRef.current, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, "-=0.2");
+      tl.fromTo(barRef.current, { scaleX: 0 }, { scaleX: 1, duration: 1, ease: "power2.inOut", transformOrigin: "left center" }, "-=0.1");
+      tl.to([mythosRef.current, agencyRef.current, lineRef.current], { opacity: 0, y: -20, duration: 0.4, stagger: 0.05 }, "+=0.1");
     });
-
-    // MYTHOS letters stagger in
-    if (mythosRef.current) {
-      tl.fromTo(
-        mythosRef.current.querySelectorAll(".pl"),
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.07, ease: "power3.out" }
-      );
-    }
-
-    // AGENCY letters stagger in
-    if (agencyRef.current) {
-      tl.fromTo(
-        agencyRef.current.querySelectorAll(".pl"),
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.06, ease: "power3.out" },
-        "-=0.4"
-      );
-    }
-
-    // Divider line
-    tl.fromTo(lineRef.current, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, "-=0.2");
-
-    // Loading bar
-    tl.fromTo(barRef.current, { scaleX: 0 }, { scaleX: 1, duration: 1, ease: "power2.inOut", transformOrigin: "left center" }, "-=0.1");
-
-    // Fade out text
-    tl.to([mythosRef.current, agencyRef.current, lineRef.current], {
-      opacity: 0, y: -20, duration: 0.4, stagger: 0.05,
-    }, "+=0.1");
+    return () => ctx.revert();
   }, []);
 
   if (done) return null;
