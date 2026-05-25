@@ -23,7 +23,7 @@ export default function Footer() {
               />
             </div>
             <p style={{ color: "#8a8a9a", fontSize: "0.9rem", lineHeight: 1.75, maxWidth: "340px", marginBottom: "28px" }}>
-              הכוח השיווקי הסמוי מאחורי מותגים שמשלטים בשוק שלהם. אנחנו פועלים מאחורי הקלעים כדי שהמותג שלכם יעמוד בזרקור.
+              הסוכנות שמאחורי מותגים שהפכו למיתוסים. אנחנו לא מריצים קמפיינים — אנחנו בונים נצח.
             </p>
             <div style={{ display: "flex", gap: "12px" }}>
               {[Globe, AtSign, Link2, Play].map((Icon, i) => (
@@ -96,7 +96,7 @@ export default function Footer() {
             © {new Date().getFullYear()} MYTHOS AGENCY. כל הזכויות שמורות.
           </p>
           <p className="brand-en" style={{ color: "#8a8a9a", fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase" }}>
-            BUILT FOR BRANDS THAT REFUSE AVERAGE.
+            WE BUILD BRANDS HISTORY REMEMBERS.
           </p>
         </div>
       </div>

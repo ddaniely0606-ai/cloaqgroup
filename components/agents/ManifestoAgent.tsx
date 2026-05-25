@@ -6,10 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const lines = [
-  { en: "PERCEPTION", he: "תפיסה היא הכל." },
-  { en: "ATTENTION", he: "תשומת לב היא המטבע החדש." },
-  { en: "POWER", he: "הכוח שייך למי שנראה." },
-  { en: "CULTURE", he: "תרבות בונה אימפריות." },
+  { en: "MYTH", he: "מיתוס הוא הכוח האמיתי." },
+  { en: "STORY", he: "סיפור טוב שווה יותר מכל פרסומת." },
+  { en: "LEGACY", he: "מורשת בונה אימפריות." },
+  { en: "SCALE", he: "גדילה היא המדד היחיד שחשוב." },
 ];
 
 export default function ManifestoAgent() {
@@ -141,14 +141,14 @@ export default function ManifestoAgent() {
               קמפיינים.
             </span>
             <br />
-            אנחנו בונים{" "}
-            <span style={{ color: "#ffffff" }}>שליטה.</span>
+            אנחנו הופכים מותגים{" "}
+            <span style={{ color: "#ffffff" }}>למיתוסים.</span>
           </h2>
           <p style={{
             color: "#8a8a9a", fontSize: "1.1rem", lineHeight: 1.8,
             maxWidth: "620px",
           }}>
-            כל מותג שפועל בשוק הישראלי צריך לבחור: להיראות, או להיעלם. Mythos בנויה לאלה שבוחרים לשלוט.
+            כל מותג שפועל בשוק הישראלי יכול לבחור: להיות נשכח, או להפוך למיתוס. Mythos בנויה לאלה שבוחרים נצח.
           </p>
         </div>
       </div>

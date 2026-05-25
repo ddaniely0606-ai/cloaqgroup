@@ -40,7 +40,7 @@ const jsonLd = {
     "@type": "QuantitativeValue",
     "value": 4
   },
-  "slogan": "אנחנו הופכים מותגים לבלתי ניתנים להתעלמות",
+  "slogan": "אנחנו הופכים מותגים למיתוסים",
   "tagline": "Brands Become Myths",
   "contactPoint": {
     "@type": "ContactPoint",

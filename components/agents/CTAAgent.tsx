@@ -62,7 +62,7 @@ export default function CTAAgent() {
           color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em",
           textTransform: "uppercase", marginBottom: "24px",
         }}>
-          מוכנים לשלוט?
+          YOUR LEGEND STARTS HERE
         </p>
 
         <h2 style={{
@@ -81,14 +81,14 @@ export default function CTAAgent() {
           }}>
             המותג שלך
           </span>
-          {" "}לבלתי ניתן להתעלמות.
+          {" "}למיתוס.
         </h2>
 
         <p style={{
           color: "#8a8a9a", fontSize: "1.1rem", lineHeight: 1.7,
           marginBottom: "52px", maxWidth: "560px", margin: "0 auto 52px",
         }}>
-          חברות שעובדות איתנו רואות תוצאות ממשיות — לא הבטחות. בואו נראה מה אפשר לעשות עם המותג שלכם.
+          240+ מותגים כבר הפכו לאגדה. הגיע הזמן שלכם להיכנס להיסטוריה.
         </p>
 
         <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>

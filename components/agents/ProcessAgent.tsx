@@ -97,10 +97,10 @@ export default function ProcessAgent() {
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "80px" }}>
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
-            איך אנחנו עובדים
+            הדרך אל האגדה
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            התהליך <span style={{ background: "linear-gradient(135deg, #86efac, #34d399, #059669)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שלנו</span>
+            שישה שלבים <span style={{ background: "linear-gradient(135deg, #86efac, #34d399, #059669)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>אל הנצח</span>
           </h2>
         </div>
 

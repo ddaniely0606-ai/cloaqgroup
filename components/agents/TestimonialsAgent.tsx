@@ -12,7 +12,7 @@ const testimonials = [
   { name: "ג'יימס וויטפילד", company: "Apex Realty", text: "עבודת ה-SEO בלבד הניבה לנו מעל ₪8M בפייפליין. אין סוכנות שקרובה לרמה הזו." },
   { name: "מיכל ברנשטיין", company: "Meridian Apparel", text: "תוכן הוידאו שהם יצרו הגיע ל-40M צפיות אורגניות. המותג שלנו הפך לרגע תרבותי." },
   { name: "אסף גולן", company: "Solstice Beauty", text: "תוך 90 יום שלטנו בקטגוריה שלנו בגוגל. אף סוכנות שעבדנו איתה לא התקרבה לזה." },
-  { name: "תמר אלמוג", company: "Vantage Capital", text: "Mythos Agency לא מריצים קמפיינים. הם בונים שליטה. שווה כל שקל ויותר." },
+  { name: "תמר אלמוג", company: "Vantage Capital", text: "Mythos Agency לא מריצים קמפיינים. הם הופכים מותגים למיתוסים. שווה כל שקל ויותר." },
 ];
 
 export default function TestimonialsAgent() {
@@ -38,10 +38,10 @@ export default function TestimonialsAgent() {
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", marginBottom: "60px" }}>
         <div ref={headingRef}>
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
-            מה אומרים עלינו
+            קולות המיתוס
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הם <span style={{ color: "#34d399" }}>שולטים</span> עכשיו
+            הם <span style={{ color: "#34d399" }}>הפכו</span> למיתוס
           </h2>
         </div>
       </div>

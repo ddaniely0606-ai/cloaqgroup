@@ -9,6 +9,8 @@ const clients = [
   { name: "VANTAGE CAPITAL" },
   { name: "NEXUS GROUP" },
   { name: "IRONCLAD VENTURES" },
+  { name: "AURORA BRANDS" },
+  { name: "PINNACLE MEDIA" },
 ];
 
 export default function LogoStripAgent() {

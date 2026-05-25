@@ -12,7 +12,7 @@ const team = [
     name: "דניאל אביב",
     nameEn: "Daniel Aviv",
     role: "מנכ\"ל ואסטרטג ראשי",
-    bio: "12 שנות ניסיון בבניית מותגים ישראלים שפורצים לשווקים בינלאומיים. מחשבה אסטרטגית שמניעה צמיחה אמיתית.",
+    bio: "12 שנות ניסיון בהפיכת מותגים ישראלים לאגדות בינלאומיות. הוא לא בונה קמפיינים — הוא בונה מורשת.",
     gradient: "linear-gradient(135deg, #052e16, #14532d)",
   },
   {
@@ -20,7 +20,7 @@ const team = [
     name: "שרה לוי",
     nameEn: "Sarah Levi",
     role: "מנהלת קריאייטיב",
-    bio: "מעצבת ויזואלית שהופכת זהויות מותג לנכסים שאי אפשר להתעלם מהם — ממיתוג ועד לסרטי פרסומת.",
+    bio: "מעצבת ויזואלית שהופכת זהויות מותג לנכסים אבדיים. כל פיקסל שלה נחרת בתודעה.",
     gradient: "linear-gradient(135deg, #064e3b, #14532d)",
   },
   {
@@ -28,7 +28,7 @@ const team = [
     name: "אור בן-דוד",
     nameEn: "Or Ben-David",
     role: "ראש Performance",
-    bio: "אסטרטג ביצועים מונע נתונים עם ניסיון בניהול תקציבי פרסום של מעל ₪50M. ה-ROAS שלו מדבר בעד עצמו.",
+    bio: "אסטרטג הביצועים שניהל מעל ₪85M בתקציבי פרסום. הנתונים שלו לא מדברים — הם צועקים.",
     gradient: "linear-gradient(135deg, #065f46, #1a1a2e)",
   },
   {
@@ -36,7 +36,7 @@ const team = [
     name: "נועה כהן",
     nameEn: "Noa Cohen",
     role: "ראשת תוכן ווידאו",
-    bio: "אדריכלית תוכן וירלי ששינתה את נוכחות הרשת של עשרות מותגים ישראלים מובילים.",
+    bio: "יוצרת תוכן שהגיע ל-40M+ צפיות אורגניות. היא לא כותבת תוכן — היא כותבת היסטוריה.",
     gradient: "linear-gradient(135deg, #022c22, #14532d)",
   },
 ];
@@ -73,10 +73,10 @@ export default function TeamAgent() {
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "72px" }}>
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
-            הכוח שמאחורינו
+            בוני האגדות
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הכירו את <span style={{ color: "#34d399" }}>הצוות</span>
+            הצוות <span style={{ color: "#34d399" }}>שיוצר מיתוסים</span>
           </h2>
         </div>
 

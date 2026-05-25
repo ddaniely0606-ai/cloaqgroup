@@ -91,10 +91,10 @@ export default function ServicesAgent() {
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "72px" }}>
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
-            מה אנחנו עושים
+            מה אנחנו יוצרים
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הארסנל <span style={{ background: "linear-gradient(135deg, #34d399, #059669, #86efac)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שלנו</span>
+            הכלים <span style={{ background: "linear-gradient(135deg, #34d399, #059669, #86efac)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שיוצרים אגדות</span>
           </h2>
         </div>
 

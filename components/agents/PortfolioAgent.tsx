@@ -10,7 +10,7 @@ const projects = [
   {
     title: "Obsidian Spirits",
     category: "אסטרטגיית מותג + סושיאל",
-    result: "+340% מכירות תוך 6 חודשים",
+    result: "+380% מכירות תוך 6 חודשים",
     gradient: "linear-gradient(135deg, #052e16 0%, #14532d 100%)",
     gridArea: "span 2 / span 1",
   },
@@ -31,14 +31,14 @@ const projects = [
   {
     title: "Apex Realty",
     category: "שיווק Full-Funnel",
-    result: "₪8M פייפליין חדש מ-SEO",
+    result: "₪12M פייפליין חדש מ-SEO",
     gradient: "linear-gradient(135deg, #022c22 0%, #0d0d18 100%)",
     gridArea: "span 1 / span 2",
   },
   {
     title: "Solstice Beauty",
     category: "רשתות חברתיות + תוכן",
-    result: "x3 בעוקבים תוך 90 יום",
+    result: "×4 בעוקבים תוך 90 יום",
     gradient: "linear-gradient(135deg, #052e16 0%, #14532d 100%)",
     gridArea: "span 1 / span 1",
   },
@@ -80,10 +80,10 @@ export default function PortfolioAgent() {
         >
           <div>
             <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
-              העבודות שלנו
+              אגדות שבנינו
             </p>
             <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-              תיק <span style={{ background: "linear-gradient(135deg, #34d399, #86efac)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>עבודות</span>
+              אגדות <span style={{ background: "linear-gradient(135deg, #34d399, #86efac)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שבנינו</span>
             </h2>
           </div>
           <a

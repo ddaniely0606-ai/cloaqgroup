@@ -1,7 +1,6 @@
 ﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { Sun, Moon } from "lucide-react";
 import Image from "next/image";
 
 const links = [
@@ -16,24 +15,6 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dark, setDark] = useState(true);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (dark) {
-      root.style.setProperty("--bg", "#050508");
-      root.style.setProperty("--bg2", "#0d0d18");
-      root.style.setProperty("--text", "#f5f5f7");
-      root.style.setProperty("--muted", "#8a8a9a");
-      root.style.colorScheme = "dark";
-    } else {
-      root.style.setProperty("--bg", "#f8f8fc");
-      root.style.setProperty("--bg2", "#eeecf8");
-      root.style.setProperty("--text", "#0a0a14");
-      root.style.setProperty("--muted", "#5a5a7a");
-      root.style.colorScheme = "light";
-    }
-  }, [dark]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -101,29 +82,6 @@ export default function Navbar() {
           </a>
         ))}
       </div>
-
-      {/* Dark/light toggle */}
-      <button
-        onClick={() => setDark(!dark)}
-        aria-label={dark ? "עבור למצב בהיר" : "עבור למצב כהה"}
-        className="hidden md:flex"
-        style={{
-          alignItems: "center", justifyContent: "center",
-          width: "36px", height: "36px",
-          border: "1px solid rgba(5,150,105,0.35)",
-          background: "transparent",
-          cursor: "pointer",
-          transition: "border-color 0.3s, background 0.3s",
-          marginLeft: "8px",
-        }}
-        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(5,150,105,0.12)"; e.currentTarget.style.borderColor = "#059669"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(5,150,105,0.35)"; }}
-      >
-        {dark
-          ? <Sun size={15} color="#34d399" aria-hidden="true" />
-          : <Moon size={15} color="#059669" aria-hidden="true" />
-        }
-      </button>
 
       <a
         href="#contact"

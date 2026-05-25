@@ -6,10 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 200, suffix: "+", label: "מותגים שטיפלנו", sublabel: "Brands Served" },
-  { value: 50, prefix: "₪", suffix: "M+", label: "תקציב פרסום מנוהל", sublabel: "Ad Spend Managed" },
-  { value: 340, suffix: "%", label: "ממוצע גידול במכירות", sublabel: "Avg. Sales Growth" },
-  { value: 98, suffix: "%", label: "שביעות רצון לקוחות", sublabel: "Client Satisfaction" },
+  { value: 240, suffix: "+", label: "מותגים שהפכו לאגדה", sublabel: "Brands Mythologized" },
+  { value: 85, prefix: "₪", suffix: "M+", label: "תקציב פרסום מנוהל", sublabel: "Ad Spend Managed" },
+  { value: 380, suffix: "%", label: "ממוצע גידול בהכנסות", sublabel: "Avg. Revenue Growth" },
+  { value: 98, suffix: "%", label: "לקוחות ממשיכים איתנו", sublabel: "Client Retention" },
 ];
 
 function useCountUp(target: number, active: boolean, duration = 2000) {

@@ -66,16 +66,16 @@ export default function ContactAgent() {
       <div style={{ maxWidth: "820px", margin: "0 auto", position: "relative" }}>
         <div ref={headingRef} style={{ marginBottom: "64px" }}>
           <p className="brand-en" style={{ color: "#34d399", fontSize: "0.7rem", letterSpacing: "0.4em", textTransform: "uppercase", marginBottom: "16px" }}>
-            Apply To Work Together
+            הצטרפו למיתוס
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(3rem, 8vw, 6rem)", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
-            Enter<br />
+            הפכו<br />
             <span style={{
               background: "linear-gradient(135deg, #6ee7b7, #34d399, #059669)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}>Mythos.</span>
+            }}>למיתוס.</span>
           </h2>
           <p style={{ color: "#8a8a9a", fontSize: "1rem", lineHeight: 1.7, maxWidth: "500px" }}>
             אנחנו עובדים עם מותגים שמסרבים להיות ממוצעים. אם זה נשמע כמוכם — בואו נדבר.
@@ -94,7 +94,7 @@ export default function ContactAgent() {
             <h3 style={{ fontWeight: 800, fontSize: "1.6rem", color: "#fff", marginBottom: "12px" }}>
               ההודעה התקבלה
             </h3>
-            <p style={{ color: "#8a8a9a" }}>נחזור אליכם תוך 24 שעות. התכוננו לשלוט.</p>
+            <p style={{ color: "#8a8a9a" }}>נחזור אליכם תוך 24 שעות. המיתוס שלכם מתחיל כאן.</p>
           </div>
         ) : (
           <form ref={formRef} onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "24px" }} aria-label="טופס יצירת קשר">
