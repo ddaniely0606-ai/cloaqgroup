@@ -96,7 +96,7 @@ export default function Footer() {
             © {new Date().getFullYear()} MYTHOS AGENCY. כל הזכויות שמורות.
           </p>
           <p className="brand-en" style={{ color: "#8a8a9a", fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase" }}>
-            WE MAKE BRANDS IMPOSSIBLE TO IGNORE.
+            BUILT FOR BRANDS THAT REFUSE AVERAGE.
           </p>
         </div>
       </div>

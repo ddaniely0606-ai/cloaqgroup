@@ -65,15 +65,20 @@ export default function ContactAgent() {
 
       <div style={{ maxWidth: "820px", margin: "0 auto", position: "relative" }}>
         <div ref={headingRef} style={{ marginBottom: "64px" }}>
-          <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
-            בואו נדבר
+          <p className="brand-en" style={{ color: "#34d399", fontSize: "0.7rem", letterSpacing: "0.4em", textTransform: "uppercase", marginBottom: "16px" }}>
+            Apply To Work Together
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(3rem, 8vw, 6rem)", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
-            מוכנים<br />
-            <span style={{ color: "#34d399" }}>לשלוט?</span>
+            Enter<br />
+            <span style={{
+              background: "linear-gradient(135deg, #6ee7b7, #34d399, #059669)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>Mythos.</span>
           </h2>
           <p style={{ color: "#8a8a9a", fontSize: "1rem", lineHeight: 1.7, maxWidth: "500px" }}>
-            ספרו לנו על המותג שלכם ואנחנו נחזור אליכם תוך 24 שעות עם תוכנית להשתלטות על השוק.
+            אנחנו עובדים עם מותגים שמסרבים להיות ממוצעים. אם זה נשמע כמוכם — בואו נדבר.
           </p>
         </div>
 

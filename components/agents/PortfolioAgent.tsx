@@ -144,24 +144,37 @@ const PortfolioCard = React.memo(function PortfolioCard({ project }: { project: 
       {/* Hover overlay */}
       <div style={{ position: "absolute", inset: 0, background: hovered ? "rgba(4,120,87,0.15)" : "transparent", transition: "background 0.4s" }} />
 
-      {/* Content */}
+      {/* Big metric watermark */}
+      <div className="brand-en" style={{
+        position: "absolute", top: "50%", left: "50%",
+        transform: "translate(-50%,-50%)",
+        fontSize: "clamp(2.5rem, 6vw, 4rem)",
+        fontWeight: 900, fontFamily: "var(--font-syne)",
+        color: hovered ? "rgba(52,211,153,0.25)" : "rgba(52,211,153,0.1)",
+        whiteSpace: "nowrap", pointerEvents: "none",
+        transition: "color 0.5s",
+        textAlign: "center", letterSpacing: "0.05em",
+      }}>
+        {project.result}
+      </div>
+
+      {/* Content — glass panel always visible */}
       <div style={{
         position: "absolute", bottom: 0, left: 0, right: 0,
-        padding: "32px",
-        background: "linear-gradient(to top, rgba(5,5,8,0.85) 0%, transparent 100%)",
-        transform: hovered ? "translateY(0)" : "translateY(8px)",
-        transition: "transform 0.4s",
+        padding: "24px 28px",
+        background: hovered ? "rgba(0,0,0,0.72)" : "rgba(0,0,0,0.55)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        borderTop: `1px solid ${hovered ? "rgba(52,211,153,0.2)" : "rgba(5,150,105,0.1)"}`,
+        transition: "background 0.4s, border-color 0.4s",
       }}>
-        <p style={{ color: "#34d399", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "6px", opacity: hovered ? 1 : 0, transition: "opacity 0.3s" }}>
+        <p style={{ color: "#34d399", fontSize: "0.65rem", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "6px", opacity: hovered ? 1 : 0.7, transition: "opacity 0.3s" }}>
           {project.category}
         </p>
-        <h3 className="brand-en" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "1.4rem", color: "#fff", marginBottom: "4px", display: "flex", alignItems: "center", gap: "10px" }}>
+        <h3 className="brand-en" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "1.25rem", color: "#fff", display: "flex", alignItems: "center", gap: "10px" }}>
           {project.title}
-          <ArrowUpLeft size={18} color="#34d399" style={{ opacity: hovered ? 1 : 0, transition: "opacity 0.3s", transform: "rotate(180deg)" }} />
+          <ArrowUpLeft size={16} color="#34d399" style={{ opacity: hovered ? 1 : 0, transition: "opacity 0.3s", transform: "rotate(180deg)", flexShrink: 0 }} />
         </h3>
-        <p style={{ color: "#c4c4d4", fontSize: "0.8rem", opacity: hovered ? 1 : 0, transition: "opacity 0.4s 0.05s" }}>
-          {project.result}
-        </p>
       </div>
     </div>
   );

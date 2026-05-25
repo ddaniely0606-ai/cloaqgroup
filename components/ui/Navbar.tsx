@@ -60,9 +60,10 @@ export default function Navbar() {
         alignItems: "center",
         justifyContent: "space-between",
         transition: "background 0.5s, backdrop-filter 0.5s, border-color 0.5s",
-        background: scrolled ? "rgba(5,5,8,0.88)" : "transparent",
-        backdropFilter: scrolled ? "blur(24px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(5,150,105,0.12)" : "none",
+        background: scrolled ? "rgba(4,6,5,0.92)" : "rgba(4,6,5,0.2)",
+        backdropFilter: "blur(24px) saturate(1.6)",
+        WebkitBackdropFilter: "blur(24px) saturate(1.6)",
+        borderBottom: scrolled ? "1px solid rgba(5,150,105,0.15)" : "1px solid rgba(5,150,105,0.05)",
       }}
     >
       {/* Logo */}

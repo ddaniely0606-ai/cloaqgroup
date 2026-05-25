@@ -1,17 +1,20 @@
-﻿"use client";
+"use client";
 import { useEffect, useRef } from "react";
 
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const dot = dotRef.current;
     const ring = ringRef.current;
-    if (!dot || !ring) return;
+    const glow = glowRef.current;
+    if (!dot || !ring || !glow) return;
 
     let mouseX = 0, mouseY = 0;
     let ringX = 0, ringY = 0;
+    let glowX = 0, glowY = 0;
     let animId: number;
 
     const onMove = (e: MouseEvent) => {
@@ -24,21 +27,28 @@ export default function CustomCursor() {
       ringX += (mouseX - ringX) * 0.12;
       ringY += (mouseY - ringY) * 0.12;
       ring.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
+
+      glowX += (mouseX - glowX) * 0.06;
+      glowY += (mouseY - glowY) * 0.06;
+      glow.style.transform = `translate(${glowX - 60}px, ${glowY - 60}px)`;
+
       animId = requestAnimationFrame(animate);
     };
 
     const onEnterClickable = () => {
-      ring.style.width = "48px";
-      ring.style.height = "48px";
-      ring.style.borderColor = "#4ade80";
-      ring.style.background = "rgba(22,163,74,0.1)";
+      ring.style.width = "52px";
+      ring.style.height = "52px";
+      ring.style.borderColor = "#34d399";
+      ring.style.background = "rgba(5,150,105,0.12)";
+      dot.style.opacity = "0";
     };
 
     const onLeaveClickable = () => {
       ring.style.width = "40px";
       ring.style.height = "40px";
-      ring.style.borderColor = "rgba(74,222,128,0.6)";
+      ring.style.borderColor = "rgba(52,211,153,0.55)";
       ring.style.background = "transparent";
+      dot.style.opacity = "1";
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
@@ -62,23 +72,34 @@ export default function CustomCursor() {
 
   return (
     <>
+      {/* Ambient glow — lags behind most */}
+      <div ref={glowRef} style={{
+        position: "fixed", top: 0, left: 0,
+        width: "120px", height: "120px",
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(5,150,105,0.18) 0%, transparent 70%)",
+        pointerEvents: "none",
+        zIndex: 99996,
+        willChange: "transform",
+      }} />
       {/* Dot */}
       <div ref={dotRef} style={{
         position: "fixed", top: 0, left: 0,
         width: "8px", height: "8px",
         borderRadius: "50%",
-        background: "#4ade80",
+        background: "#34d399",
         pointerEvents: "none",
         zIndex: 99999,
-        boxShadow: "0 0 10px #4ade80, 0 0 20px rgba(74,222,128,0.4)",
+        boxShadow: "0 0 10px #34d399, 0 0 24px rgba(52,211,153,0.5)",
         willChange: "transform",
+        transition: "opacity 0.2s",
       }} />
       {/* Ring */}
       <div ref={ringRef} style={{
         position: "fixed", top: 0, left: 0,
         width: "40px", height: "40px",
         borderRadius: "50%",
-        border: "1px solid rgba(74,222,128,0.6)",
+        border: "1px solid rgba(52,211,153,0.55)",
         pointerEvents: "none",
         zIndex: 99998,
         transition: "width 0.3s, height 0.3s, border-color 0.3s, background 0.3s",

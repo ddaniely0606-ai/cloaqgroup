@@ -135,7 +135,9 @@ function ProcessStep({ step, index }: { step: typeof steps[0]; index: number }) 
       onMouseLeave={() => setHovered(false)}
       style={{
         padding: "40px",
-        background: hovered ? (isEven ? "rgba(5,150,105,0.06)" : "rgba(74,222,128,0.04)") : "var(--bg2)",
+        background: hovered ? "rgba(5,150,105,0.1)" : "rgba(0,0,0,0.45)",
+        backdropFilter: "blur(20px) saturate(1.4)",
+        WebkitBackdropFilter: "blur(20px) saturate(1.4)",
         transition: "background 0.4s",
         position: "relative",
         overflow: "hidden",
