@@ -102,7 +102,7 @@ export default function StatsAgent() {
       }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-        <div style={{
+        <div className="stats-grid" style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: "1px",

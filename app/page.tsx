@@ -9,11 +9,14 @@ import ContactAgent from "@/components/agents/ContactAgent";
 import Footer from "@/components/ui/Footer";
 import AgentsPanel from "@/components/ui/AgentsPanel";
 import Preloader from "@/components/ui/Preloader";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 
 export default function Home() {
   return (
     <main>
       <Preloader />
+      <ScrollProgress />
       <Navbar />
       <HeroAgent />
       <StatsAgent />
@@ -24,6 +27,7 @@ export default function Home() {
       <ContactAgent />
       <Footer />
       <AgentsPanel />
+      <WhatsAppButton />
     </main>
   );
 }

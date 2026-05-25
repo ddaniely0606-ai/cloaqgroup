@@ -95,7 +95,7 @@ export default function PortfolioAgent() {
           </a>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridAutoRows: "280px", gap: "8px" }}>
+        <div className="portfolio-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridAutoRows: "280px", gap: "8px" }}>
           {projects.map((project, i) => (
             <PortfolioCard key={i} project={project} />
           ))}

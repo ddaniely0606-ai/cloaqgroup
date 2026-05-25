@@ -56,3 +56,41 @@ body {
 .marquee-rtl { animation: marquee-right 32s linear infinite; }
 .marquee-ltr { animation: marquee-left 38s linear infinite; }
 .marquee-rtl:hover, .marquee-ltr:hover { animation-play-state: paused; }
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+  /* Stats: 4col → 2col */
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Portfolio: 3col masonry → 1col */
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: 220px !important;
+  }
+  .portfolio-grid > * { grid-area: unset !important; }
+
+  /* Footer: 3col → 1col */
+  .footer-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+
+  /* Navbar padding */
+  nav { padding: 16px 20px !important; }
+
+  /* Section padding */
+  section { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Hide agents panel on mobile */
+  .agents-panel { display: none !important; }
+
+  /* Team grid: 4col → 2col */
+  .team-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Contact form grid: 2col → 1col */
+  .grid-cols-2 { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 480px) {
+  /* Stats: 2col → 1col on very small */
+  .stats-grid { grid-template-columns: 1fr !important; }
+  /* Team: 2col → 1col */
+  .team-grid { grid-template-columns: 1fr !important; }
+}
