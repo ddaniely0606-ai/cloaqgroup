@@ -50,12 +50,12 @@ export default function ResetPasswordPage() {
   return (
     <div className="min-h-screen bg-[#050508] flex items-center justify-center p-6" dir="rtl">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse,rgba(22,163,74,0.15)_0%,transparent_70%)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse,rgba(5,150,105,0.15)_0%,transparent_70%)]" />
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(22,163,74,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(22,163,74,0.4) 1px, transparent 1px)",
+              "linear-gradient(rgba(5,150,105,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(5,150,105,0.4) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -66,11 +66,11 @@ export default function ResetPasswordPage() {
           <Image src="/logo.jpg" alt="CLOAK" width={160} height={54} className="bg-white px-3 py-1.5 object-contain" />
         </div>
 
-        <div className="border border-[rgba(22,163,74,0.2)] bg-[rgba(13,13,24,0.9)] backdrop-blur-xl p-10">
+        <div className="border border-[rgba(5,150,105,0.2)] bg-[rgba(13,13,24,0.9)] backdrop-blur-xl p-10">
           <div className="mb-8">
-            <div className="inline-flex items-center gap-2 bg-[rgba(22,163,74,0.1)] border border-[rgba(22,163,74,0.3)] px-3 py-1.5 mb-4">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#4ade80]" />
-              <span className="text-[#4ade80] text-xs tracking-widest uppercase font-mono">FIRST LOGIN</span>
+            <div className="inline-flex items-center gap-2 bg-[rgba(5,150,105,0.1)] border border-[rgba(5,150,105,0.3)] px-3 py-1.5 mb-4">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#34d399]" />
+              <span className="text-[#34d399] text-xs tracking-widest uppercase font-mono">FIRST LOGIN</span>
             </div>
             <h1 className="text-white text-2xl font-black">יצירת סיסמה חדשה</h1>
             {userName && (
@@ -87,9 +87,9 @@ export default function ResetPasswordPage() {
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="לפחות 6 תווים"
                 required
-                className="w-full bg-transparent border border-[rgba(22,163,74,0.2)] px-4 py-3 text-white text-sm outline-none transition-all duration-300 focus:border-[#16a34a] placeholder:text-[#8a8a9a]"
+                className="w-full bg-transparent border border-[rgba(5,150,105,0.2)] px-4 py-3 text-white text-sm outline-none transition-all duration-300 focus:border-[#059669] placeholder:text-[#8a8a9a]"
                 style={{ direction: "ltr" }}
-                onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(22,163,74,0.4)"; }}
+                onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(5,150,105,0.4)"; }}
                 onBlur={(e) => { e.currentTarget.style.boxShadow = "none"; }}
               />
             </div>
@@ -101,9 +101,9 @@ export default function ResetPasswordPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="חזור על הסיסמה"
                 required
-                className="w-full bg-transparent border border-[rgba(22,163,74,0.2)] px-4 py-3 text-white text-sm outline-none transition-all duration-300 focus:border-[#16a34a] placeholder:text-[#8a8a9a]"
+                className="w-full bg-transparent border border-[rgba(5,150,105,0.2)] px-4 py-3 text-white text-sm outline-none transition-all duration-300 focus:border-[#059669] placeholder:text-[#8a8a9a]"
                 style={{ direction: "ltr" }}
-                onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(22,163,74,0.4)"; }}
+                onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(5,150,105,0.4)"; }}
                 onBlur={(e) => { e.currentTarget.style.boxShadow = "none"; }}
               />
             </div>
@@ -115,7 +115,7 @@ export default function ResetPasswordPage() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 w-full bg-[#16a34a] text-white font-bold py-3.5 text-sm tracking-wider uppercase transition-all duration-300 hover:bg-[#15803d] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-2 w-full bg-[#059669] text-white font-bold py-3.5 text-sm tracking-wider uppercase transition-all duration-300 hover:bg-[#15803d] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "שומר..." : "שמור סיסמה →"}
             </button>

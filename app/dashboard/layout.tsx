@@ -98,7 +98,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <Menu size={20} />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#34d399] shadow-[0_0_6px_#4ade80]" />
+            <div className="w-2 h-2 rounded-full bg-[#34d399] shadow-[0_0_6px_#34d399]" />
             <span className="text-[#34d399] text-xs tracking-widest uppercase font-mono">LIVE</span>
           </div>
           <p className="text-[#8a8a9a] text-xs hidden md:block">

@@ -7,12 +7,12 @@ import { Star } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
-  { name: "רן טורס", company: "Obsidian Spirits", text: "CloaqGroup הפכו את המותג שלנו מלא-מוכר לסוחף את הענף תוך 8 חודשים. התוצאות היו מעל כל ציפייה." },
+  { name: "רן טורס", company: "Obsidian Spirits", text: "Mythos Agency הפכו את המותג שלנו מלא-מוכר לסוחף את הענף תוך 8 חודשים. התוצאות היו מעל כל ציפייה." },
   { name: "פריה נאיר", company: "NovaTech Labs", text: "האסטרטגיה שלהם לפרסום ממומן הורידה לנו את עלות הרכישה ב-60% ושילשה את ה-ROAS. מקצועיות ברמה אחרת." },
   { name: "ג'יימס וויטפילד", company: "Apex Realty", text: "עבודת ה-SEO בלבד הניבה לנו מעל ₪8M בפייפליין. אין סוכנות שקרובה לרמה הזו." },
   { name: "מיכל ברנשטיין", company: "Meridian Apparel", text: "תוכן הוידאו שהם יצרו הגיע ל-40M צפיות אורגניות. המותג שלנו הפך לרגע תרבותי." },
   { name: "אסף גולן", company: "Solstice Beauty", text: "תוך 90 יום שלטנו בקטגוריה שלנו בגוגל. אף סוכנות שעבדנו איתה לא התקרבה לזה." },
-  { name: "תמר אלמוג", company: "Vantage Capital", text: "CloaqGroup לא מריצים קמפיינים. הם בונים שליטה. שווה כל שקל ויותר." },
+  { name: "תמר אלמוג", company: "Vantage Capital", text: "Mythos Agency לא מריצים קמפיינים. הם בונים שליטה. שווה כל שקל ויותר." },
 ];
 
 export default function TestimonialsAgent() {

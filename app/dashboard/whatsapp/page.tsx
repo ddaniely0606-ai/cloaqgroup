@@ -49,7 +49,7 @@ const threadMessages: Record<number, Message[]> = {
   ],
 };
 
-const statusColor = { online: "#4ade80", away: "#fbbf24", offline: "#8a8a9a" };
+const statusColor = { online: "#34d399", away: "#fbbf24", offline: "#8a8a9a" };
 
 export default function WhatsAppPage() {
   const [selectedId, setSelectedId] = useState<number>(1);
@@ -77,31 +77,31 @@ export default function WhatsAppPage() {
         <p className="text-[#8a8a9a] text-sm mt-1">Client communications hub</p>
       </div>
 
-      <div className="bg-[#0a0a12] border border-[rgba(22,163,74,0.15)] flex" style={{ height: "calc(100vh - 220px)", minHeight: "500px" }}>
+      <div className="bg-[#0a0a12] border border-[rgba(5,150,105,0.15)] flex" style={{ height: "calc(100vh - 220px)", minHeight: "500px" }}>
         {/* Sidebar */}
-        <div className="w-72 border-r border-[rgba(22,163,74,0.1)] flex flex-col shrink-0">
-          <div className="p-3 border-b border-[rgba(22,163,74,0.08)]">
+        <div className="w-72 border-r border-[rgba(5,150,105,0.1)] flex flex-col shrink-0">
+          <div className="p-3 border-b border-[rgba(5,150,105,0.08)]">
             <div className="relative">
               <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8a8a9a]" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search..."
-                className="w-full bg-[rgba(22,163,74,0.05)] border border-[rgba(22,163,74,0.12)] pl-8 pr-3 py-2 text-white text-xs outline-none placeholder:text-[#8a8a9a] focus:border-[rgba(22,163,74,0.3)] transition-colors"
+                className="w-full bg-[rgba(5,150,105,0.05)] border border-[rgba(5,150,105,0.12)] pl-8 pr-3 py-2 text-white text-xs outline-none placeholder:text-[#8a8a9a] focus:border-[rgba(5,150,105,0.3)] transition-colors"
               />
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto divide-y divide-[rgba(22,163,74,0.05)]">
+          <div className="flex-1 overflow-y-auto divide-y divide-[rgba(5,150,105,0.05)]">
             {filtered.map((c) => (
               <button
                 key={c.id}
                 onClick={() => setSelectedId(c.id)}
-                className={`w-full text-left px-4 py-3.5 transition-colors flex items-start gap-3 ${selectedId === c.id ? "bg-[rgba(22,163,74,0.1)]" : "hover:bg-[rgba(22,163,74,0.04)]"}`}
+                className={`w-full text-left px-4 py-3.5 transition-colors flex items-start gap-3 ${selectedId === c.id ? "bg-[rgba(5,150,105,0.1)]" : "hover:bg-[rgba(5,150,105,0.04)]"}`}
               >
                 <div className="relative shrink-0 mt-0.5">
-                  <div className="w-9 h-9 bg-[rgba(22,163,74,0.15)] border border-[rgba(22,163,74,0.2)] flex items-center justify-center">
-                    <span className="text-[#4ade80] text-sm font-bold">{c.name[0]}</span>
+                  <div className="w-9 h-9 bg-[rgba(5,150,105,0.15)] border border-[rgba(5,150,105,0.2)] flex items-center justify-center">
+                    <span className="text-[#34d399] text-sm font-bold">{c.name[0]}</span>
                   </div>
                   <Circle
                     size={8}
@@ -118,7 +118,7 @@ export default function WhatsAppPage() {
                   <p className="text-[#8a8a9a] text-[0.65rem] truncate mt-0.5">{c.lastMsg}</p>
                 </div>
                 {c.unread > 0 && (
-                  <div className="w-4 h-4 rounded-full bg-[#16a34a] flex items-center justify-center shrink-0 mt-1">
+                  <div className="w-4 h-4 rounded-full bg-[#059669] flex items-center justify-center shrink-0 mt-1">
                     <span className="text-white text-[0.5rem] font-bold">{c.unread}</span>
                   </div>
                 )}
@@ -130,11 +130,11 @@ export default function WhatsAppPage() {
         {/* Chat area */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* Header */}
-          <div className="px-5 py-3.5 border-b border-[rgba(22,163,74,0.1)] flex items-center justify-between">
+          <div className="px-5 py-3.5 border-b border-[rgba(5,150,105,0.1)] flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-9 h-9 bg-[rgba(22,163,74,0.15)] border border-[rgba(22,163,74,0.2)] flex items-center justify-center">
-                  <span className="text-[#4ade80] text-sm font-bold">{selected.name[0]}</span>
+                <div className="w-9 h-9 bg-[rgba(5,150,105,0.15)] border border-[rgba(5,150,105,0.2)] flex items-center justify-center">
+                  <span className="text-[#34d399] text-sm font-bold">{selected.name[0]}</span>
                 </div>
                 <Circle size={8} className="absolute -bottom-0.5 -right-0.5 fill-current" style={{ color: statusColor[selected.status] }} />
               </div>
@@ -143,7 +143,7 @@ export default function WhatsAppPage() {
                 <p className="text-[#8a8a9a] text-[0.65rem]">{selected.company} · {selected.status}</p>
               </div>
             </div>
-            <button className="text-[#8a8a9a] hover:text-[#4ade80] transition-colors">
+            <button className="text-[#8a8a9a] hover:text-[#34d399] transition-colors">
               <Phone size={15} />
             </button>
           </div>
@@ -155,8 +155,8 @@ export default function WhatsAppPage() {
                 <div
                   className={`max-w-[70%] px-4 py-2.5 text-xs leading-relaxed ${
                     msg.direction === "out"
-                      ? "bg-[#16a34a] text-white"
-                      : "bg-[rgba(22,163,74,0.08)] border border-[rgba(22,163,74,0.12)] text-white"
+                      ? "bg-[#059669] text-white"
+                      : "bg-[rgba(5,150,105,0.08)] border border-[rgba(5,150,105,0.12)] text-white"
                   }`}
                 >
                   <p>{msg.text}</p>
@@ -174,18 +174,18 @@ export default function WhatsAppPage() {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-[rgba(22,163,74,0.1)] flex items-center gap-3" dir="rtl">
+          <div className="p-4 border-t border-[rgba(5,150,105,0.1)] flex items-center gap-3" dir="rtl">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }}}
               placeholder="כתוב הודעה..."
-              className="flex-1 bg-[rgba(22,163,74,0.05)] border border-[rgba(22,163,74,0.15)] px-4 py-2.5 text-white text-sm outline-none focus:border-[rgba(22,163,74,0.35)] transition-colors placeholder:text-[#8a8a9a]"
+              className="flex-1 bg-[rgba(5,150,105,0.05)] border border-[rgba(5,150,105,0.15)] px-4 py-2.5 text-white text-sm outline-none focus:border-[rgba(5,150,105,0.35)] transition-colors placeholder:text-[#8a8a9a]"
             />
             <button
               onClick={send}
               disabled={!input.trim()}
-              className="w-10 h-10 bg-[#16a34a] flex items-center justify-center hover:bg-[#15803d] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+              className="w-10 h-10 bg-[#059669] flex items-center justify-center hover:bg-[#15803d] transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
             >
               <Send size={15} className="text-white" />
             </button>

@@ -109,7 +109,11 @@ export default function StatsAgent() {
           background: "rgba(5,150,105,0.12)",
         }}>
           {stats.map((stat, i) => (
-            <div key={i} className="stat-card" style={{ background: "var(--bg)" }}>
+            <div key={i} className="stat-card" style={{
+              background: "rgba(0,0,0,0.4)",
+              backdropFilter: "blur(20px) saturate(1.5)",
+              WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+            }}>
               <StatCard stat={stat} active={active} />
             </div>
           ))}

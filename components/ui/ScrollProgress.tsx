@@ -16,14 +16,14 @@ export default function ScrollProgress() {
   return (
     <div style={{
       position: "fixed", top: 0, left: 0, right: 0,
-      height: "2px", zIndex: 200, background: "rgba(22,163,74,0.15)",
+      height: "2px", zIndex: 200, background: "rgba(5,150,105,0.15)",
     }}>
       <div style={{
         height: "100%",
         width: `${progress}%`,
-        background: "linear-gradient(to right, #16a34a, #4ade80)",
+        background: "linear-gradient(to right, #059669, #34d399)",
         transition: "width 0.1s linear",
-        boxShadow: "0 0 8px #4ade80",
+        boxShadow: "0 0 8px #34d399",
       }} />
     </div>
   );

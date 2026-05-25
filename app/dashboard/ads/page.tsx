@@ -30,14 +30,14 @@ const campaigns: Campaign[] = [
 ];
 
 const statusStyle: Record<string, string> = {
-  Active: "text-[#4ade80] bg-[rgba(22,163,74,0.1)]",
+  Active: "text-[#34d399] bg-[rgba(5,150,105,0.1)]",
   Paused: "text-[#8a8a9a] bg-[rgba(255,255,255,0.05)]",
   Learning: "text-blue-300 bg-blue-900/20",
 };
 
 const objectiveColor: Record<string, string> = {
   Awareness: "text-purple-300",
-  Conversions: "text-[#4ade80]",
+  Conversions: "text-[#34d399]",
   "Lead Gen": "text-yellow-300",
   Sales: "text-emerald-300",
   "App Installs": "text-blue-300",
@@ -63,7 +63,7 @@ export default function AdsPage() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border transition-colors ${activeTab === tab ? "bg-[rgba(22,163,74,0.15)] text-[#4ade80] border-[rgba(22,163,74,0.3)]" : "text-[#8a8a9a] border-[rgba(22,163,74,0.1)] hover:text-white"}`}
+              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border transition-colors ${activeTab === tab ? "bg-[rgba(5,150,105,0.15)] text-[#34d399] border-[rgba(5,150,105,0.3)]" : "text-[#8a8a9a] border-[rgba(5,150,105,0.1)] hover:text-white"}`}
             >
               {tab}
             </button>
@@ -74,16 +74,16 @@ export default function AdsPage() {
       {/* KPI Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: "Active Campaigns", value: activeCampaigns.toString(), icon: Play, color: "#4ade80" },
-          { label: "Total Spent (MTD)", value: `₪${totalSpend.toLocaleString()}`, icon: DollarSign, color: "#4ade80" },
-          { label: "Total Impressions", value: totalImpressions, icon: Eye, color: "#4ade80" },
-          { label: "Avg ROAS", value: `${avgRoas}x`, icon: TrendingUp, color: "#4ade80" },
+          { label: "Active Campaigns", value: activeCampaigns.toString(), icon: Play, color: "#34d399" },
+          { label: "Total Spent (MTD)", value: `₪${totalSpend.toLocaleString()}`, icon: DollarSign, color: "#34d399" },
+          { label: "Total Impressions", value: totalImpressions, icon: Eye, color: "#34d399" },
+          { label: "Avg ROAS", value: `${avgRoas}x`, icon: TrendingUp, color: "#34d399" },
         ].map((k) => {
           const Icon = k.icon;
           return (
-            <div key={k.label} className="bg-[#0a0a12] border border-[rgba(22,163,74,0.15)] p-5">
+            <div key={k.label} className="bg-[#0a0a12] border border-[rgba(5,150,105,0.15)] p-5">
               <div className="flex items-center justify-between mb-3">
-                <Icon size={16} className="text-[#4ade80]" />
+                <Icon size={16} className="text-[#34d399]" />
               </div>
               <p className="text-white text-xl font-black">{k.value}</p>
               <p className="text-[#8a8a9a] text-[0.65rem] uppercase tracking-wider mt-1">{k.label}</p>
@@ -93,23 +93,23 @@ export default function AdsPage() {
       </div>
 
       {activeTab === "campaigns" && (
-        <div className="bg-[#0a0a12] border border-[rgba(22,163,74,0.15)]">
-          <div className="px-6 py-4 border-b border-[rgba(22,163,74,0.1)] flex items-center gap-2">
-            <BarChart2 size={14} className="text-[#4ade80]" />
+        <div className="bg-[#0a0a12] border border-[rgba(5,150,105,0.15)]">
+          <div className="px-6 py-4 border-b border-[rgba(5,150,105,0.1)] flex items-center gap-2">
+            <BarChart2 size={14} className="text-[#34d399]" />
             <h2 className="text-white text-sm font-bold uppercase tracking-wider">All Campaigns</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[rgba(22,163,74,0.08)]">
+                <tr className="border-b border-[rgba(5,150,105,0.08)]">
                   {["Campaign", "Client", "Objective", "Budget", "Spent", "Impressions", "CTR", "CPC", "ROAS", "Status", ""].map((h) => (
                     <th key={h} className="px-4 py-3 text-left text-[#8a8a9a] text-[0.6rem] uppercase tracking-wider font-semibold whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[rgba(22,163,74,0.05)]">
+              <tbody className="divide-y divide-[rgba(5,150,105,0.05)]">
                 {campaigns.map((c) => (
-                  <tr key={c.id} className="hover:bg-[rgba(22,163,74,0.025)] transition-colors group">
+                  <tr key={c.id} className="hover:bg-[rgba(5,150,105,0.025)] transition-colors group">
                     <td className="px-4 py-3.5">
                       <p className="text-white text-xs font-semibold max-w-[180px] truncate">{c.name}</p>
                     </td>
@@ -122,7 +122,7 @@ export default function AdsPage() {
                       <div>
                         <p className="text-white text-xs font-mono">{c.spent}</p>
                         <div className="mt-1 h-1 w-16 bg-[rgba(255,255,255,0.06)]">
-                          <div className="h-full bg-[#16a34a]" style={{ width: `${c.spentPct}%` }} />
+                          <div className="h-full bg-[#059669]" style={{ width: `${c.spentPct}%` }} />
                         </div>
                       </div>
                     </td>
@@ -131,15 +131,15 @@ export default function AdsPage() {
                     <td className="px-4 py-3.5 text-[#8a8a9a] text-xs font-mono">{c.cpc}</td>
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-1">
-                        <span className={`text-xs font-bold ${c.roasNum >= 5 ? "text-[#4ade80]" : c.roasNum >= 4 ? "text-white" : "text-yellow-300"}`}>{c.roas}</span>
-                        {c.roasNum >= 4.5 ? <TrendingUp size={10} className="text-[#4ade80]" /> : <TrendingDown size={10} className="text-yellow-300" />}
+                        <span className={`text-xs font-bold ${c.roasNum >= 5 ? "text-[#34d399]" : c.roasNum >= 4 ? "text-white" : "text-yellow-300"}`}>{c.roas}</span>
+                        {c.roasNum >= 4.5 ? <TrendingUp size={10} className="text-[#34d399]" /> : <TrendingDown size={10} className="text-yellow-300" />}
                       </div>
                     </td>
                     <td className="px-4 py-3.5">
                       <span className={`text-[0.6rem] px-2 py-0.5 font-semibold ${statusStyle[c.status]}`}>{c.status}</span>
                     </td>
                     <td className="px-4 py-3.5">
-                      <button className={`opacity-0 group-hover:opacity-100 transition-all p-1 ${c.status === "Active" ? "text-yellow-300 hover:text-yellow-200" : "text-[#4ade80] hover:text-green-300"}`}>
+                      <button className={`opacity-0 group-hover:opacity-100 transition-all p-1 ${c.status === "Active" ? "text-yellow-300 hover:text-yellow-200" : "text-[#34d399] hover:text-green-300"}`}>
                         {c.status === "Active" ? <Pause size={12} /> : <Play size={12} />}
                       </button>
                     </td>
@@ -154,11 +154,11 @@ export default function AdsPage() {
       {activeTab === "insights" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Top performers */}
-          <div className="bg-[#0a0a12] border border-[rgba(22,163,74,0.15)]">
-            <div className="px-6 py-4 border-b border-[rgba(22,163,74,0.1)]">
+          <div className="bg-[#0a0a12] border border-[rgba(5,150,105,0.15)]">
+            <div className="px-6 py-4 border-b border-[rgba(5,150,105,0.1)]">
               <h2 className="text-white text-sm font-bold uppercase tracking-wider">Top Performers (ROAS)</h2>
             </div>
-            <div className="divide-y divide-[rgba(22,163,74,0.06)]">
+            <div className="divide-y divide-[rgba(5,150,105,0.06)]">
               {[...campaigns].sort((a, b) => b.roasNum - a.roasNum).slice(0, 5).map((c, i) => (
                 <div key={c.id} className="px-6 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -168,15 +168,15 @@ export default function AdsPage() {
                       <p className="text-[#8a8a9a] text-[0.65rem] mt-0.5">{c.client}</p>
                     </div>
                   </div>
-                  <span className="text-[#4ade80] text-sm font-black">{c.roas}</span>
+                  <span className="text-[#34d399] text-sm font-black">{c.roas}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Budget utilization */}
-          <div className="bg-[#0a0a12] border border-[rgba(22,163,74,0.15)]">
-            <div className="px-6 py-4 border-b border-[rgba(22,163,74,0.1)]">
+          <div className="bg-[#0a0a12] border border-[rgba(5,150,105,0.15)]">
+            <div className="px-6 py-4 border-b border-[rgba(5,150,105,0.1)]">
               <h2 className="text-white text-sm font-bold uppercase tracking-wider">Budget Utilization</h2>
             </div>
             <div className="p-6 flex flex-col gap-4">
@@ -191,7 +191,7 @@ export default function AdsPage() {
                       className="h-full rounded-full transition-all"
                       style={{
                         width: `${c.spentPct}%`,
-                        background: c.spentPct > 85 ? "#4ade80" : c.spentPct > 60 ? "#16a34a" : "rgba(22,163,74,0.5)",
+                        background: c.spentPct > 85 ? "#34d399" : c.spentPct > 60 ? "#059669" : "rgba(5,150,105,0.5)",
                       }}
                     />
                   </div>
@@ -201,8 +201,8 @@ export default function AdsPage() {
           </div>
 
           {/* Objective breakdown */}
-          <div className="bg-[#0a0a12] border border-[rgba(22,163,74,0.15)] lg:col-span-2">
-            <div className="px-6 py-4 border-b border-[rgba(22,163,74,0.1)]">
+          <div className="bg-[#0a0a12] border border-[rgba(5,150,105,0.15)] lg:col-span-2">
+            <div className="px-6 py-4 border-b border-[rgba(5,150,105,0.1)]">
               <h2 className="text-white text-sm font-bold uppercase tracking-wider">Spend by Objective</h2>
             </div>
             <div className="p-6 flex flex-wrap gap-6">
@@ -214,7 +214,7 @@ export default function AdsPage() {
                 }, {} as Record<string, number>)
               ).map(([obj, spend]) => (
                 <div key={obj} className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-[#4ade80]" />
+                  <div className="w-2 h-2 rounded-full bg-[#34d399]" />
                   <div>
                     <p className="text-white text-sm font-bold">₪{spend.toLocaleString()}</p>
                     <p className="text-[#8a8a9a] text-[0.65rem] uppercase tracking-wider">{obj}</p>

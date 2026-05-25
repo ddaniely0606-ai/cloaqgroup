@@ -16,7 +16,7 @@ export default function Footer() {
             <div style={{ marginBottom: "20px", display: "inline-block" }}>
               <Image
                 src="/logo.jpg"
-                alt="CloaqGroup"
+                alt="Mythos Agency"
                 width={150}
                 height={50}
                 style={{ objectFit: "contain", objectPosition: "left center", background: "#fff", padding: "6px 12px" }}

@@ -33,12 +33,14 @@ export default function ParticleCanvas() {
       positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
 
-      // Vary between purple and silver
+      // Vary between emerald tones
       const t = Math.random();
       if (t > 0.85) {
-        colors[i * 3] = 0.77; colors[i * 3 + 1] = 0.77; colors[i * 3 + 2] = 0.83;
+        colors[i * 3] = 0.53; colors[i * 3 + 1] = 0.93; colors[i * 3 + 2] = 0.6;  // #34d399 light
+      } else if (t > 0.5) {
+        colors[i * 3] = 0.02; colors[i * 3 + 1] = 0.59; colors[i * 3 + 2] = 0.41; // #059669 mid
       } else {
-        colors[i * 3] = 0.48; colors[i * 3 + 1] = 0.23; colors[i * 3 + 2] = 0.93;
+        colors[i * 3] = 0.05; colors[i * 3 + 1] = 0.33; colors[i * 3 + 2] = 0.22; // dark emerald
       }
     }
 
@@ -71,7 +73,7 @@ export default function ParticleCanvas() {
     ringGeo.setAttribute("position", new THREE.BufferAttribute(ringPositions, 3));
     const ringMat = new THREE.PointsMaterial({
       size: 0.008,
-      color: new THREE.Color("#15803d"),
+      color: new THREE.Color("#34d399"),
       transparent: true,
       opacity: 0.5,
     });
