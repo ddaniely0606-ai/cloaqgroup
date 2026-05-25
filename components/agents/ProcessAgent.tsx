@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -45,7 +45,7 @@ const steps = [
   {
     number: "06",
     icon: RefreshCw,
-    title: "צמיחה ומיקרוס",
+    title: "צמיחה וסקייל",
     titleEn: "Scale",
     desc: "כשמוצאים את הנוסחה המנצחת, מכפילים אותה. מגדילים תקציבים, פותחים שווקים חדשים, בונים לטווח ארוך.",
   },
@@ -90,17 +90,17 @@ export default function ProcessAgent() {
       <div style={{
         position: "absolute", top: "50%", right: "-10%", transform: "translateY(-50%)",
         width: "600px", height: "600px",
-        background: "radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(22,163,74,0.07) 0%, transparent 70%)",
         pointerEvents: "none",
       }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "80px" }}>
-          <p style={{ color: "#a78bfa", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+          <p style={{ color: "#4ade80", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
             איך אנחנו עובדים
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            התהליך <span style={{ background: "linear-gradient(135deg, #c084fc, #a78bfa, #7c3aed)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שלנו</span>
+            התהליך <span style={{ background: "linear-gradient(135deg, #86efac, #4ade80, #16a34a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שלנו</span>
           </h2>
         </div>
 
@@ -108,12 +108,12 @@ export default function ProcessAgent() {
         <div style={{ position: "relative", marginBottom: "64px" }}>
           <div ref={lineRef} style={{
             height: "1px",
-            background: "linear-gradient(to left, transparent, #7c3aed, #a78bfa, #7c3aed, transparent)",
+            background: "linear-gradient(to left, transparent, #16a34a, #4ade80, #16a34a, transparent)",
             transformOrigin: "right center",
           }} />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1px", background: "rgba(124,58,237,0.1)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1px", background: "rgba(22,163,74,0.1)" }}>
           {steps.map((step, i) => (
             <ProcessStep key={i} step={step} index={i} />
           ))}
@@ -135,7 +135,7 @@ function ProcessStep({ step, index }: { step: typeof steps[0]; index: number }) 
       onMouseLeave={() => setHovered(false)}
       style={{
         padding: "40px",
-        background: hovered ? (isEven ? "rgba(124,58,237,0.06)" : "rgba(167,139,250,0.04)") : "var(--bg2)",
+        background: hovered ? (isEven ? "rgba(22,163,74,0.06)" : "rgba(74,222,128,0.04)") : "var(--bg2)",
         transition: "background 0.4s",
         position: "relative",
         overflow: "hidden",
@@ -146,7 +146,7 @@ function ProcessStep({ step, index }: { step: typeof steps[0]; index: number }) 
       <div style={{
         position: "absolute", top: 0, right: 0,
         width: hovered ? "80px" : "40px", height: hovered ? "80px" : "40px",
-        background: "radial-gradient(circle at top right, rgba(124,58,237,0.3), transparent 70%)",
+        background: "radial-gradient(circle at top right, rgba(22,163,74,0.3), transparent 70%)",
         transition: "width 0.4s, height 0.4s",
         pointerEvents: "none",
       }} />
@@ -155,7 +155,7 @@ function ProcessStep({ step, index }: { step: typeof steps[0]; index: number }) 
       <span className="brand-en" style={{
         position: "absolute", bottom: "16px", left: "24px",
         fontSize: "5rem", fontWeight: 900,
-        color: hovered ? "rgba(124,58,237,0.2)" : "rgba(124,58,237,0.07)",
+        color: hovered ? "rgba(22,163,74,0.2)" : "rgba(22,163,74,0.07)",
         lineHeight: 1, transition: "color 0.4s",
         fontFamily: "var(--font-syne)",
         pointerEvents: "none",
@@ -167,18 +167,18 @@ function ProcessStep({ step, index }: { step: typeof steps[0]; index: number }) 
       {/* Icon */}
       <div style={{
         width: "48px", height: "48px",
-        border: `1px solid ${hovered ? "rgba(124,58,237,0.6)" : "rgba(124,58,237,0.2)"}`,
+        border: `1px solid ${hovered ? "rgba(22,163,74,0.6)" : "rgba(22,163,74,0.2)"}`,
         display: "flex", alignItems: "center", justifyContent: "center",
         marginBottom: "28px", transition: "border-color 0.3s",
-        background: hovered ? "rgba(124,58,237,0.1)" : "transparent",
+        background: hovered ? "rgba(22,163,74,0.1)" : "transparent",
       }}>
-        <Icon size={20} color={hovered ? "#c4b5fd" : "#a78bfa"} />
+        <Icon size={20} color={hovered ? "#c4b5fd" : "#4ade80"} />
       </div>
 
       <h3 style={{ fontWeight: 800, fontSize: "1.15rem", color: hovered ? "#e0d4ff" : "#fff", marginBottom: "6px", transition: "color 0.3s" }}>
         {step.title}
       </h3>
-      <p className="brand-en" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", color: "#a78bfa", marginBottom: "16px", textTransform: "uppercase" }}>
+      <p className="brand-en" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", color: "#4ade80", marginBottom: "16px", textTransform: "uppercase" }}>
         {step.titleEn}
       </p>
       <p style={{ fontSize: "0.9rem", color: hovered ? "#c4c4d4" : "#8a8a9a", lineHeight: 1.7, transition: "color 0.3s" }}>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,9 +10,9 @@ const testimonials = [
   { name: "רן טורס", company: "Obsidian Spirits", text: "CloaqGroup הפכו את המותג שלנו מלא-מוכר לסוחף את הענף תוך 8 חודשים. התוצאות היו מעל כל ציפייה." },
   { name: "פריה נאיר", company: "NovaTech Labs", text: "האסטרטגיה שלהם לפרסום ממומן הורידה לנו את עלות הרכישה ב-60% ושילשה את ה-ROAS. מקצועיות ברמה אחרת." },
   { name: "ג'יימס וויטפילד", company: "Apex Realty", text: "עבודת ה-SEO בלבד הניבה לנו מעל ₪8M בפייפליין. אין סוכנות שקרובה לרמה הזו." },
-  { name: "סופיה מנדז", company: "Meridian Apparel", text: "תוכן הוידאו שהם יצרו הגיע ל-40M צפיות אורגניות. המותג שלנו הפך לרגע תרבותי." },
-  { name: "דוד פארק", company: "Solstice Beauty", text: "תוך 90 יום שלטנו בקטגוריה שלנו בגוגל. אף סוכנות שעבדנו איתה לא התקרבה לזה." },
-  { name: "אלנה ואסקז", company: "Vantage Capital", text: "CloaqGroup לא מריצים קמפיינים. הם בונים שליטה. שווה כל שקל ויותר." },
+  { name: "מיכל ברנשטיין", company: "Meridian Apparel", text: "תוכן הוידאו שהם יצרו הגיע ל-40M צפיות אורגניות. המותג שלנו הפך לרגע תרבותי." },
+  { name: "אסף גולן", company: "Solstice Beauty", text: "תוך 90 יום שלטנו בקטגוריה שלנו בגוגל. אף סוכנות שעבדנו איתה לא התקרבה לזה." },
+  { name: "תמר אלמוג", company: "Vantage Capital", text: "CloaqGroup לא מריצים קמפיינים. הם בונים שליטה. שווה כל שקל ויותר." },
 ];
 
 export default function TestimonialsAgent() {
@@ -37,11 +37,11 @@ export default function TestimonialsAgent() {
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", marginBottom: "60px" }}>
         <div ref={headingRef}>
-          <p style={{ color: "#a78bfa", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+          <p style={{ color: "#4ade80", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
             מה אומרים עלינו
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הם <span style={{ color: "#a78bfa" }}>שולטים</span> עכשיו
+            הם <span style={{ color: "#4ade80" }}>שולטים</span> עכשיו
           </h2>
         </div>
       </div>
@@ -74,13 +74,13 @@ const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof t
       width: "360px",
       padding: "32px",
       margin: "0 8px",
-      border: "1px solid rgba(124,58,237,0.15)",
+      border: "1px solid rgba(22,163,74,0.15)",
       background: "rgba(13,13,24,0.8)",
       backdropFilter: "blur(8px)",
     }}>
       <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
         {Array(5).fill(0).map((_, i) => (
-          <Star key={i} size={14} fill="#7c3aed" color="#7c3aed" />
+          <Star key={i} size={14} fill="#16a34a" color="#16a34a" />
         ))}
       </div>
       <p style={{ color: "#c4c4d4", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: "20px" }}>
@@ -88,7 +88,7 @@ const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof t
       </p>
       <div>
         <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>{t.name}</p>
-        <p className="brand-en" style={{ color: "#a78bfa", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>{t.company}</p>
+        <p className="brand-en" style={{ color: "#4ade80", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>{t.company}</p>
       </div>
     </div>
   );

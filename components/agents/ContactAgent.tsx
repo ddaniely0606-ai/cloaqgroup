@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,6 +12,7 @@ export default function ContactAgent() {
   const formRef = useRef<HTMLFormElement>(null);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -32,10 +33,20 @@ export default function ContactAgent() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(false);
     setSending(true);
-    setTimeout(() => { setSending(false); setSent(true); }, 2000);
+    const form = formRef.current!;
+    const data = {
+      name: (form.querySelector("#contact-name") as HTMLInputElement).value,
+      email: (form.querySelector("#contact-email") as HTMLInputElement).value,
+      company: (form.querySelector("#contact-company") as HTMLInputElement).value,
+      message: (form.querySelector("textarea") as HTMLTextAreaElement).value,
+    };
+    const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+    setSending(false);
+    if (res.ok) { setSent(true); } else { setError(true); }
   };
 
   return (
@@ -48,18 +59,18 @@ export default function ContactAgent() {
       <div style={{
         position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)",
         width: "900px", height: "400px",
-        background: "radial-gradient(ellipse, rgba(109,40,217,0.1) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse, rgba(21,128,61,0.1) 0%, transparent 70%)",
         pointerEvents: "none",
       }} />
 
       <div style={{ maxWidth: "820px", margin: "0 auto", position: "relative" }}>
         <div ref={headingRef} style={{ marginBottom: "64px" }}>
-          <p style={{ color: "#a78bfa", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+          <p style={{ color: "#4ade80", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
             בואו נדבר
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(3rem, 8vw, 6rem)", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
             מוכנים<br />
-            <span style={{ color: "#a78bfa" }}>לשלוט?</span>
+            <span style={{ color: "#4ade80" }}>לשלוט?</span>
           </h2>
           <p style={{ color: "#8a8a9a", fontSize: "1rem", lineHeight: 1.7, maxWidth: "500px" }}>
             ספרו לנו על המותג שלכם ואנחנו נחזור אליכם תוך 24 שעות עם תוכנית להשתלטות על השוק.
@@ -67,9 +78,14 @@ export default function ContactAgent() {
         </div>
 
         <div aria-live="polite">
+        {error && (
+          <div style={{ marginBottom: "20px", padding: "14px 20px", border: "1px solid rgba(239,68,68,0.4)", color: "#fca5a5", fontSize: "0.9rem" }}>
+            משהו השתבש. נסו שוב או כתבו לנו ישירות.
+          </div>
+        )}
         {sent ? (
           <div style={{ textAlign: "center", padding: "80px 0" }} role="status">
-            <CheckCircle size={48} color="#a78bfa" style={{ margin: "0 auto 24px" }} aria-hidden="true" />
+            <CheckCircle size={48} color="#4ade80" style={{ margin: "0 auto 24px" }} aria-hidden="true" />
             <h3 style={{ fontWeight: 800, fontSize: "1.6rem", color: "#fff", marginBottom: "12px" }}>
               ההודעה התקבלה
             </h3>
@@ -77,7 +93,7 @@ export default function ContactAgent() {
           </div>
         ) : (
           <form ref={formRef} onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "24px" }} aria-label="טופס יצירת קשר">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }} className="grid-cols-2">
+            <div className="grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
               <FormField label="שם מלא" type="text" placeholder="השם שלך" required id="contact-name" autoComplete="name" />
               <FormField label="אימייל" type="email" placeholder="your@email.com" required id="contact-email" autoComplete="email" />
             </div>
@@ -95,7 +111,7 @@ export default function ContactAgent() {
                 style={{
                   width: "100%",
                   background: "transparent",
-                  border: "1px solid rgba(124,58,237,0.25)",
+                  border: "1px solid rgba(22,163,74,0.25)",
                   padding: "16px 20px",
                   color: "#fff",
                   fontSize: "0.9rem",
@@ -105,11 +121,11 @@ export default function ContactAgent() {
                   transition: "border-color 0.3s",
                 }}
                 onFocus={(e) => {
-                  e.currentTarget.style.borderColor = "#7c3aed";
-                  e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(124,58,237,0.5)";
+                  e.currentTarget.style.borderColor = "#16a34a";
+                  e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(22,163,74,0.5)";
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(124,58,237,0.25)";
+                  e.currentTarget.style.borderColor = "rgba(22,163,74,0.25)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
               />
@@ -124,7 +140,7 @@ export default function ContactAgent() {
                   alignItems: "center",
                   gap: "12px",
                   padding: "16px 40px",
-                  background: sending ? "rgba(124,58,237,0.5)" : "#7c3aed",
+                  background: sending ? "rgba(22,163,74,0.5)" : "#16a34a",
                   color: "#fff",
                   fontSize: "0.95rem",
                   fontWeight: 700,
@@ -133,8 +149,8 @@ export default function ContactAgent() {
                   transition: "background 0.3s, transform 0.3s",
                   fontFamily: "var(--font-heebo)",
                 }}
-                onMouseEnter={(e) => { if (!sending) { e.currentTarget.style.background = "#6d28d9"; e.currentTarget.style.transform = "scale(1.04)"; } }}
-                onMouseLeave={(e) => { if (!sending) { e.currentTarget.style.background = "#7c3aed"; e.currentTarget.style.transform = "scale(1)"; } }}
+                onMouseEnter={(e) => { if (!sending) { e.currentTarget.style.background = "#15803d"; e.currentTarget.style.transform = "scale(1.04)"; } }}
+                onMouseLeave={(e) => { if (!sending) { e.currentTarget.style.background = "#16a34a"; e.currentTarget.style.transform = "scale(1)"; } }}
               >
                 {sending ? "שולח..." : "שלח הודעה"}
                 <Send size={16} />
@@ -165,7 +181,7 @@ function FormField({ label, type, placeholder, required, id, autoComplete }: { l
         style={{
           width: "100%",
           background: "transparent",
-          border: "1px solid rgba(124,58,237,0.25)",
+          border: "1px solid rgba(22,163,74,0.25)",
           padding: "14px 20px",
           color: "#fff",
           fontSize: "0.9rem",
@@ -174,11 +190,11 @@ function FormField({ label, type, placeholder, required, id, autoComplete }: { l
           transition: "border-color 0.3s",
         }}
         onFocus={(e) => {
-          e.currentTarget.style.borderColor = "#7c3aed";
-          e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(124,58,237,0.5)";
+          e.currentTarget.style.borderColor = "#16a34a";
+          e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(22,163,74,0.5)";
         }}
         onBlur={(e) => {
-          e.currentTarget.style.borderColor = "rgba(124,58,237,0.25)";
+          e.currentTarget.style.borderColor = "rgba(22,163,74,0.25)";
           e.currentTarget.style.boxShadow = "none";
         }}
       />
