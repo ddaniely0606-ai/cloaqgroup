@@ -1,0 +1,189 @@
+"use client";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Search, Lightbulb, PenTool, Rocket, BarChart2, RefreshCw } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const steps = [
+  {
+    number: "01",
+    icon: Search,
+    title: "גילוי ואבחון",
+    titleEn: "Discovery",
+    desc: "שיחה עמוקה עם הצוות שלך. אנחנו חופרים לתוך המותג, המתחרים, והקהל שלך — לא מניחים כלום מראש.",
+  },
+  {
+    number: "02",
+    icon: Lightbulb,
+    title: "אסטרטגיה ומיצוב",
+    titleEn: "Strategy",
+    desc: "מסמך אסטרטגיה מותאם אישית: מיצוב, USP, קהל יעד, מפת תחרות — הכל מגובה בנתונים.",
+  },
+  {
+    number: "03",
+    icon: PenTool,
+    title: "קריאייטיב ועיצוב",
+    titleEn: "Creative",
+    desc: "הפקת נכסי מותג: ויזואלים, וידאו, קופי — כל מה שצריך כדי לשבות את הקהל שלך.",
+  },
+  {
+    number: "04",
+    icon: Rocket,
+    title: "השקה והפצה",
+    titleEn: "Launch",
+    desc: "הפעלת קמפיינים מרובי ערוצים — Meta, Google, TikTok, SEO — עם מוניטורינג בזמן אמת.",
+  },
+  {
+    number: "05",
+    icon: BarChart2,
+    title: "מדידה ואופטימיזציה",
+    titleEn: "Optimize",
+    desc: "דוחות שבועיים שקופים. A/B טסטים, הורדת CAC, הגדלת ROAS — נתונים שמספרים את הסיפור האמיתי.",
+  },
+  {
+    number: "06",
+    icon: RefreshCw,
+    title: "צמיחה ומיקרוס",
+    titleEn: "Scale",
+    desc: "כשמוצאים את הנוסחה המנצחת, מכפילים אותה. מגדילים תקציבים, פותחים שווקים חדשים, בונים לטווח ארוך.",
+  },
+];
+
+export default function ProcessAgent() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(headingRef.current,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: headingRef.current, start: "top 80%" } }
+      );
+
+      gsap.fromTo(lineRef.current,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1.5, ease: "power3.inOut", scrollTrigger: { trigger: lineRef.current, start: "top 80%" } }
+      );
+
+      gsap.utils.toArray<HTMLElement>(".process-step").forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, delay: i * 0.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      id="process"
+      ref={sectionRef}
+      className="cv-auto"
+      style={{ padding: "120px 40px", background: "var(--bg2)", position: "relative", overflow: "hidden" }}
+    >
+      {/* Background radial */}
+      <div style={{
+        position: "absolute", top: "50%", right: "-10%", transform: "translateY(-50%)",
+        width: "600px", height: "600px",
+        background: "radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%)",
+        pointerEvents: "none",
+      }} />
+
+      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+        <div ref={headingRef} style={{ marginBottom: "80px" }}>
+          <p style={{ color: "#a78bfa", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+            איך אנחנו עובדים
+          </p>
+          <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
+            התהליך <span style={{ color: "#a78bfa" }}>שלנו</span>
+          </h2>
+        </div>
+
+        {/* Progress line */}
+        <div style={{ position: "relative", marginBottom: "64px" }}>
+          <div ref={lineRef} style={{
+            height: "1px",
+            background: "linear-gradient(to left, transparent, #7c3aed, #a78bfa, #7c3aed, transparent)",
+            transformOrigin: "right center",
+          }} />
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1px", background: "rgba(124,58,237,0.1)" }}>
+          {steps.map((step, i) => (
+            <ProcessStep key={i} step={step} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProcessStep({ step, index }: { step: typeof steps[0]; index: number }) {
+  const [hovered, setHovered] = React.useState(false);
+  const Icon = step.icon;
+  const isEven = index % 2 === 0;
+
+  return (
+    <div
+      className="process-step"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        padding: "40px",
+        background: hovered ? (isEven ? "rgba(124,58,237,0.06)" : "rgba(167,139,250,0.04)") : "var(--bg2)",
+        transition: "background 0.4s",
+        position: "relative",
+        overflow: "hidden",
+        cursor: "default",
+      }}
+    >
+      {/* Corner accent */}
+      <div style={{
+        position: "absolute", top: 0, right: 0,
+        width: hovered ? "80px" : "40px", height: hovered ? "80px" : "40px",
+        background: "radial-gradient(circle at top right, rgba(124,58,237,0.3), transparent 70%)",
+        transition: "width 0.4s, height 0.4s",
+        pointerEvents: "none",
+      }} />
+
+      {/* Step number watermark */}
+      <span className="brand-en" style={{
+        position: "absolute", bottom: "16px", left: "24px",
+        fontSize: "5rem", fontWeight: 900,
+        color: hovered ? "rgba(124,58,237,0.2)" : "rgba(124,58,237,0.07)",
+        lineHeight: 1, transition: "color 0.4s",
+        fontFamily: "var(--font-syne)",
+        pointerEvents: "none",
+        userSelect: "none",
+      }}>
+        {step.number}
+      </span>
+
+      {/* Icon */}
+      <div style={{
+        width: "48px", height: "48px",
+        border: `1px solid ${hovered ? "rgba(124,58,237,0.6)" : "rgba(124,58,237,0.2)"}`,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        marginBottom: "28px", transition: "border-color 0.3s",
+        background: hovered ? "rgba(124,58,237,0.1)" : "transparent",
+      }}>
+        <Icon size={20} color={hovered ? "#c4b5fd" : "#a78bfa"} />
+      </div>
+
+      <h3 style={{ fontWeight: 800, fontSize: "1.15rem", color: hovered ? "#e0d4ff" : "#fff", marginBottom: "6px", transition: "color 0.3s" }}>
+        {step.title}
+      </h3>
+      <p className="brand-en" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", color: "#a78bfa", marginBottom: "16px", textTransform: "uppercase" }}>
+        {step.titleEn}
+      </p>
+      <p style={{ fontSize: "0.9rem", color: hovered ? "#c4c4d4" : "#8a8a9a", lineHeight: 1.7, transition: "color 0.3s" }}>
+        {step.desc}
+      </p>
+    </div>
+  );
+}

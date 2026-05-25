@@ -17,14 +17,39 @@ const heebo = Heebo({
 });
 
 export const metadata: Metadata = {
-  title: "CloaqGroup | גורמים למותגים להיות בלתי ניתנים להתעלמות",
+  title: "CloaqGroup | סוכנות שיווק שמשלטת בשוק",
   description:
-    "CloaqGroup — הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. אסטרטגיה, פרסום, תוכן, SEO, וידאו ועוד.",
-  keywords: ["סוכנות שיווק", "דיגיטל", "אסטרטגיית מותג", "CloaqGroup", "פרסום ממומן", "SEO"],
+    "CloaqGroup — הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. אסטרטגיית מותג, פרסום ממומן, SEO, יצירת תוכן ווידאו. 200+ מותגים. תוצאות מוכחות.",
+  keywords: [
+    "סוכנות שיווק דיגיטלי",
+    "סוכנות פרסום ישראל",
+    "אסטרטגיית מותג",
+    "CloaqGroup",
+    "פרסום ממומן",
+    "SEO ישראל",
+    "שיווק ברשתות חברתיות",
+    "שיווק וידאו",
+    "marketing agency israel",
+    "digital marketing",
+  ],
+  authors: [{ name: "CloaqGroup" }],
+  creator: "CloaqGroup",
   openGraph: {
-    title: "CloaqGroup | גורמים למותגים להיות בלתי ניתנים להתעלמות",
-    description: "הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם.",
+    title: "CloaqGroup | סוכנות שיווק שמשלטת בשוק",
+    description: "הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. 200+ מותגים. תוצאות מוכחות.",
     type: "website",
+    locale: "he_IL",
+    siteName: "CloaqGroup",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CloaqGroup | סוכנות שיווק שמשלטת בשוק",
+    description: "הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
 };
 

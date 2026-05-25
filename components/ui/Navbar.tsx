@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 
 const links = [
   { label: "שירותים", href: "#services" },
+  { label: "תהליך", href: "#process" },
   { label: "עבודות", href: "#work" },
   { label: "צוות", href: "#team" },
   { label: "צור קשר", href: "#contact" },
