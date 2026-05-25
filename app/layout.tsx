@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Syne, Heebo } from "next/font/google";
+import { Syne, Heebo, Geist } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -78,7 +81,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="he" dir="rtl" className={`${syne.variable} ${heebo.variable}`} style={{ colorScheme: "dark" }}>
+    <html lang="he" dir="rtl" className={cn(syne.variable, heebo.variable, "font-sans", geist.variable)} style={{ colorScheme: "dark" }}>
       <head>
         <meta name="theme-color" content="#050508" />
         <Script

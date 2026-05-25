@@ -104,8 +104,14 @@ export default function ContactAgent() {
                   fontFamily: "var(--font-heebo)",
                   transition: "border-color 0.3s",
                 }}
-                onFocus={(e) => (e.currentTarget.style.borderColor = "#7c3aed")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(124,58,237,0.25)")}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = "#7c3aed";
+                  e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(124,58,237,0.5)";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(124,58,237,0.25)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
               />
             </div>
 
@@ -124,11 +130,11 @@ export default function ContactAgent() {
                   fontWeight: 700,
                   border: "none",
                   cursor: sending ? "not-allowed" : "pointer",
-                  transition: "background 0.3s",
+                  transition: "background 0.3s, transform 0.3s",
                   fontFamily: "var(--font-heebo)",
                 }}
-                onMouseEnter={(e) => { if (!sending) e.currentTarget.style.background = "#6d28d9"; }}
-                onMouseLeave={(e) => { if (!sending) e.currentTarget.style.background = "#7c3aed"; }}
+                onMouseEnter={(e) => { if (!sending) { e.currentTarget.style.background = "#6d28d9"; e.currentTarget.style.transform = "scale(1.04)"; } }}
+                onMouseLeave={(e) => { if (!sending) { e.currentTarget.style.background = "#7c3aed"; e.currentTarget.style.transform = "scale(1)"; } }}
               >
                 {sending ? "שולח..." : "שלח הודעה"}
                 <Send size={16} />
@@ -167,8 +173,14 @@ function FormField({ label, type, placeholder, required, id, autoComplete }: { l
           fontFamily: "var(--font-heebo)",
           transition: "border-color 0.3s",
         }}
-        onFocus={(e) => (e.currentTarget.style.borderColor = "#7c3aed")}
-        onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(124,58,237,0.25)")}
+        onFocus={(e) => {
+          e.currentTarget.style.borderColor = "#7c3aed";
+          e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(124,58,237,0.5)";
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.borderColor = "rgba(124,58,237,0.25)";
+          e.currentTarget.style.boxShadow = "none";
+        }}
       />
     </div>
   );

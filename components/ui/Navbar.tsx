@@ -86,6 +86,7 @@ export default function Navbar() {
           <a
             key={link.label}
             href={link.href}
+            className="nav-link"
             style={{
               color: "#8a8a9a",
               textDecoration: "none",
