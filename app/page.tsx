@@ -6,6 +6,7 @@ import TeamAgent from "@/components/agents/TeamAgent";
 import TestimonialsAgent from "@/components/agents/TestimonialsAgent";
 import ContactAgent from "@/components/agents/ContactAgent";
 import Footer from "@/components/ui/Footer";
+import AgentsPanel from "@/components/ui/AgentsPanel";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <TestimonialsAgent />
       <ContactAgent />
       <Footer />
+      <AgentsPanel />
     </main>
   );
 }
