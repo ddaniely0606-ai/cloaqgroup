@@ -62,8 +62,7 @@ body {
 .marquee-ltr { animation: marquee-left 38s linear infinite; }
 .marquee-rtl:hover, .marquee-ltr:hover { animation-play-state: paused; }
 
-/* ── Mobile Responsiveness ── */
-/* ── Grain texture overlay (frontend-design skill) ── */
+/* ── Grain texture overlay ── */
 .grain::after {
   content: "";
   position: fixed;
