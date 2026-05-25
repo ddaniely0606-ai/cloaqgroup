@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { Globe, AtSign, Link2, Play } from "lucide-react";
 
 const services = ["אסטרטגיית מותג", "פרסום ממומן", "יצירת תוכן", "SEO", "רשתות חברתיות", "שיווק וידאו"];
@@ -12,12 +13,15 @@ export default function Footer() {
 
           {/* Brand column */}
           <div>
-            <h3 className="brand-en" style={{
-              fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "1.4rem",
-              letterSpacing: "0.18em", color: "#fff", marginBottom: "20px",
-            }}>
-              CLOAQ<span style={{ color: "#a78bfa" }}>GROUP</span>
-            </h3>
+            <div style={{ marginBottom: "20px", display: "inline-block" }}>
+              <Image
+                src="/logo.jpg"
+                alt="CloaqGroup"
+                width={150}
+                height={50}
+                style={{ objectFit: "contain", objectPosition: "left center", background: "#fff", padding: "6px 12px" }}
+              />
+            </div>
             <p style={{ color: "#8a8a9a", fontSize: "0.9rem", lineHeight: 1.75, maxWidth: "340px", marginBottom: "28px" }}>
               הכוח השיווקי הסמוי מאחורי מותגים שמשלטים בשוק שלהם. אנחנו פועלים מאחורי הקלעים כדי שהמותג שלכם יעמוד בזרקור.
             </p>

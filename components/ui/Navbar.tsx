@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { Sun, Moon } from "lucide-react";
+import Image from "next/image";
 
 const links = [
   { label: "שירותים", href: "#services" },
@@ -64,20 +65,16 @@ export default function Navbar() {
         borderBottom: scrolled ? "1px solid rgba(124,58,237,0.12)" : "none",
       }}
     >
-      {/* Logo — always English, LTR */}
-      <a
-        href="#"
-        className="brand-en"
-        translate="no"
-        style={{
-          fontWeight: 800,
-          fontSize: "1.25rem",
-          letterSpacing: "0.18em",
-          color: "#fff",
-          textDecoration: "none",
-        }}
-      >
-        CLOAQ<span style={{ color: "#a78bfa" }}>GROUP</span>
+      {/* Logo */}
+      <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
+        <Image
+          src="/logo.jpg"
+          alt="CloaqGroup"
+          width={130}
+          height={44}
+          style={{ objectFit: "contain", objectPosition: "left center", background: "#fff", padding: "4px 10px" }}
+          priority
+        />
       </a>
 
       {/* Desktop nav */}
