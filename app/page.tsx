@@ -16,10 +16,13 @@ import Preloader from "@/components/ui/Preloader";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import CustomCursor from "@/components/ui/CustomCursor";
+import SmoothScroll from "@/components/ui/SmoothScroll";
+import ManifestoAgent from "@/components/agents/ManifestoAgent";
 
 export default function Home() {
   return (
     <main className="grain">
+      <SmoothScroll />
       <CustomCursor />
       <Preloader />
       <ScrollProgress />
@@ -32,6 +35,7 @@ export default function Home() {
       <PortfolioAgent />
       <TeamAgent />
       <TestimonialsAgent />
+      <ManifestoAgent />
       <FAQAgent />
       <CTAAgent />
       <ContactAgent />

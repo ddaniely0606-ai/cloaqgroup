@@ -9,7 +9,7 @@ const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "MarketingAgency",
-  "name": "CloaqGroup",
+  "name": "Mythos Agency",
   "description": "סוכנות שיווק דיגיטלי פרימיום לשוק הישראלי. אסטרטגיית מותג, פרסום ממומן, SEO, תוכן ווידאו.",
   "url": "https://cloaqgroup-q4dt0c8no-ddaniely0606-ais-projects.vercel.app",
   "areaServed": "IL",
@@ -43,14 +43,14 @@ const heebo = Heebo({
 });
 
 export const metadata: Metadata = {
-  title: "CloaqGroup | סוכנות שיווק שמשלטת בשוק",
+  title: "Mythos Agency | סוכנות שיווק שמשלטת בשוק",
   description:
-    "CloaqGroup — הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. אסטרטגיית מותג, פרסום ממומן, SEO, יצירת תוכן ווידאו. 200+ מותגים. תוצאות מוכחות.",
+    "Mythos Agency — הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. אסטרטגיית מותג, פרסום ממומן, SEO, יצירת תוכן ווידאו. 200+ מותגים. תוצאות מוכחות.",
   keywords: [
     "סוכנות שיווק דיגיטלי",
     "סוכנות פרסום ישראל",
     "אסטרטגיית מותג",
-    "CloaqGroup",
+    "Mythos Agency",
     "פרסום ממומן",
     "SEO ישראל",
     "שיווק ברשתות חברתיות",
@@ -58,18 +58,18 @@ export const metadata: Metadata = {
     "marketing agency israel",
     "digital marketing",
   ],
-  authors: [{ name: "CloaqGroup" }],
-  creator: "CloaqGroup",
+  authors: [{ name: "Mythos Agency" }],
+  creator: "Mythos Agency",
   openGraph: {
-    title: "CloaqGroup | סוכנות שיווק שמשלטת בשוק",
+    title: "Mythos Agency | סוכנות שיווק שמשלטת בשוק",
     description: "הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. 200+ מותגים. תוצאות מוכחות.",
     type: "website",
     locale: "he_IL",
-    siteName: "CloaqGroup",
+    siteName: "Mythos Agency",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CloaqGroup | סוכנות שיווק שמשלטת בשוק",
+    title: "Mythos Agency | סוכנות שיווק שמשלטת בשוק",
     description: "הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם.",
   },
   robots: {

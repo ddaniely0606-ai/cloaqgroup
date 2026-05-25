@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -43,9 +43,9 @@ function StatCard({ stat, active }: { stat: typeof stats[0]; active: boolean }) 
         marginBottom: "16px",
         direction: "ltr",
       }}>
-        {stat.prefix && <span style={{ color: "#a78bfa" }}>{stat.prefix}</span>}
+        {stat.prefix && <span style={{ color: "#34d399" }}>{stat.prefix}</span>}
         <span>{count}</span>
-        <span style={{ color: "#a78bfa" }}>{stat.suffix}</span>
+        <span style={{ color: "#34d399" }}>{stat.suffix}</span>
       </div>
       <p style={{ color: "#fff", fontWeight: 700, fontSize: "1rem", marginBottom: "4px" }}>
         {stat.label}
@@ -90,14 +90,14 @@ export default function StatsAgent() {
       }}
     >
       {/* Purple glow line top */}
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(to right, transparent, #7c3aed, transparent)" }} />
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(to right, transparent, #7c3aed, transparent)" }} />
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(to right, transparent, #059669, transparent)" }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(to right, transparent, #059669, transparent)" }} />
 
       {/* Bg glow */}
       <div style={{
         position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)",
         width: "600px", height: "200px",
-        background: "radial-gradient(ellipse, rgba(124,58,237,0.12) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse, rgba(5,150,105,0.12) 0%, transparent 70%)",
         pointerEvents: "none",
       }} />
 
@@ -106,7 +106,7 @@ export default function StatsAgent() {
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: "1px",
-          background: "rgba(124,58,237,0.12)",
+          background: "rgba(5,150,105,0.12)",
         }}>
           {stats.map((stat, i) => (
             <div key={i} className="stat-card" style={{ background: "var(--bg)" }}>

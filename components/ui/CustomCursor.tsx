@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef } from "react";
 
 export default function CustomCursor() {
@@ -30,14 +30,14 @@ export default function CustomCursor() {
     const onEnterClickable = () => {
       ring.style.width = "48px";
       ring.style.height = "48px";
-      ring.style.borderColor = "#a78bfa";
-      ring.style.background = "rgba(124,58,237,0.1)";
+      ring.style.borderColor = "#4ade80";
+      ring.style.background = "rgba(22,163,74,0.1)";
     };
 
     const onLeaveClickable = () => {
       ring.style.width = "40px";
       ring.style.height = "40px";
-      ring.style.borderColor = "rgba(167,139,250,0.6)";
+      ring.style.borderColor = "rgba(74,222,128,0.6)";
       ring.style.background = "transparent";
     };
 
@@ -67,10 +67,10 @@ export default function CustomCursor() {
         position: "fixed", top: 0, left: 0,
         width: "8px", height: "8px",
         borderRadius: "50%",
-        background: "#a78bfa",
+        background: "#4ade80",
         pointerEvents: "none",
         zIndex: 99999,
-        boxShadow: "0 0 10px #a78bfa, 0 0 20px rgba(167,139,250,0.4)",
+        boxShadow: "0 0 10px #4ade80, 0 0 20px rgba(74,222,128,0.4)",
         willChange: "transform",
       }} />
       {/* Ring */}
@@ -78,7 +78,7 @@ export default function CustomCursor() {
         position: "fixed", top: 0, left: 0,
         width: "40px", height: "40px",
         borderRadius: "50%",
-        border: "1px solid rgba(167,139,250,0.6)",
+        border: "1px solid rgba(74,222,128,0.6)",
         pointerEvents: "none",
         zIndex: 99998,
         transition: "width 0.3s, height 0.3s, border-color 0.3s, background 0.3s",

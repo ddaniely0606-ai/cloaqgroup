@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
@@ -7,8 +7,8 @@
 :root {
   --bg: #050508;
   --bg2: #0d0d18;
-  --purple: #7c3aed;
-  --purple-light: #a78bfa;
+  --green: #059669;
+  --green-light: #4ade80;
   --silver: #c4c4d4;
   --text: #f5f5f7;
   --muted: oklch(0.97 0 0);
@@ -82,7 +82,7 @@ body {
 
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: #050508; }
-::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: #059669; border-radius: 2px; }
 
 @keyframes marquee-right {
   0% { transform: translateX(0); }
@@ -126,7 +126,7 @@ body {
 
 /* ── Focus visible (web-design-guidelines skill) ── */
 :focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid #059669;
   outline-offset: 3px;
 }
 
@@ -141,11 +141,24 @@ body {
   right: 0;
   width: 0;
   height: 1px;
-  background: #7c3aed;
+  background: #059669;
   transition: width 0.3s ease;
 }
 .nav-link:hover::after {
   width: 100%;
+}
+
+/* ── Glass morphism utilities ── */
+.glass {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(5,150,105,0.14);
+}
+
+.glass-hover:hover {
+  background: rgba(5,150,105,0.09);
+  border-color: rgba(52,211,153,0.28);
 }
 
 /* ── Content visibility (react-best-practices skill) ── */

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 const clients = [
   { name: "OBSIDIAN SPIRITS" },
@@ -19,8 +19,8 @@ export default function LogoStripAgent() {
       style={{
         padding: "32px 0",
         background: "var(--bg2)",
-        borderTop: "1px solid rgba(124,58,237,0.1)",
-        borderBottom: "1px solid rgba(124,58,237,0.1)",
+        borderTop: "1px solid rgba(5,150,105,0.1)",
+        borderBottom: "1px solid rgba(5,150,105,0.1)",
         overflow: "hidden",
         position: "relative",
       }}
@@ -42,19 +42,19 @@ export default function LogoStripAgent() {
               fontSize: "0.7rem",
               fontWeight: 700,
               letterSpacing: "0.3em",
-              color: "rgba(167,139,250,0.35)",
+              color: "rgba(52,211,153,0.35)",
               textTransform: "uppercase",
               whiteSpace: "nowrap",
               padding: "0 48px",
               transition: "color 0.3s",
               userSelect: "none",
             }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(167,139,250,0.75)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(167,139,250,0.35)")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "rgba(52,211,153,0.75)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(52,211,153,0.35)")}
             >
               {client.name}
             </span>
-            <span style={{ width: "1px", height: "16px", background: "rgba(124,58,237,0.2)", flexShrink: 0 }} />
+            <span style={{ width: "1px", height: "16px", background: "rgba(5,150,105,0.2)", flexShrink: 0 }} />
           </div>
         ))}
       </div>

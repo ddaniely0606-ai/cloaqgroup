@@ -47,10 +47,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="fixed inset-0 bg-black/60 z-20 md:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
-      <aside className={`fixed md:sticky top-0 h-screen w-64 bg-[#0a0a12] border-r border-[rgba(22,163,74,0.15)] flex flex-col z-30 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
-        <div className="p-6 border-b border-[rgba(22,163,74,0.1)]">
+      <aside className={`fixed md:sticky top-0 h-screen w-64 bg-[#0a0a12] border-r border-[rgba(5,150,105,0.15)] flex flex-col z-30 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
+        <div className="p-6 border-b border-[rgba(5,150,105,0.1)]">
           <Image src="/logo.jpg" alt="CLOAK" width={120} height={40} className="bg-white px-2 py-1 object-contain" />
-          <p className="text-[#4ade80] text-[0.6rem] tracking-[0.3em] uppercase mt-3">CREW DASHBOARD</p>
+          <p className="text-[#34d399] text-[0.6rem] tracking-[0.3em] uppercase mt-3">CREW DASHBOARD</p>
         </div>
 
         <nav className="flex-1 p-4 flex flex-col gap-1">
@@ -63,8 +63,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 ${
                   active
-                    ? "bg-[rgba(22,163,74,0.15)] text-[#4ade80] border border-[rgba(22,163,74,0.3)]"
-                    : "text-[#8a8a9a] hover:text-white hover:bg-[rgba(22,163,74,0.06)]"
+                    ? "bg-[rgba(5,150,105,0.15)] text-[#34d399] border border-[rgba(5,150,105,0.3)]"
+                    : "text-[#8a8a9a] hover:text-white hover:bg-[rgba(5,150,105,0.06)]"
                 }`}
               >
                 <Icon size={16} />
@@ -75,13 +75,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
 
         {session && (
-          <div className="px-4 pb-2 mx-4 bg-[rgba(22,163,74,0.06)] border border-[rgba(22,163,74,0.1)] py-3 mb-2">
+          <div className="px-4 pb-2 mx-4 bg-[rgba(5,150,105,0.06)] border border-[rgba(5,150,105,0.1)] py-3 mb-2">
             <p className="text-white text-xs font-semibold">{session.name}</p>
             <p className="text-[#8a8a9a] text-[0.65rem] mt-0.5">{session.email}</p>
           </div>
         )}
 
-        <div className="p-4 border-t border-[rgba(22,163,74,0.1)]">
+        <div className="p-4 border-t border-[rgba(5,150,105,0.1)]">
           <button
             onClick={logout}
             className="flex items-center gap-3 px-4 py-3 w-full text-sm text-[#8a8a9a] hover:text-red-400 transition-colors duration-200"
@@ -93,13 +93,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="sticky top-0 z-10 bg-[#050508]/90 backdrop-blur border-b border-[rgba(22,163,74,0.1)] px-6 py-4 flex items-center justify-between">
+        <header className="sticky top-0 z-10 bg-[#050508]/90 backdrop-blur border-b border-[rgba(5,150,105,0.1)] px-6 py-4 flex items-center justify-between">
           <button className="md:hidden text-white" onClick={() => setSidebarOpen(true)}>
             <Menu size={20} />
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#4ade80] shadow-[0_0_6px_#4ade80]" />
-            <span className="text-[#4ade80] text-xs tracking-widest uppercase font-mono">LIVE</span>
+            <div className="w-2 h-2 rounded-full bg-[#34d399] shadow-[0_0_6px_#4ade80]" />
+            <span className="text-[#34d399] text-xs tracking-widest uppercase font-mono">LIVE</span>
           </div>
           <p className="text-[#8a8a9a] text-xs hidden md:block">
             {new Date().toLocaleDateString("he-IL", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}

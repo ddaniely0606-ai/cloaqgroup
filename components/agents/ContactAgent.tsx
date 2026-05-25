@@ -65,12 +65,12 @@ export default function ContactAgent() {
 
       <div style={{ maxWidth: "820px", margin: "0 auto", position: "relative" }}>
         <div ref={headingRef} style={{ marginBottom: "64px" }}>
-          <p style={{ color: "#4ade80", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+          <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
             בואו נדבר
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(3rem, 8vw, 6rem)", color: "#fff", lineHeight: 1, marginBottom: "24px" }}>
             מוכנים<br />
-            <span style={{ color: "#4ade80" }}>לשלוט?</span>
+            <span style={{ color: "#34d399" }}>לשלוט?</span>
           </h2>
           <p style={{ color: "#8a8a9a", fontSize: "1rem", lineHeight: 1.7, maxWidth: "500px" }}>
             ספרו לנו על המותג שלכם ואנחנו נחזור אליכם תוך 24 שעות עם תוכנית להשתלטות על השוק.
@@ -85,7 +85,7 @@ export default function ContactAgent() {
         )}
         {sent ? (
           <div style={{ textAlign: "center", padding: "80px 0" }} role="status">
-            <CheckCircle size={48} color="#4ade80" style={{ margin: "0 auto 24px" }} aria-hidden="true" />
+            <CheckCircle size={48} color="#34d399" style={{ margin: "0 auto 24px" }} aria-hidden="true" />
             <h3 style={{ fontWeight: 800, fontSize: "1.6rem", color: "#fff", marginBottom: "12px" }}>
               ההודעה התקבלה
             </h3>
@@ -111,7 +111,7 @@ export default function ContactAgent() {
                 style={{
                   width: "100%",
                   background: "transparent",
-                  border: "1px solid rgba(22,163,74,0.25)",
+                  border: "1px solid rgba(5,150,105,0.25)",
                   padding: "16px 20px",
                   color: "#fff",
                   fontSize: "0.9rem",
@@ -121,11 +121,11 @@ export default function ContactAgent() {
                   transition: "border-color 0.3s",
                 }}
                 onFocus={(e) => {
-                  e.currentTarget.style.borderColor = "#16a34a";
-                  e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(22,163,74,0.5)";
+                  e.currentTarget.style.borderColor = "#059669";
+                  e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(5,150,105,0.5)";
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(22,163,74,0.25)";
+                  e.currentTarget.style.borderColor = "rgba(5,150,105,0.25)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
               />
@@ -140,7 +140,7 @@ export default function ContactAgent() {
                   alignItems: "center",
                   gap: "12px",
                   padding: "16px 40px",
-                  background: sending ? "rgba(22,163,74,0.5)" : "#16a34a",
+                  background: sending ? "rgba(5,150,105,0.5)" : "#059669",
                   color: "#fff",
                   fontSize: "0.95rem",
                   fontWeight: 700,
@@ -150,7 +150,7 @@ export default function ContactAgent() {
                   fontFamily: "var(--font-heebo)",
                 }}
                 onMouseEnter={(e) => { if (!sending) { e.currentTarget.style.background = "#15803d"; e.currentTarget.style.transform = "scale(1.04)"; } }}
-                onMouseLeave={(e) => { if (!sending) { e.currentTarget.style.background = "#16a34a"; e.currentTarget.style.transform = "scale(1)"; } }}
+                onMouseLeave={(e) => { if (!sending) { e.currentTarget.style.background = "#059669"; e.currentTarget.style.transform = "scale(1)"; } }}
               >
                 {sending ? "שולח..." : "שלח הודעה"}
                 <Send size={16} />
@@ -181,7 +181,7 @@ function FormField({ label, type, placeholder, required, id, autoComplete }: { l
         style={{
           width: "100%",
           background: "transparent",
-          border: "1px solid rgba(22,163,74,0.25)",
+          border: "1px solid rgba(5,150,105,0.25)",
           padding: "14px 20px",
           color: "#fff",
           fontSize: "0.9rem",
@@ -190,11 +190,11 @@ function FormField({ label, type, placeholder, required, id, autoComplete }: { l
           transition: "border-color 0.3s",
         }}
         onFocus={(e) => {
-          e.currentTarget.style.borderColor = "#16a34a";
-          e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(22,163,74,0.5)";
+          e.currentTarget.style.borderColor = "#059669";
+          e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(5,150,105,0.5)";
         }}
         onBlur={(e) => {
-          e.currentTarget.style.borderColor = "rgba(22,163,74,0.25)";
+          e.currentTarget.style.borderColor = "rgba(5,150,105,0.25)";
           e.currentTarget.style.boxShadow = "none";
         }}
       />

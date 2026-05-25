@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,35 +11,35 @@ const projects = [
     title: "Obsidian Spirits",
     category: "אסטרטגיית מותג + סושיאל",
     result: "+340% מכירות תוך 6 חודשים",
-    gradient: "linear-gradient(135deg, #3b0764 0%, #1e1b4b 100%)",
+    gradient: "linear-gradient(135deg, #052e16 0%, #14532d 100%)",
     gridArea: "span 2 / span 1",
   },
   {
     title: "NovaTech Labs",
     category: "פרסום ממומן + SEO",
     result: "עלות רכישה ירדה ב-60%",
-    gradient: "linear-gradient(135deg, #4c1d95 0%, #1e1b4b 100%)",
+    gradient: "linear-gradient(135deg, #064e3b 0%, #14532d 100%)",
     gridArea: "span 1 / span 1",
   },
   {
     title: "Meridian Apparel",
     category: "תוכן + וידאו",
     result: "40M צפיות אורגניות",
-    gradient: "linear-gradient(135deg, #312e81 0%, #1a1a2e 100%)",
+    gradient: "linear-gradient(135deg, #065f46 0%, #1a1a2e 100%)",
     gridArea: "span 1 / span 1",
   },
   {
     title: "Apex Realty",
     category: "שיווק Full-Funnel",
     result: "₪8M פייפליין חדש מ-SEO",
-    gradient: "linear-gradient(135deg, #2e1065 0%, #0d0d18 100%)",
+    gradient: "linear-gradient(135deg, #022c22 0%, #0d0d18 100%)",
     gridArea: "span 1 / span 2",
   },
   {
     title: "Solstice Beauty",
     category: "רשתות חברתיות + תוכן",
     result: "x3 בעוקבים תוך 90 יום",
-    gradient: "linear-gradient(135deg, #4a044e 0%, #1e1b4b 100%)",
+    gradient: "linear-gradient(135deg, #052e16 0%, #14532d 100%)",
     gridArea: "span 1 / span 1",
   },
 ];
@@ -79,17 +79,17 @@ export default function PortfolioAgent() {
           style={{ marginBottom: "72px", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "16px" }}
         >
           <div>
-            <p style={{ color: "#a78bfa", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+            <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
               העבודות שלנו
             </p>
             <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-              תיק <span style={{ background: "linear-gradient(135deg, #a78bfa, #c084fc)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>עבודות</span>
+              תיק <span style={{ background: "linear-gradient(135deg, #34d399, #86efac)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>עבודות</span>
             </h2>
           </div>
           <a
             href="#contact"
             style={{ color: "#8a8a9a", fontSize: "0.85rem", textDecoration: "none", display: "flex", alignItems: "center", gap: "8px", transition: "color 0.3s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#a78bfa")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#34d399")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#8a8a9a")}
           >
             <ArrowUpLeft size={16} /> לכל הפרויקטים
@@ -121,14 +121,14 @@ const PortfolioCard = React.memo(function PortfolioCard({ project }: { project: 
         cursor: "pointer",
         background: project.gradient,
         transform: hovered ? "translateY(-4px) scale(1.01)" : "translateY(0) scale(1)",
-        boxShadow: hovered ? "0 20px 60px rgba(124,58,237,0.35)" : "0 0 0 rgba(0,0,0,0)",
+        boxShadow: hovered ? "0 20px 60px rgba(5,150,105,0.35)" : "0 0 0 rgba(0,0,0,0)",
         transition: "transform 0.35s ease, box-shadow 0.35s ease",
       }}
     >
       {/* Grid lines */}
       <div style={{
         position: "absolute", inset: 0, opacity: 0.15,
-        backgroundImage: "linear-gradient(rgba(124,58,237,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.4) 1px, transparent 1px)",
+        backgroundImage: "linear-gradient(rgba(5,150,105,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(5,150,105,0.4) 1px, transparent 1px)",
         backgroundSize: "40px 40px",
       }} />
 
@@ -136,13 +136,13 @@ const PortfolioCard = React.memo(function PortfolioCard({ project }: { project: 
       <div style={{
         position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)",
         width: "60%", height: "60%",
-        background: hovered ? "radial-gradient(ellipse, rgba(124,58,237,0.4) 0%, transparent 70%)" : "radial-gradient(ellipse, rgba(109,40,217,0.2) 0%, transparent 70%)",
+        background: hovered ? "radial-gradient(ellipse, rgba(5,150,105,0.4) 0%, transparent 70%)" : "radial-gradient(ellipse, rgba(4,120,87,0.2) 0%, transparent 70%)",
         transition: "background 0.6s",
         pointerEvents: "none",
       }} />
 
       {/* Hover overlay */}
-      <div style={{ position: "absolute", inset: 0, background: hovered ? "rgba(109,40,217,0.15)" : "transparent", transition: "background 0.4s" }} />
+      <div style={{ position: "absolute", inset: 0, background: hovered ? "rgba(4,120,87,0.15)" : "transparent", transition: "background 0.4s" }} />
 
       {/* Content */}
       <div style={{
@@ -152,12 +152,12 @@ const PortfolioCard = React.memo(function PortfolioCard({ project }: { project: 
         transform: hovered ? "translateY(0)" : "translateY(8px)",
         transition: "transform 0.4s",
       }}>
-        <p style={{ color: "#a78bfa", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "6px", opacity: hovered ? 1 : 0, transition: "opacity 0.3s" }}>
+        <p style={{ color: "#34d399", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "6px", opacity: hovered ? 1 : 0, transition: "opacity 0.3s" }}>
           {project.category}
         </p>
         <h3 className="brand-en" style={{ fontFamily: "var(--font-syne)", fontWeight: 800, fontSize: "1.4rem", color: "#fff", marginBottom: "4px", display: "flex", alignItems: "center", gap: "10px" }}>
           {project.title}
-          <ArrowUpLeft size={18} color="#a78bfa" style={{ opacity: hovered ? 1 : 0, transition: "opacity 0.3s", transform: "rotate(180deg)" }} />
+          <ArrowUpLeft size={18} color="#34d399" style={{ opacity: hovered ? 1 : 0, transition: "opacity 0.3s", transform: "rotate(180deg)" }} />
         </h3>
         <p style={{ color: "#c4c4d4", fontSize: "0.8rem", opacity: hovered ? 1 : 0, transition: "opacity 0.4s 0.05s" }}>
           {project.result}

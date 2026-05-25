@@ -37,11 +37,11 @@ export default function TestimonialsAgent() {
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", marginBottom: "60px" }}>
         <div ref={headingRef}>
-          <p style={{ color: "#4ade80", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+          <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
             מה אומרים עלינו
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הם <span style={{ color: "#4ade80" }}>שולטים</span> עכשיו
+            הם <span style={{ color: "#34d399" }}>שולטים</span> עכשיו
           </h2>
         </div>
       </div>
@@ -74,13 +74,15 @@ const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof t
       width: "360px",
       padding: "32px",
       margin: "0 8px",
-      border: "1px solid rgba(22,163,74,0.15)",
-      background: "rgba(13,13,24,0.8)",
-      backdropFilter: "blur(8px)",
+      border: "1px solid rgba(5,150,105,0.15)",
+      background: "rgba(0,0,0,0.55)",
+      backdropFilter: "blur(24px) saturate(1.6)",
+      WebkitBackdropFilter: "blur(24px) saturate(1.6)",
+      boxShadow: "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
     }}>
       <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
         {Array(5).fill(0).map((_, i) => (
-          <Star key={i} size={14} fill="#16a34a" color="#16a34a" />
+          <Star key={i} size={14} fill="#059669" color="#059669" />
         ))}
       </div>
       <p style={{ color: "#c4c4d4", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: "20px" }}>
@@ -88,7 +90,7 @@ const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof t
       </p>
       <div>
         <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>{t.name}</p>
-        <p className="brand-en" style={{ color: "#4ade80", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>{t.company}</p>
+        <p className="brand-en" style={{ color: "#34d399", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>{t.company}</p>
       </div>
     </div>
   );

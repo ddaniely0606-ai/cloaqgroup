@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { Sun, Moon } from "lucide-react";
@@ -62,14 +62,14 @@ export default function Navbar() {
         transition: "background 0.5s, backdrop-filter 0.5s, border-color 0.5s",
         background: scrolled ? "rgba(5,5,8,0.88)" : "transparent",
         backdropFilter: scrolled ? "blur(24px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(124,58,237,0.12)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(5,150,105,0.12)" : "none",
       }}
     >
       {/* Logo */}
       <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
         <Image
           src="/logo.jpg"
-          alt="CloaqGroup"
+          alt="Mythos Agency"
           width={130}
           height={44}
           style={{ objectFit: "contain", objectPosition: "left center", background: "#fff", padding: "4px 10px" }}
@@ -92,7 +92,7 @@ export default function Navbar() {
               letterSpacing: "0.02em",
               transition: "color 0.3s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#a78bfa")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#34d399")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#8a8a9a")}
           >
             {link.label}
@@ -108,18 +108,18 @@ export default function Navbar() {
         style={{
           alignItems: "center", justifyContent: "center",
           width: "36px", height: "36px",
-          border: "1px solid rgba(124,58,237,0.35)",
+          border: "1px solid rgba(5,150,105,0.35)",
           background: "transparent",
           cursor: "pointer",
           transition: "border-color 0.3s, background 0.3s",
           marginLeft: "8px",
         }}
-        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(124,58,237,0.12)"; e.currentTarget.style.borderColor = "#7c3aed"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(124,58,237,0.35)"; }}
+        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(5,150,105,0.12)"; e.currentTarget.style.borderColor = "#059669"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(5,150,105,0.35)"; }}
       >
         {dark
-          ? <Sun size={15} color="#a78bfa" aria-hidden="true" />
-          : <Moon size={15} color="#7c3aed" aria-hidden="true" />
+          ? <Sun size={15} color="#34d399" aria-hidden="true" />
+          : <Moon size={15} color="#059669" aria-hidden="true" />
         }
       </button>
 
@@ -128,8 +128,8 @@ export default function Navbar() {
         className="hidden md:block"
         style={{
           padding: "10px 24px",
-          border: "1px solid rgba(124,58,237,0.6)",
-          color: "#a78bfa",
+          border: "1px solid rgba(5,150,105,0.6)",
+          color: "#34d399",
           fontSize: "0.85rem",
           fontWeight: 600,
           textDecoration: "none",
@@ -137,12 +137,12 @@ export default function Navbar() {
           background: "transparent",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.background = "#7c3aed";
+          e.currentTarget.style.background = "#059669";
           e.currentTarget.style.color = "#fff";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.background = "transparent";
-          e.currentTarget.style.color = "#a78bfa";
+          e.currentTarget.style.color = "#34d399";
         }}
       >
         בואו נדבר
@@ -186,7 +186,7 @@ export default function Navbar() {
             display: "flex",
             flexDirection: "column",
             gap: "24px",
-            borderBottom: "1px solid rgba(124,58,237,0.15)",
+            borderBottom: "1px solid rgba(5,150,105,0.15)",
           }}
         >
           {links.map((link) => (

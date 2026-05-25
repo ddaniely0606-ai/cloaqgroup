@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -71,7 +71,7 @@ export default function ParticleCanvas() {
     ringGeo.setAttribute("position", new THREE.BufferAttribute(ringPositions, 3));
     const ringMat = new THREE.PointsMaterial({
       size: 0.008,
-      color: new THREE.Color("#6d28d9"),
+      color: new THREE.Color("#15803d"),
       transparent: true,
       opacity: 0.5,
     });

@@ -42,12 +42,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#050508] flex items-center justify-center p-6" dir="rtl">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse,rgba(22,163,74,0.15)_0%,transparent_70%)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse,rgba(5,150,105,0.15)_0%,transparent_70%)]" />
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(22,163,74,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(22,163,74,0.4) 1px, transparent 1px)",
+              "linear-gradient(rgba(5,150,105,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(5,150,105,0.4) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
         />
@@ -58,9 +58,9 @@ export default function LoginPage() {
           <Image src="/logo.jpg" alt="CLOAK" width={160} height={54} className="bg-white px-3 py-1.5 object-contain" />
         </div>
 
-        <div className="border border-[rgba(22,163,74,0.2)] bg-[rgba(13,13,24,0.9)] backdrop-blur-xl p-10">
+        <div className="border border-[rgba(5,150,105,0.2)] bg-[rgba(13,13,24,0.9)] backdrop-blur-xl p-10">
           <div className="mb-8">
-            <p className="text-[#4ade80] text-xs tracking-[0.3em] uppercase mb-2">CREW ACCESS</p>
+            <p className="text-[#34d399] text-xs tracking-[0.3em] uppercase mb-2">CREW ACCESS</p>
             <h1 className="text-white text-3xl font-black">כניסה לצוות</h1>
             <p className="text-[#8a8a9a] text-sm mt-2">ממשק הניהול הפנימי של CLOAK</p>
           </div>
@@ -74,9 +74,9 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@cloaq.io"
                 required
-                className="w-full bg-transparent border border-[rgba(22,163,74,0.2)] px-4 py-3 text-white text-sm outline-none transition-all duration-300 focus:border-[#16a34a] placeholder:text-[#8a8a9a]"
+                className="w-full bg-transparent border border-[rgba(5,150,105,0.2)] px-4 py-3 text-white text-sm outline-none transition-all duration-300 focus:border-[#059669] placeholder:text-[#8a8a9a]"
                 style={{ direction: "ltr" }}
-                onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(22,163,74,0.4)"; }}
+                onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(5,150,105,0.4)"; }}
                 onBlur={(e) => { e.currentTarget.style.boxShadow = "none"; }}
               />
             </div>
@@ -88,9 +88,9 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full bg-transparent border border-[rgba(22,163,74,0.2)] px-4 py-3 text-white text-sm outline-none transition-all duration-300 focus:border-[#16a34a] placeholder:text-[#8a8a9a]"
+                className="w-full bg-transparent border border-[rgba(5,150,105,0.2)] px-4 py-3 text-white text-sm outline-none transition-all duration-300 focus:border-[#059669] placeholder:text-[#8a8a9a]"
                 style={{ direction: "ltr" }}
-                onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(22,163,74,0.4)"; }}
+                onFocus={(e) => { e.currentTarget.style.boxShadow = "0 0 0 3px #050508, 0 0 0 5px rgba(5,150,105,0.4)"; }}
                 onBlur={(e) => { e.currentTarget.style.boxShadow = "none"; }}
               />
             </div>
@@ -102,14 +102,14 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 w-full bg-[#16a34a] text-white font-bold py-3.5 text-sm tracking-wider uppercase transition-all duration-300 hover:bg-[#15803d] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-2 w-full bg-[#059669] text-white font-bold py-3.5 text-sm tracking-wider uppercase transition-all duration-300 hover:bg-[#15803d] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "מתחבר..." : "כניסה →"}
             </button>
           </form>
         </div>
 
-        <div className="mt-8 border border-[rgba(22,163,74,0.1)] bg-[rgba(22,163,74,0.03)] p-4">
+        <div className="mt-8 border border-[rgba(5,150,105,0.1)] bg-[rgba(5,150,105,0.03)] p-4">
           <p className="text-[#8a8a9a] text-xs text-center mb-3 tracking-wider uppercase">חשבונות הצוות</p>
           <div className="flex flex-col gap-1.5 text-[0.7rem]" style={{ direction: "ltr" }}>
             {[

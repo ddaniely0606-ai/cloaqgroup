@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -90,15 +90,15 @@ export default function ServicesAgent() {
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "72px" }}>
-          <p style={{ color: "#a78bfa", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+          <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
             מה אנחנו עושים
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הארסנל <span style={{ background: "linear-gradient(135deg, #a78bfa, #7c3aed, #c084fc)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שלנו</span>
+            הארסנל <span style={{ background: "linear-gradient(135deg, #34d399, #059669, #86efac)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שלנו</span>
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1px", background: "rgba(124,58,237,0.12)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1px", background: "rgba(5,150,105,0.12)" }}>
           {services.map((service, i) => {
             const Icon = service.icon;
             return (
@@ -135,9 +135,11 @@ const ServiceCard = React.forwardRef<
       onMouseLeave={() => setHovered(false)}
       style={{
         padding: "40px",
-        background: hovered ? "var(--bg2)" : "var(--bg)",
+        background: hovered ? "rgba(5,150,105,0.09)" : "rgba(0,0,0,0.45)",
+        backdropFilter: "blur(20px) saturate(1.5)",
+        WebkitBackdropFilter: "blur(20px) saturate(1.5)",
         transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hovered ? "0 20px 50px rgba(124,58,237,0.25)" : "0 0 0 rgba(0,0,0,0)",
+        boxShadow: hovered ? "0 20px 50px rgba(5,150,105,0.3), inset 0 1px 0 rgba(255,255,255,0.04)" : "inset 0 1px 0 rgba(255,255,255,0.03)",
         transition: "background 0.4s, transform 0.35s ease, box-shadow 0.35s ease",
         cursor: "default",
         position: "relative",
@@ -145,19 +147,19 @@ const ServiceCard = React.forwardRef<
         zIndex: hovered ? 1 : 0,
       }}
     >
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: hovered ? "linear-gradient(to right, transparent, rgba(124,58,237,0.7), transparent)" : "transparent", transition: "background 0.4s" }} />
-      <div style={{ position: "absolute", bottom: 0, left: 0, height: "1px", width: hovered ? "100%" : "0%", background: "#7c3aed", transition: "width 0.5s ease" }} />
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: hovered ? "linear-gradient(to right, transparent, rgba(5,150,105,0.7), transparent)" : "transparent", transition: "background 0.4s" }} />
+      <div style={{ position: "absolute", bottom: 0, left: 0, height: "1px", width: hovered ? "100%" : "0%", background: "#059669", transition: "width 0.5s ease" }} />
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "32px" }}>
         <div style={{
           width: "48px", height: "48px",
           display: "flex", alignItems: "center", justifyContent: "center",
-          border: `1px solid ${hovered ? "rgba(124,58,237,0.6)" : "rgba(124,58,237,0.25)"}`,
+          border: `1px solid ${hovered ? "rgba(5,150,105,0.6)" : "rgba(5,150,105,0.25)"}`,
           transition: "border 0.3s",
         }}>
-          <Icon size={20} color="#a78bfa" />
+          <Icon size={20} color="#34d399" />
         </div>
-        <span className="brand-en" style={{ fontSize: "3rem", fontWeight: 900, color: hovered ? "rgba(124,58,237,0.3)" : "rgba(124,58,237,0.1)", transition: "color 0.3s", lineHeight: 1 }}>
+        <span className="brand-en" style={{ fontSize: "3rem", fontWeight: 900, color: hovered ? "rgba(5,150,105,0.3)" : "rgba(5,150,105,0.1)", transition: "color 0.3s", lineHeight: 1 }}>
           {number}
         </span>
       </div>
@@ -165,7 +167,7 @@ const ServiceCard = React.forwardRef<
       <h3 style={{ fontWeight: 800, fontSize: "1.2rem", color: hovered ? "#e0d4ff" : "#fff", marginBottom: "6px", transition: "color 0.3s" }}>
         {title}
       </h3>
-      <p className="brand-en" style={{ fontSize: "0.7rem", letterSpacing: "0.2em", color: "#a78bfa", marginBottom: "16px", textTransform: "uppercase" }}>
+      <p className="brand-en" style={{ fontSize: "0.7rem", letterSpacing: "0.2em", color: "#34d399", marginBottom: "16px", textTransform: "uppercase" }}>
         {titleEn}
       </p>
       <p style={{ color: hovered ? "#c4c4d4" : "#8a8a9a", fontSize: "0.9rem", lineHeight: 1.7, transition: "color 0.3s" }}>

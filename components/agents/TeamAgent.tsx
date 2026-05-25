@@ -72,11 +72,11 @@ export default function TeamAgent() {
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "72px" }}>
-          <p style={{ color: "#4ade80", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
+          <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
             הכוח שמאחורינו
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הכירו את <span style={{ color: "#4ade80" }}>הצוות</span>
+            הכירו את <span style={{ color: "#34d399" }}>הצוות</span>
           </h2>
         </div>
 
@@ -101,7 +101,7 @@ function TeamCard({ member }: { member: typeof team[0] }) {
       style={{
         overflow: "hidden", cursor: "pointer",
         transform: hovered ? "translateY(-6px)" : "translateY(0)",
-        boxShadow: hovered ? "0 24px 60px rgba(22,163,74,0.3)" : "0 0 0 rgba(0,0,0,0)",
+        boxShadow: hovered ? "0 24px 60px rgba(5,150,105,0.3)" : "0 0 0 rgba(0,0,0,0)",
         transition: "transform 0.35s ease, box-shadow 0.35s ease",
       }}
     >
@@ -109,7 +109,7 @@ function TeamCard({ member }: { member: typeof team[0] }) {
       <div style={{ height: "300px", background: member.gradient, position: "relative", overflow: "hidden" }}>
         <div style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse at 50% 80%, rgba(22,163,74,0.35) 0%, transparent 60%)",
+          background: "radial-gradient(ellipse at 50% 80%, rgba(5,150,105,0.35) 0%, transparent 60%)",
         }} />
         <div style={{
           position: "absolute", inset: 0,
@@ -132,12 +132,12 @@ function TeamCard({ member }: { member: typeof team[0] }) {
           {[AtSign, Link2].map((Icon, j) => (
             <div key={j} style={{
               width: "40px", height: "40px",
-              border: "1px solid rgba(74,222,128,0.5)",
+              border: "1px solid rgba(52,211,153,0.5)",
               display: "flex", alignItems: "center", justifyContent: "center",
               background: "rgba(5,5,8,0.5)",
               cursor: "pointer",
             }}>
-              <Icon size={16} color="#4ade80" />
+              <Icon size={16} color="#34d399" />
             </div>
           ))}
         </div>
@@ -146,18 +146,20 @@ function TeamCard({ member }: { member: typeof team[0] }) {
       {/* Info */}
       <div style={{
         padding: "24px",
-        background: "var(--bg2)",
-        border: `1px solid ${hovered ? "rgba(22,163,74,0.35)" : "rgba(22,163,74,0.12)"}`,
+        background: hovered ? "rgba(5,150,105,0.09)" : "rgba(0,0,0,0.55)",
+        backdropFilter: "blur(20px) saturate(1.5)",
+        WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+        border: `1px solid ${hovered ? "rgba(52,211,153,0.3)" : "rgba(5,150,105,0.12)"}`,
         borderTop: "none",
-        transition: "border-color 0.3s",
+        transition: "background 0.4s, border-color 0.3s",
       }}>
         <h3 style={{ fontWeight: 800, fontSize: "1.1rem", color: "#fff", marginBottom: "2px" }}>
           {member.name}
         </h3>
-        <p className="brand-en" style={{ fontSize: "0.65rem", color: "#4ade80", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "12px" }}>
+        <p className="brand-en" style={{ fontSize: "0.65rem", color: "#34d399", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: "12px" }}>
           {member.nameEn}
         </p>
-        <p style={{ fontSize: "0.75rem", color: "#4ade80", fontWeight: 600, marginBottom: "10px" }}>
+        <p style={{ fontSize: "0.75rem", color: "#34d399", fontWeight: 600, marginBottom: "10px" }}>
           {member.role}
         </p>
         <p style={{ fontSize: "0.85rem", color: "#8a8a9a", lineHeight: 1.65 }}>

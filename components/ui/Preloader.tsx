@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
@@ -44,14 +44,14 @@ export default function Preloader() {
           letterSpacing: "0.2em",
           color: "#fff",
         }}>
-          CLOAQ<span style={{ color: "#a78bfa" }}>GROUP</span>
+          CLOAQ<span style={{ color: "#4ade80" }}>GROUP</span>
         </h1>
       </div>
 
-      <div style={{ width: "200px", height: "1px", background: "rgba(124,58,237,0.2)", position: "relative", overflow: "hidden" }}>
+      <div style={{ width: "200px", height: "1px", background: "rgba(22,163,74,0.2)", position: "relative", overflow: "hidden" }}>
         <div ref={barRef} style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to right, #7c3aed, #a78bfa)",
+          background: "linear-gradient(to right, #16a34a, #4ade80)",
           transformOrigin: "left center",
           transform: "scaleX(0)",
         }} />

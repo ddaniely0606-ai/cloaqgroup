@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef } from "react";
 import Script from "next/script";
 import { gsap } from "gsap";
@@ -80,22 +80,22 @@ export default function FAQAgent() {
         {/* Top divider */}
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px"
-          style={{ background: "linear-gradient(to right, transparent, rgba(124,58,237,0.3), transparent)" }}
+          style={{ background: "linear-gradient(to right, transparent, rgba(5,150,105,0.3), transparent)" }}
         />
 
         <div className="max-w-[860px] mx-auto">
           <div ref={headingRef} className="mb-16">
-            <p className="text-[#a78bfa] text-xs tracking-[0.35em] uppercase mb-4">
+            <p className="text-[#34d399] text-xs tracking-[0.35em] uppercase mb-4">
               שאלות נפוצות
             </p>
             <h2 className="font-black text-white leading-tight" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
-              תשובות <span className="text-[#a78bfa]">ישירות</span>
+              תשובות <span className="text-[#34d399]">ישירות</span>
             </h2>
           </div>
 
           <Accordion
             multiple={false}
-            className="w-full divide-y divide-[rgba(124,58,237,0.15)] border-t border-[rgba(124,58,237,0.15)] border-b"
+            className="w-full divide-y divide-[rgba(5,150,105,0.15)] border-t border-[rgba(5,150,105,0.15)] border-b"
           >
             {faqs.map((faq, i) => (
               <AccordionItem
@@ -104,7 +104,7 @@ export default function FAQAgent() {
                 className="border-none faq-item"
               >
                 <AccordionTrigger
-                  className="py-7 text-right text-white font-bold hover:no-underline hover:text-[#e0d4ff] transition-colors duration-300 text-base leading-snug [&>svg]:text-[#a78bfa] [&>svg]:shrink-0"
+                  className="py-7 text-right text-white font-bold hover:no-underline hover:text-[#e0d4ff] transition-colors duration-300 text-base leading-snug [&>svg]:text-[#34d399] [&>svg]:shrink-0"
                   style={{ fontSize: "clamp(1rem, 2vw, 1.1rem)" }}
                 >
                   {faq.q}
@@ -122,7 +122,7 @@ export default function FAQAgent() {
             </p>
             <a
               href="#contact"
-              className="inline-block px-10 py-3.5 border border-[rgba(124,58,237,0.5)] text-[#a78bfa] text-sm font-semibold no-underline transition-all duration-300 hover:bg-[#7c3aed] hover:text-white hover:border-[#7c3aed]"
+              className="inline-block px-10 py-3.5 border border-[rgba(5,150,105,0.5)] text-[#34d399] text-sm font-semibold no-underline transition-all duration-300 hover:bg-[#059669] hover:text-white hover:border-[#059669]"
             >
               דברו איתנו ישירות
             </a>
