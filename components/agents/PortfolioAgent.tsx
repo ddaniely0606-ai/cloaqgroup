@@ -83,7 +83,7 @@ export default function PortfolioAgent() {
               העבודות שלנו
             </p>
             <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-              תיק <span style={{ color: "#a78bfa" }}>עבודות</span>
+              תיק <span style={{ background: "linear-gradient(135deg, #a78bfa, #c084fc)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>עבודות</span>
             </h2>
           </div>
           <a
@@ -120,6 +120,9 @@ const PortfolioCard = React.memo(function PortfolioCard({ project }: { project: 
         overflow: "hidden",
         cursor: "pointer",
         background: project.gradient,
+        transform: hovered ? "translateY(-4px) scale(1.01)" : "translateY(0) scale(1)",
+        boxShadow: hovered ? "0 20px 60px rgba(124,58,237,0.35)" : "0 0 0 rgba(0,0,0,0)",
+        transition: "transform 0.35s ease, box-shadow 0.35s ease",
       }}
     >
       {/* Grid lines */}

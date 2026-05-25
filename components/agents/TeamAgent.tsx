@@ -98,7 +98,12 @@ function TeamCard({ member }: { member: typeof team[0] }) {
       className="team-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{ overflow: "hidden", cursor: "pointer" }}
+      style={{
+        overflow: "hidden", cursor: "pointer",
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
+        boxShadow: hovered ? "0 24px 60px rgba(124,58,237,0.3)" : "0 0 0 rgba(0,0,0,0)",
+        transition: "transform 0.35s ease, box-shadow 0.35s ease",
+      }}
     >
       {/* Photo placeholder */}
       <div style={{ height: "300px", background: member.gradient, position: "relative", overflow: "hidden" }}>

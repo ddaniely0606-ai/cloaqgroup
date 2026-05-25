@@ -48,6 +48,14 @@ export default function HeroAgent() {
     >
       <ParticleCanvas />
 
+      {/* Subtle grid pattern */}
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+        backgroundImage: "linear-gradient(rgba(124,58,237,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.06) 1px, transparent 1px)",
+        backgroundSize: "80px 80px",
+        maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)",
+      }} />
+
       {/* Gradient overlays */}
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(5,5,8,0.5) 0%, transparent 40%, rgba(5,5,8,0.9) 100%)", zIndex: 1 }} />
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(5,5,8,0.3), transparent, rgba(5,5,8,0.3))", zIndex: 1 }} />

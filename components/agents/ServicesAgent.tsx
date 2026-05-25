@@ -94,7 +94,7 @@ export default function ServicesAgent() {
             מה אנחנו עושים
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הארסנל <span style={{ color: "#a78bfa" }}>שלנו</span>
+            הארסנל <span style={{ background: "linear-gradient(135deg, #a78bfa, #7c3aed, #c084fc)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שלנו</span>
           </h2>
         </div>
 
