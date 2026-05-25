@@ -1,6 +1,29 @@
 import type { Metadata } from "next";
 import { Syne, Heebo } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MarketingAgency",
+  "name": "CloaqGroup",
+  "description": "סוכנות שיווק דיגיטלי פרימיום לשוק הישראלי. אסטרטגיית מותג, פרסום ממומן, SEO, תוכן ווידאו.",
+  "url": "https://cloaqgroup-q4dt0c8no-ddaniely0606-ais-projects.vercel.app",
+  "areaServed": "IL",
+  "knowsLanguage": ["he", "en"],
+  "numberOfEmployees": { "@type": "QuantitativeValue", "value": 4 },
+  "slogan": "אנחנו הופכים מותגים לבלתי ניתנים להתעלמות",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "availableLanguage": ["Hebrew", "English"],
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "200",
+  },
+};
 
 const syne = Syne({
   subsets: ["latin"],
@@ -55,7 +78,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="he" dir="rtl" className={`${syne.variable} ${heebo.variable}`}>
+    <html lang="he" dir="rtl" className={`${syne.variable} ${heebo.variable}`} style={{ colorScheme: "dark" }}>
+      <head>
+        <meta name="theme-color" content="#050508" />
+        <Script
+          id="json-ld-org"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );

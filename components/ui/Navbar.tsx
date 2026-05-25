@@ -39,7 +39,7 @@ export default function Navbar() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        transition: "all 0.5s",
+        transition: "background 0.5s, backdrop-filter 0.5s, border-color 0.5s",
         background: scrolled ? "rgba(5,5,8,0.88)" : "transparent",
         backdropFilter: scrolled ? "blur(24px)" : "none",
         borderBottom: scrolled ? "1px solid rgba(124,58,237,0.12)" : "none",
@@ -49,6 +49,7 @@ export default function Navbar() {
       <a
         href="#"
         className="brand-en"
+        translate="no"
         style={{
           fontWeight: 800,
           fontSize: "1.25rem",

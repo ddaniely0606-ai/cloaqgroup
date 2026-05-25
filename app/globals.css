@@ -143,3 +143,14 @@ body {
   /* Team: 2col → 1col */
   .team-grid { grid-template-columns: 1fr !important; }
 }
+
+/* ── Reduced motion (web-design-guidelines) ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-rtl, .marquee-ltr { animation: none !important; }
+  .grain::after { animation: none !important; }
+}

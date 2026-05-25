@@ -6,6 +6,7 @@ import ProcessAgent from "@/components/agents/ProcessAgent";
 import PortfolioAgent from "@/components/agents/PortfolioAgent";
 import TeamAgent from "@/components/agents/TeamAgent";
 import TestimonialsAgent from "@/components/agents/TestimonialsAgent";
+import FAQAgent from "@/components/agents/FAQAgent";
 import ContactAgent from "@/components/agents/ContactAgent";
 import Footer from "@/components/ui/Footer";
 import AgentsPanel from "@/components/ui/AgentsPanel";
@@ -28,6 +29,7 @@ export default function Home() {
       <PortfolioAgent />
       <TeamAgent />
       <TestimonialsAgent />
+      <FAQAgent />
       <ContactAgent />
       <Footer />
       <AgentsPanel />

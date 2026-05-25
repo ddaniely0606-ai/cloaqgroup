@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Star } from "lucide-react";
@@ -67,7 +67,7 @@ export default function TestimonialsAgent() {
   );
 }
 
-function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
+const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
   return (
     <div style={{
       flexShrink: 0,
@@ -92,4 +92,4 @@ function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
       </div>
     </div>
   );
-}
+});

@@ -66,22 +66,23 @@ export default function ContactAgent() {
           </p>
         </div>
 
+        <div aria-live="polite">
         {sent ? (
-          <div style={{ textAlign: "center", padding: "80px 0" }}>
-            <CheckCircle size={48} color="#a78bfa" style={{ margin: "0 auto 24px" }} />
+          <div style={{ textAlign: "center", padding: "80px 0" }} role="status">
+            <CheckCircle size={48} color="#a78bfa" style={{ margin: "0 auto 24px" }} aria-hidden="true" />
             <h3 style={{ fontWeight: 800, fontSize: "1.6rem", color: "#fff", marginBottom: "12px" }}>
               ההודעה התקבלה
             </h3>
             <p style={{ color: "#8a8a9a" }}>נחזור אליכם תוך 24 שעות. התכוננו לשלוט.</p>
           </div>
         ) : (
-          <form ref={formRef} onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          <form ref={formRef} onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "24px" }} aria-label="טופס יצירת קשר">
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }} className="grid-cols-2">
-              <FormField label="שם מלא" type="text" placeholder="השם שלך" required />
-              <FormField label="אימייל" type="email" placeholder="your@email.com" required />
+              <FormField label="שם מלא" type="text" placeholder="השם שלך" required id="contact-name" autoComplete="name" />
+              <FormField label="אימייל" type="email" placeholder="your@email.com" required id="contact-email" autoComplete="email" />
             </div>
 
-            <FormField label="חברה / מותג" type="text" placeholder="שם החברה שלך" />
+            <FormField label="חברה / מותג" type="text" placeholder="שם החברה שלך" id="contact-company" autoComplete="organization" />
 
             <div className="form-field">
               <label style={{ display: "block", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#8a8a9a", marginBottom: "8px" }}>
@@ -135,21 +136,26 @@ export default function ContactAgent() {
             </div>
           </form>
         )}
+        </div>
       </div>
     </section>
   );
 }
 
-function FormField({ label, type, placeholder, required }: { label: string; type: string; placeholder: string; required?: boolean }) {
+function FormField({ label, type, placeholder, required, id, autoComplete }: { label: string; type: string; placeholder: string; required?: boolean; id: string; autoComplete?: string }) {
   return (
     <div className="form-field">
-      <label style={{ display: "block", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#8a8a9a", marginBottom: "8px" }}>
+      <label htmlFor={id} style={{ display: "block", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#8a8a9a", marginBottom: "8px" }}>
         {label}
       </label>
       <input
+        id={id}
+        name={id}
         type={type}
         placeholder={placeholder}
         required={required}
+        autoComplete={autoComplete}
+        spellCheck={type === "email" ? false : undefined}
         style={{
           width: "100%",
           background: "transparent",

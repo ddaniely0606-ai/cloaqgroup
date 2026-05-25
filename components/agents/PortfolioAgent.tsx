@@ -106,7 +106,7 @@ export default function PortfolioAgent() {
   );
 }
 
-function PortfolioCard({ project }: { project: typeof projects[0] }) {
+const PortfolioCard = React.memo(function PortfolioCard({ project }: { project: typeof projects[0] }) {
   const [hovered, setHovered] = React.useState(false);
 
   return (
@@ -162,4 +162,4 @@ function PortfolioCard({ project }: { project: typeof projects[0] }) {
       </div>
     </div>
   );
-}
+});

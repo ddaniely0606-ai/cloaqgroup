@@ -71,6 +71,7 @@ export default function HeroAgent() {
           <h1
             ref={logoRef}
             className="brand-en"
+            translate="no"
             style={{
               fontSize: "clamp(3rem, 12vw, 9rem)",
               fontWeight: 800,
@@ -168,7 +169,7 @@ function HoverButton({ href, primary, children }: { href: string; primary: boole
         fontWeight: 600,
         letterSpacing: "0.05em",
         textDecoration: "none",
-        transition: "all 0.3s",
+        transition: "background 0.3s, color 0.3s, border-color 0.3s",
         display: "inline-block",
         background: primary ? "#7c3aed" : "transparent",
         color: primary ? "#fff" : "#c4c4d4",
