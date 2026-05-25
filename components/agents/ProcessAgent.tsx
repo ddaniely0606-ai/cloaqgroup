@@ -174,10 +174,10 @@ function ProcessStep({ step, index }: { step: typeof steps[0]; index: number }) 
         marginBottom: "28px", transition: "border-color 0.3s",
         background: hovered ? "rgba(5,150,105,0.1)" : "transparent",
       }}>
-        <Icon size={20} color={hovered ? "#c4b5fd" : "#34d399"} />
+        <Icon size={20} color={hovered ? "#34d399" : "#34d399"} />
       </div>
 
-      <h3 style={{ fontWeight: 800, fontSize: "1.15rem", color: hovered ? "#e0d4ff" : "#fff", marginBottom: "6px", transition: "color 0.3s" }}>
+      <h3 style={{ fontWeight: 800, fontSize: "1.15rem", color: hovered ? "#d1fae5" : "#fff", marginBottom: "6px", transition: "color 0.3s" }}>
         {step.title}
       </h3>
       <p className="brand-en" style={{ fontSize: "0.65rem", letterSpacing: "0.22em", color: "#34d399", marginBottom: "16px", textTransform: "uppercase" }}>

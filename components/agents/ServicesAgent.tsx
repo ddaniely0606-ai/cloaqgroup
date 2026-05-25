@@ -164,7 +164,7 @@ const ServiceCard = React.forwardRef<
         </span>
       </div>
 
-      <h3 style={{ fontWeight: 800, fontSize: "1.2rem", color: hovered ? "#e0d4ff" : "#fff", marginBottom: "6px", transition: "color 0.3s" }}>
+      <h3 style={{ fontWeight: 800, fontSize: "1.2rem", color: hovered ? "#d1fae5" : "#fff", marginBottom: "6px", transition: "color 0.3s" }}>
         {title}
       </h3>
       <p className="brand-en" style={{ fontSize: "0.7rem", letterSpacing: "0.2em", color: "#34d399", marginBottom: "16px", textTransform: "uppercase" }}>
