@@ -15,7 +15,7 @@ const decorativePills = [
 
 /* ─── Input field with shimmer-border on focus ─── */
 function FormField({
-  label, type, placeholder, required, id, autoComplete,
+  label, type, placeholder, required, id, autoComplete, value, onChange,
 }: {
   label: string;
   type: string;
@@ -23,6 +23,8 @@ function FormField({
   required?: boolean;
   id: string;
   autoComplete?: string;
+  value: string;
+  onChange: (val: string) => void;
 }) {
   const [focused, setFocused] = useState(false);
   return (
@@ -49,7 +51,10 @@ function FormField({
         placeholder={placeholder}
         required={required}
         autoComplete={autoComplete}
+        aria-label={label}
         spellCheck={type === "email" ? false : undefined}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         style={{
           width: "100%",
           background: focused ? "rgba(5,150,105,0.04)" : "transparent",
@@ -82,8 +87,15 @@ export default function ContactAgent() {
   const rightColRef = useRef<HTMLDivElement>(null);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [textareaFocused, setTextareaFocused] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+    honey: "",
+  });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -127,22 +139,38 @@ export default function ContactAgent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(false);
+    setError("");
+
+    // Honeypot check — bots fill this, humans don't
+    if (formData.honey) return;
+
+    // Basic client-side validation
+    if (!formData.name || formData.name.length < 2) {
+      setError("נא להזין שם תקין (לפחות 2 תווים)");
+      return;
+    }
+    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setError("נא להזין כתובת אימייל תקינה");
+      return;
+    }
+    if (!formData.message || formData.message.length < 10) {
+      setError("נא לכתוב הודעה (לפחות 10 תווים)");
+      return;
+    }
+
     setSending(true);
-    const form = formRef.current!;
-    const data = {
-      name: (form.querySelector("#contact-name") as HTMLInputElement).value,
-      email: (form.querySelector("#contact-email") as HTMLInputElement).value,
-      company: (form.querySelector("#contact-company") as HTMLInputElement).value,
-      message: (form.querySelector("textarea") as HTMLTextAreaElement).value,
-    };
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        message: formData.message,
+      }),
     });
     setSending(false);
-    if (res.ok) { setSent(true); } else { setError(true); }
+    if (res.ok) { setSent(true); } else { setError("משהו השתבש. נסו שוב או כתבו לנו ישירות."); }
   };
 
   return (
@@ -238,16 +266,19 @@ export default function ContactAgent() {
           {/* Error banner */}
           <div aria-live="polite">
             {error && (
-              <div style={{
-                marginBottom: "20px",
-                padding: "14px 20px",
-                border: "1px solid rgba(239,68,68,0.35)",
-                borderRadius: "var(--radius-sm)",
-                color: "#fca5a5",
-                fontSize: "0.875rem",
-                background: "rgba(239,68,68,0.06)",
-              }}>
-                משהו השתבש. נסו שוב או כתבו לנו ישירות.
+              <div
+                role="alert"
+                style={{
+                  marginBottom: "20px",
+                  padding: "14px 20px",
+                  border: "1px solid rgba(239,68,68,0.35)",
+                  borderRadius: "var(--radius-sm)",
+                  color: "#fca5a5",
+                  fontSize: "0.875rem",
+                  background: "rgba(239,68,68,0.06)",
+                }}
+              >
+                {error}
               </div>
             )}
 
@@ -273,33 +304,78 @@ export default function ContactAgent() {
                 style={{ display: "flex", flexDirection: "column", gap: "20px" }}
                 aria-label="טופס יצירת קשר"
               >
+                {/* Honeypot — hidden from humans, bots fill it */}
+                <input
+                  type="text"
+                  name="honey"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  autoComplete="off"
+                  style={{ position: "absolute", opacity: 0, pointerEvents: "none", height: 0, overflow: "hidden" }}
+                  value={formData.honey}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, honey: e.target.value }))}
+                />
+
                 <div
                   className="grid-cols-2"
                   style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}
                 >
-                  <FormField label="שם מלא" type="text" placeholder="השם שלך" required id="contact-name" autoComplete="name" />
-                  <FormField label="אימייל" type="email" placeholder="your@email.com" required id="contact-email" autoComplete="email" />
+                  <FormField
+                    label="שם מלא"
+                    type="text"
+                    placeholder="השם שלך"
+                    required
+                    id="contact-name"
+                    autoComplete="name"
+                    value={formData.name}
+                    onChange={(val) => setFormData((prev) => ({ ...prev, name: val }))}
+                  />
+                  <FormField
+                    label="אימייל"
+                    type="email"
+                    placeholder="your@email.com"
+                    required
+                    id="contact-email"
+                    autoComplete="email"
+                    value={formData.email}
+                    onChange={(val) => setFormData((prev) => ({ ...prev, email: val }))}
+                  />
                 </div>
 
-                <FormField label="חברה / מותג" type="text" placeholder="שם החברה שלך" id="contact-company" autoComplete="organization" />
+                <FormField
+                  label="חברה / מותג"
+                  type="text"
+                  placeholder="שם החברה שלך"
+                  id="contact-company"
+                  autoComplete="organization"
+                  value={formData.company}
+                  onChange={(val) => setFormData((prev) => ({ ...prev, company: val }))}
+                />
 
                 {/* Textarea — shimmer-border variant */}
                 <div className="form-field">
-                  <label style={{
-                    display: "block",
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.25em",
-                    textTransform: "uppercase",
-                    color: textareaFocused ? "var(--emerald-light)" : "var(--muted)",
-                    marginBottom: "8px",
-                    transition: "color 0.3s",
-                  }}>
+                  <label
+                    htmlFor="contact-message"
+                    style={{
+                      display: "block",
+                      fontSize: "0.7rem",
+                      letterSpacing: "0.25em",
+                      textTransform: "uppercase",
+                      color: textareaFocused ? "var(--emerald-light)" : "var(--muted)",
+                      marginBottom: "8px",
+                      transition: "color 0.3s",
+                    }}>
                     מה אתם רוצים להשיג?
                   </label>
                   <textarea
+                    id="contact-message"
+                    name="contact-message"
                     required
                     rows={5}
                     placeholder="ספרו לנו על יעדי המותג שלכם..."
+                    aria-label="מה אתם רוצים להשיג?"
+                    value={formData.message}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
                     style={{
                       width: "100%",
                       background: textareaFocused ? "rgba(5,150,105,0.04)" : "transparent",

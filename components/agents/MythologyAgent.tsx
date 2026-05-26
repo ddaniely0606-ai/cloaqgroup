@@ -102,6 +102,7 @@ export default function MythologyAgent() {
         textAlign: "center",
       }}
     >
+      <span className="section-mark">§10 MYTHOLOGY</span>
       {/* ── Atmospheric purple glow ─────────────────────────────── */}
       <div
         aria-hidden="true"

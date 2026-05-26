@@ -185,21 +185,44 @@ export default function StatsAgent() {
         ease: "none",
       });
 
-      /* Per-slide count-up — scrub-driven via onUpdate progress */
+      /* Per-slide count-up — elastic overshoot bounce-in, fires once per slide */
       stats.forEach((stat, i) => {
         const el = numberRefs.current[i];
         if (!el) return;
 
-        const slideStart = i / stats.length;
-        const slideEnd   = (i + 0.55) / stats.length;
+        /* Approximate scroll position where this slide is centred in the viewport:
+           each slide occupies (1/N) of totalSlide scroll distance.
+           "left 60%" maps to when the slide has scrolled ~60% into view.            */
+        const slideScrollFraction = (i + 0.45) / stats.length;
 
         ScrollTrigger.create({
           trigger: outer,
-          start: `${slideStart * 100}% top`,
-          end: `${slideEnd * 100}% top`,
-          scrub: 0.8,
-          onUpdate: (self) => {
-            el.textContent = String(Math.round(self.progress * stat.value));
+          start: `${slideScrollFraction * 100}% top`,
+          once: true,
+          onEnter: () => {
+            const obj = { val: 0 };
+            const target = stat.value;
+
+            /* Phase 1 — overshoot to 112% */
+            gsap.to(obj, {
+              val: target * 1.12,
+              duration: 1.0,
+              ease: "power3.out",
+              onUpdate: () => {
+                if (el) el.textContent = String(Math.round(obj.val));
+              },
+              onComplete: () => {
+                /* Phase 2 — elastic settle to exact target */
+                gsap.to(obj, {
+                  val: target,
+                  duration: 0.4,
+                  ease: "elastic.out(1, 0.5)",
+                  onUpdate: () => {
+                    if (el) el.textContent = String(Math.round(obj.val));
+                  },
+                });
+              },
+            });
           },
         });
       });

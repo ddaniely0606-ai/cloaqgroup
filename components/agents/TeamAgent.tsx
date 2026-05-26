@@ -43,6 +43,15 @@ const team = [
     bio: "יוצרת תוכן שהגיע ל-40M+ צפיות אורגניות. היא לא כותבת תוכן — היא כותבת היסטוריה.",
     gradient: "linear-gradient(135deg, #022c22, #14532d)",
   },
+  {
+    initials: "RM",
+    roleCode: "CXO",
+    name: "רונן מזרחי",
+    nameEn: "Ronen Mizrahi",
+    role: "ראש חווית לקוח",
+    bio: "מעצב חוויות שהופך כל נקודת מגע עם המותג לרגע שלא ישכחו. 8 שנות UX בשירות הנרטיב.",
+    gradient: "linear-gradient(135deg, #0a0d1a, #14532d)",
+  },
 ];
 
 export default function TeamAgent() {
@@ -84,6 +93,7 @@ export default function TeamAgent() {
       className="cv-auto"
       style={{ padding: "120px 40px", background: "var(--bg)" }}
     >
+      <span className="section-mark">§09 TEAM</span>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "72px" }}>
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>

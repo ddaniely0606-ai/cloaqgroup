@@ -1,9 +1,15 @@
 ﻿"use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { PARTICLES_DESKTOP, PARTICLES_MOBILE } from "@/lib/animation";
 
 export default function ParticleCanvas() {
   const mountRef = useRef<HTMLDivElement>(null);
+
+  const count = useMemo(() => {
+    if (typeof window === "undefined") return PARTICLES_DESKTOP;
+    return window.innerWidth >= 768 ? PARTICLES_DESKTOP : PARTICLES_MOBILE;
+  }, []);
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -23,8 +29,7 @@ export default function ParticleCanvas() {
     mountRef.current.appendChild(renderer.domElement);
     camera.position.z = 2.5;
 
-    // Main purple particle field
-    const count = 7000;
+    // Main particle field — count is LOD-based (desktop: 7000, mobile: 2000)
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
 

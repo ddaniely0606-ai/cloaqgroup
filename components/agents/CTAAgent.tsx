@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function CTAAgent() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const primaryBtnRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -19,9 +20,22 @@ export default function CTAAgent() {
     return () => ctx.revert();
   }, []);
 
+  const handlePrimaryEnter = useCallback(() => {
+    const btn = primaryBtnRef.current;
+    if (!btn) return;
+    gsap.to(btn, { scale: 1.04, boxShadow: "0 0 40px rgba(5,150,105,0.5)", duration: 0.3 });
+  }, []);
+
+  const handlePrimaryLeave = useCallback(() => {
+    const btn = primaryBtnRef.current;
+    if (!btn) return;
+    gsap.to(btn, { scale: 1, boxShadow: "none", duration: 0.3 });
+  }, []);
+
   return (
     <section
       ref={sectionRef}
+      className="cv-auto"
       style={{
         padding: "140px 40px",
         background: "var(--bg)",
@@ -30,6 +44,7 @@ export default function CTAAgent() {
         textAlign: "center",
       }}
     >
+      <span className="section-mark">§12 CTA</span>
       {/* Background radial glow */}
       <div style={{
         position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)",
@@ -58,12 +73,35 @@ export default function CTAAgent() {
         padding: "72px 64px",
         boxShadow: "0 24px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04)",
       }}>
-        <p style={{
-          color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em",
-          textTransform: "uppercase", marginBottom: "24px",
+        {/* Scarcity badge */}
+        <div className="pulse-glow" style={{
+          display: "inline-flex",
+          padding: "6px 14px",
+          border: "1px solid rgba(52,211,153,0.3)",
+          background: "rgba(5,150,105,0.08)",
+          borderRadius: "999px",
+          fontSize: "0.75rem",
+          color: "#6ee7b7",
+          letterSpacing: "0.05em",
+          marginBottom: "16px",
+          animation: "pulse-glow 3s ease-in-out infinite",
         }}>
-          YOUR LEGEND STARTS HERE
-        </p>
+          3 מקומות פנויים ברבעון הנוכחי
+        </div>
+
+        {/* Pulse animation keyframes */}
+        <style>{`
+          @keyframes pulse-glow {
+            0%, 100% {
+              opacity: 1;
+              box-shadow: 0 0 0 0 rgba(52,211,153,0);
+            }
+            50% {
+              opacity: 0.85;
+              box-shadow: 0 0 12px rgba(52,211,153,0.4);
+            }
+          }
+        `}</style>
 
         <h2 style={{
           fontWeight: 900,
@@ -72,27 +110,42 @@ export default function CTAAgent() {
           color: "#fff",
           marginBottom: "32px",
         }}>
-          הגיע הזמן להפוך את{" "}
+          זה לא לכולם — האם אתם{" "}
           <span style={{
             background: "linear-gradient(135deg, #6ee7b7, #34d399, #059669)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           }}>
-            המותג שלך
+            מוכנים?
           </span>
-          {" "}למיתוס.
         </h2>
 
         <p style={{
           color: "#8a8a9a", fontSize: "1.1rem", lineHeight: 1.7,
-          marginBottom: "52px", maxWidth: "560px", margin: "0 auto 52px",
+          marginBottom: "36px", maxWidth: "560px", margin: "0 auto 36px",
         }}>
-          240+ מותגים בחרו בנצח על פני ממוצע. המיתוס שלכם ממתין.
+          3 לקוחות חדשים ברבעון. הרשמה אחת פנויה.
         </p>
+
+        {/* Scarcity pill */}
+        <div style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "8px",
+          border: "1px solid rgba(5,150,105,0.4)",
+          padding: "6px 16px",
+          marginBottom: "32px",
+          borderRadius: "2px",
+        }}>
+          <span style={{ fontSize: "0.72rem", color: "#8a8a9a", letterSpacing: "0.1em" }}>
+            ₪0 עד אישור הצעה — ללא התחייבות
+          </span>
+        </div>
 
         <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
           <a
+            ref={primaryBtnRef}
             href="#contact"
             style={{
               padding: "18px 48px",
@@ -103,19 +156,12 @@ export default function CTAAgent() {
               letterSpacing: "0.04em",
               textDecoration: "none",
               border: "1px solid #059669",
-              transition: "background 0.3s, transform 0.2s",
               display: "inline-block",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#15803d";
-              e.currentTarget.style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#059669";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
+            onMouseEnter={handlePrimaryEnter}
+            onMouseLeave={handlePrimaryLeave}
           >
-            התחילו עכשיו
+            בואו נבנה משהו
           </a>
           <a
             href="#work"
@@ -142,7 +188,7 @@ export default function CTAAgent() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            ראו עבודות
+            ראו איך בנינו אגדות
           </a>
         </div>
       </div>

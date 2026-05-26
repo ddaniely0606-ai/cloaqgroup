@@ -15,6 +15,7 @@ interface Project {
   result: string;
   gradient: string;
   gridArea: string;
+  accentColor: string;
 }
 
 const filterOptions: { key: FilterKey; label: string }[] = [
@@ -33,6 +34,7 @@ const projects: Project[] = [
     result: "+380% מכירות תוך 6 חודשים",
     gradient: "linear-gradient(135deg, #052e16 0%, #14532d 100%)",
     gridArea: "span 2 / span 1",
+    accentColor: "rgba(5,150,105,0.03)",
   },
   {
     title: "NovaTech Labs",
@@ -41,6 +43,7 @@ const projects: Project[] = [
     result: "עלות רכישה ירדה ב-60%",
     gradient: "linear-gradient(135deg, #064e3b 0%, #14532d 100%)",
     gridArea: "span 1 / span 1",
+    accentColor: "rgba(6,78,59,0.04)",
   },
   {
     title: "Meridian Apparel",
@@ -49,6 +52,7 @@ const projects: Project[] = [
     result: "40M צפיות אורגניות",
     gradient: "linear-gradient(135deg, #065f46 0%, #1a1a2e 100%)",
     gridArea: "span 1 / span 1",
+    accentColor: "rgba(6,95,70,0.04)",
   },
   {
     title: "Apex Realty",
@@ -57,6 +61,7 @@ const projects: Project[] = [
     result: "₪12M פייפליין חדש מ-SEO",
     gradient: "linear-gradient(135deg, #022c22 0%, #0d0d18 100%)",
     gridArea: "span 1 / span 2",
+    accentColor: "rgba(2,44,34,0.05)",
   },
   {
     title: "Solstice Beauty",
@@ -65,6 +70,7 @@ const projects: Project[] = [
     result: "×4 בעוקבים תוך 90 יום",
     gradient: "linear-gradient(135deg, #052e16 0%, #14532d 100%)",
     gridArea: "span 1 / span 1",
+    accentColor: "rgba(5,46,22,0.04)",
   },
 ];
 
@@ -97,8 +103,15 @@ const PortfolioCard = React.memo(function PortfolioCard({
   return (
     <div
       className="portfolio-item"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      data-cursor="view"
+      onMouseEnter={() => {
+        setHovered(true);
+        document.documentElement.style.setProperty("--portfolio-accent", project.accentColor);
+      }}
+      onMouseLeave={() => {
+        setHovered(false);
+        document.documentElement.style.setProperty("--portfolio-accent", "transparent");
+      }}
       style={{
         gridArea: project.gridArea,
         position: "relative",
@@ -260,8 +273,9 @@ export default function PortfolioAgent() {
       id="work"
       ref={sectionRef}
       className="cv-auto"
-      style={{ padding: "120px 40px", background: "var(--bg2)" }}
+      style={{ padding: "120px 40px", background: "var(--bg2)", transition: "background 0.6s ease" }}
     >
+      <span className="section-mark">§07 WORK</span>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div
           ref={headingRef}

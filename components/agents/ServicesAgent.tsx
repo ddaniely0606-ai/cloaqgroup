@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Target, TrendingUp, PenTool, Search, Share2, Film } from "lucide-react";
+import { Target, TrendingUp, PenTool, Search, Share2, Film, ChevronDown } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useTextScramble } from "@/hooks/useTextScramble";
 
 gsap.registerPlugin(ScrollTrigger);
 

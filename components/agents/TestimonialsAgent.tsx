@@ -60,8 +60,10 @@ export default function TestimonialsAgent() {
   return (
     <section
       ref={sectionRef}
+      className="cv-auto"
       style={{ padding: "120px 0", background: "var(--bg2)", overflow: "hidden" }}
     >
+      <span className="section-mark">§08 TESTIMONIALS</span>
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 40px", marginBottom: "60px" }}>
         <div ref={headingRef}>
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
