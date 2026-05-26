@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { gsap } from "gsap";
+import MagneticWrapper from "@/components/ui/MagneticWrapper";
 
 const ParticleCanvas = dynamic(() => import("./ParticleCanvas"), { ssr: false });
 
@@ -9,17 +10,76 @@ const ParticleCanvas = dynamic(() => import("./ParticleCanvas"), { ssr: false })
 const MYTHOS_LETTERS = "MYTHOS".split("");
 const AGENCY_LETTERS = "AGENCY".split("");
 
+const TICKER_STATS = ["240+ מותגים", "₪85M+ מנוהל", "380% צמיחה ממוצעת"];
+
+// SVG viewBox width for the underline
+const AGENCY_UNDERLINE_WIDTH = 520;
+
 export default function HeroAgent() {
+  const sectionRef = useRef<HTMLElement>(null);
   const mythosRef = useRef<HTMLDivElement>(null);
   const agencyRef = useRef<HTMLDivElement>(null);
+  const agencyWrapRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const sublineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollLineRef = useRef<HTMLDivElement>(null);
+  const parallaxLayerRef = useRef<HTMLDivElement>(null);
+  const underlinePathRef = useRef<SVGPathElement>(null);
+  const tickerRef = useRef<HTMLDivElement>(null);
+
+  // Parallax quickTo refs — stored outside state to avoid rerenders
+  const mythosQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  const mythosQY = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  const agencyQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  const agencyQY = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  const layerQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  const layerQY = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+
+  // Ticker state
+  const [tickerIndex, setTickerIndex] = useState(0);
+  const tickerIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Hero parallax on mousemove
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const rect = section.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / rect.width; // -0.5 to 0.5
+    const dy = (e.clientY - cy) / rect.height;
+
+    // Letters move opposite to cursor (depth illusion)
+    mythosQX.current?.(-dx * 18);
+    mythosQY.current?.(-dy * 10);
+    agencyQX.current?.(-dx * 14);
+    agencyQY.current?.(-dy * 8);
+
+    // Parallax layer drifts same direction but slower
+    layerQX.current?.(dx * 30);
+    layerQY.current?.(dy * 18);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Set up quickTo for parallax
+      if (mythosRef.current) {
+        mythosQX.current = gsap.quickTo(mythosRef.current, "x", { duration: 0.6, ease: "power2.out" });
+        mythosQY.current = gsap.quickTo(mythosRef.current, "y", { duration: 0.6, ease: "power2.out" });
+      }
+      if (agencyRef.current) {
+        agencyQX.current = gsap.quickTo(agencyRef.current, "x", { duration: 0.6, ease: "power2.out" });
+        agencyQY.current = gsap.quickTo(agencyRef.current, "y", { duration: 0.6, ease: "power2.out" });
+      }
+      if (parallaxLayerRef.current) {
+        layerQX.current = gsap.quickTo(parallaxLayerRef.current, "x", { duration: 1.0, ease: "power2.out" });
+        layerQY.current = gsap.quickTo(parallaxLayerRef.current, "y", { duration: 1.0, ease: "power2.out" });
+      }
+
       const tl = gsap.timeline({ delay: 0.4 });
 
       const mythosLetters = mythosRef.current!.querySelectorAll(".letter");
@@ -40,12 +100,31 @@ export default function HeroAgent() {
         "-=0.65"
       );
 
+      // SVG underline draw from right-to-left after AGENCY reveal
+      if (underlinePathRef.current) {
+        const totalLength = underlinePathRef.current.getTotalLength();
+        gsap.set(underlinePathRef.current, {
+          strokeDasharray: totalLength,
+          strokeDashoffset: totalLength,
+          opacity: 1,
+        });
+        tl.to(
+          underlinePathRef.current,
+          {
+            strokeDashoffset: 0,
+            duration: 1.0,
+            ease: "power3.inOut",
+          },
+          "-=0.2"
+        );
+      }
+
       // Divider line expand
       tl.fromTo(
         dividerRef.current,
         { scaleX: 0, opacity: 0 },
         { scaleX: 1, opacity: 1, duration: 1.1, ease: "power3.out" },
-        "-=0.25"
+        "-=0.45"
       );
 
       // Hebrew tagline
@@ -72,6 +151,14 @@ export default function HeroAgent() {
         "-=0.3"
       );
 
+      // Ticker bar fade-in
+      tl.fromTo(
+        tickerRef.current,
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+        "-=0.15"
+      );
+
       // Scroll indicator fade-in
       tl.fromTo(
         scrollRef.current,
@@ -80,24 +167,65 @@ export default function HeroAgent() {
         "-=0.1"
       );
 
-      // Continuous scroll indicator pulse
-      gsap.to(scrollRef.current!.querySelector(".scroll-line"), {
-        scaleY: 0.3,
-        opacity: 0.2,
-        duration: 1.1,
-        ease: "power1.inOut",
-        yoyo: true,
-        repeat: -1,
-        transformOrigin: "top center",
+      // Scroll indicator shimmer pulse
+      if (scrollLineRef.current) {
+        gsap.to(scrollLineRef.current, {
+          backgroundPosition: "0% 200%",
+          duration: 1.8,
+          ease: "none",
+          repeat: -1,
+        });
+        // Also pulse opacity
+        gsap.to(scrollLineRef.current, {
+          opacity: 0.3,
+          duration: 1.1,
+          ease: "power1.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+      }
+
+      // Breathing animation on MYTHOS after reveal
+      tl.add(() => {
+        if (mythosRef.current) {
+          gsap.to(mythosRef.current, {
+            scale: 1.005,
+            duration: 4,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+          });
+        }
       });
     });
 
-    return () => ctx.revert();
-  }, []);
+    // Mousemove parallax — passive, scoped to section
+    const section = sectionRef.current;
+    if (section) {
+      section.addEventListener("mousemove", handleMouseMove, { passive: true });
+    }
+
+    // Ticker cycle
+    tickerIntervalRef.current = setInterval(() => {
+      setTickerIndex((prev) => (prev + 1) % TICKER_STATS.length);
+    }, 3000);
+
+    return () => {
+      ctx.revert();
+      if (section) {
+        section.removeEventListener("mousemove", handleMouseMove);
+      }
+      if (tickerIntervalRef.current) {
+        clearInterval(tickerIntervalRef.current);
+      }
+    };
+  }, [handleMouseMove]);
 
   return (
     <section
       id="home"
+      ref={sectionRef}
+      className="cv-auto"
       style={{
         position: "relative",
         height: "100vh",
@@ -111,6 +239,23 @@ export default function HeroAgent() {
     >
       {/* Three.js particle field */}
       <ParticleCanvas />
+
+      {/* Slow-drift parallax decorative layer */}
+      <div
+        ref={parallaxLayerRef}
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          pointerEvents: "none",
+          willChange: "transform",
+          background: [
+            "radial-gradient(ellipse 40% 40% at 20% 30%, rgba(5,150,105,0.07) 0%, transparent 100%)",
+            "radial-gradient(ellipse 35% 35% at 80% 70%, rgba(74,222,128,0.05) 0%, transparent 100%)",
+          ].join(", "),
+        }}
+      />
 
       {/* Atmospheric emerald radial gradients */}
       <div
@@ -197,6 +342,7 @@ export default function HeroAgent() {
               lineHeight: 0.87,
               color: "#ffffff",
               fontFamily: "var(--font-syne)",
+              willChange: "transform",
             }}
           >
             {MYTHOS_LETTERS.map((letter, i) => (
@@ -207,8 +353,8 @@ export default function HeroAgent() {
           </div>
         </div>
 
-        {/* AGENCY — emerald gradient */}
-        <div style={{ overflow: "hidden", perspective: "900px" }}>
+        {/* AGENCY — emerald gradient + SVG underline */}
+        <div ref={agencyWrapRef} style={{ overflow: "hidden", perspective: "900px", position: "relative" }}>
           <div
             ref={agencyRef}
             className="brand-en"
@@ -223,6 +369,7 @@ export default function HeroAgent() {
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
               fontFamily: "var(--font-syne)",
+              willChange: "transform",
             }}
           >
             {AGENCY_LETTERS.map((letter, i) => (
@@ -231,6 +378,41 @@ export default function HeroAgent() {
               </span>
             ))}
           </div>
+
+          {/* Animated SVG underline — draws right to left */}
+          <svg
+            aria-hidden="true"
+            viewBox={`0 0 ${AGENCY_UNDERLINE_WIDTH} 12`}
+            style={{
+              position: "absolute",
+              bottom: "-6px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "min(80%, 520px)",
+              height: "12px",
+              overflow: "visible",
+              pointerEvents: "none",
+            }}
+            preserveAspectRatio="none"
+          >
+            <path
+              ref={underlinePathRef}
+              d={`M${AGENCY_UNDERLINE_WIDTH} 6 C${AGENCY_UNDERLINE_WIDTH * 0.75} 2, ${AGENCY_UNDERLINE_WIDTH * 0.25} 10, 0 6`}
+              fill="none"
+              stroke="url(#underlineGradient)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              opacity="0"
+            />
+            <defs>
+              <linearGradient id="underlineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#4ade80" stopOpacity="0" />
+                <stop offset="30%" stopColor="#4ade80" />
+                <stop offset="70%" stopColor="#059669" />
+                <stop offset="100%" stopColor="#059669" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
 
         {/* Divider */}
@@ -278,7 +460,7 @@ export default function HeroAgent() {
           Where Brands Become Legends
         </p>
 
-        {/* CTA row */}
+        {/* CTA row — wrapped in MagneticWrapper */}
         <div
           ref={ctaRef}
           style={{
@@ -288,13 +470,36 @@ export default function HeroAgent() {
             flexWrap: "wrap",
           }}
         >
-          <HoverButton href="#work" primary>
-            צפו בעבודות
-          </HoverButton>
-          <HoverButton href="#contact" primary={false}>
-            בואו נדבר
-          </HoverButton>
+          <MagneticWrapper strength={0.25}>
+            <HoverButton href="#work" primary>
+              צפו בעבודות
+            </HoverButton>
+          </MagneticWrapper>
+          <MagneticWrapper strength={0.25}>
+            <HoverButton href="#contact" primary={false}>
+              בואו נדבר
+            </HoverButton>
+          </MagneticWrapper>
         </div>
+      </div>
+
+      {/* Stat ticker bar — above scroll indicator */}
+      <div
+        ref={tickerRef}
+        style={{
+          position: "absolute",
+          bottom: "120px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 3,
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          pointerEvents: "none",
+          opacity: 0, // animated in by GSAP
+        }}
+      >
+        <TickerDisplay index={tickerIndex} />
       </div>
 
       {/* Scroll indicator */}
@@ -325,16 +530,68 @@ export default function HeroAgent() {
           SCROLL
         </span>
         <div
-          className="scroll-line"
+          ref={scrollLineRef}
           style={{
             width: "1px",
             height: "58px",
-            background: "linear-gradient(to bottom, #059669, transparent)",
+            background:
+              "linear-gradient(to bottom, #4ade80 0%, #059669 40%, transparent 100%)",
+            backgroundSize: "100% 300%",
+            backgroundPosition: "0% 0%",
             transformOrigin: "top center",
           }}
         />
       </div>
     </section>
+  );
+}
+
+// Ticker stat display with clip-reveal animation
+interface TickerDisplayProps {
+  index: number;
+}
+
+function TickerDisplay({ index }: TickerDisplayProps) {
+  const itemRef = useRef<HTMLSpanElement>(null);
+  const prevIndex = useRef(index);
+
+  useEffect(() => {
+    if (!itemRef.current || prevIndex.current === index) return;
+    prevIndex.current = index;
+
+    const el = itemRef.current;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        el,
+        { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 0.5, ease: "power3.out" }
+      );
+    });
+    return () => ctx.revert();
+  }, [index]);
+
+  return (
+    <span
+      ref={itemRef}
+      style={{
+        fontFamily: "var(--font-syne)",
+        fontSize: "clamp(0.7rem, 1.4vw, 0.85rem)",
+        fontWeight: 600,
+        color: "#4ade80",
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
+        padding: "6px 18px",
+        border: "1px solid rgba(5,150,105,0.3)",
+        background: "rgba(5,150,105,0.08)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        whiteSpace: "nowrap",
+        fontFeatureSettings: '"tnum"',
+      }}
+      className="brand-en"
+    >
+      {TICKER_STATS[index]}
+    </span>
   );
 }
 
