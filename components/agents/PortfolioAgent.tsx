@@ -77,8 +77,10 @@ const projects: Project[] = [
 // ─── PortfolioCard ────────────────────────────────────────────────────────────
 const PortfolioCard = React.memo(function PortfolioCard({
   project,
+  disableGridArea,
 }: {
   project: Project;
+  disableGridArea?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
   const metricRef = useRef<HTMLDivElement>(null);
@@ -113,7 +115,7 @@ const PortfolioCard = React.memo(function PortfolioCard({
         document.documentElement.style.setProperty("--portfolio-accent", "transparent");
       }}
       style={{
-        gridArea: project.gridArea,
+        gridArea: disableGridArea ? undefined : project.gridArea,
         position: "relative",
         overflow: "hidden",
         cursor: "pointer",
@@ -195,6 +197,17 @@ export default function PortfolioAgent() {
   const tabEls = useRef<(HTMLButtonElement | null)[]>([]);
 
   const [filter, setFilter] = useState<FilterKey>("all");
+  const [breakpoint, setBreakpoint] = useState<"mobile" | "tablet" | "desktop">("desktop");
+
+  useEffect(() => {
+    const check = () => {
+      const w = window.innerWidth;
+      setBreakpoint(w < 640 ? "mobile" : w < 1024 ? "tablet" : "desktop");
+    };
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   // Initial heading reveal
   useEffect(() => {
@@ -273,7 +286,7 @@ export default function PortfolioAgent() {
       id="work"
       ref={sectionRef}
       className="cv-auto"
-      style={{ padding: "120px 40px", background: "var(--bg2)", transition: "background 0.6s ease" }}
+      style={{ padding: "clamp(64px, 10vw, 120px) clamp(20px, 4vw, 40px)", background: "var(--bg2)", transition: "background 0.6s ease", position: "relative" }}
     >
       <span className="section-mark">§07 WORK</span>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
@@ -344,14 +357,23 @@ export default function PortfolioAgent() {
           />
         </div>
 
-        {/* Grid */}
+        {/* Grid — responsive columns: 3 desktop, 2 tablet, 1 mobile */}
         <div
           ref={gridRef}
           className="portfolio-grid"
-          style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gridAutoRows: "280px", gap: "8px" }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: breakpoint === "mobile" ? "1fr" : breakpoint === "tablet" ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
+            gridAutoRows: breakpoint === "mobile" ? "220px" : "280px",
+            gap: "8px",
+          }}
         >
           {visible.map((project, i) => (
-            <PortfolioCard key={project.title} project={project} />
+            <PortfolioCard
+              key={project.title}
+              project={project}
+              disableGridArea={breakpoint !== "desktop"}
+            />
           ))}
         </div>
       </div>

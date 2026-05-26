@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AtSign, Link2 } from "lucide-react";
@@ -57,6 +57,14 @@ const team = [
 export default function TeamAgent() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -91,7 +99,7 @@ export default function TeamAgent() {
       id="team"
       ref={sectionRef}
       className="cv-auto"
-      style={{ padding: "120px 40px", background: "var(--bg)" }}
+      style={{ padding: "clamp(64px, 10vw, 120px) clamp(20px, 4vw, 40px)", background: "var(--bg)", position: "relative" }}
     >
       <span className="section-mark">§09 TEAM</span>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
@@ -111,15 +119,16 @@ export default function TeamAgent() {
           className="team-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
             gap: "24px",
           }}
         >
           {team.map((member, i) => {
             // Asymmetric stagger: row 0 → [normal, offset], row 1 → [offset, normal]
+            // Disabled on mobile — offset breaks single-column layout
             const row = Math.floor(i / 2);
             const col = i % 2;
-            const isOffset = (row === 0 && col === 1) || (row === 1 && col === 0);
+            const isOffset = !isMobile && ((row === 0 && col === 1) || (row === 1 && col === 0));
             return (
               <div
                 key={i}

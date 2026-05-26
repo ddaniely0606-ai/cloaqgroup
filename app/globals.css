@@ -953,9 +953,15 @@ section[id] {
   /* Contact form: 2col → 1col */
   .grid-cols-2 { grid-template-columns: 1fr !important; }
 
-  /* Contact split: hide decorative right column, stack to 1col */
+  /* Contact split: stack to 1col — pills show below form as row wrap */
   .contact-split { grid-template-columns: 1fr !important; }
-  .contact-pills-col { display: none !important; }
+  .contact-pills-col {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    margin-top: 32px !important;
+  }
 
   /* Agents panel */
   .agents-panel { display: none !important; }
@@ -1266,29 +1272,23 @@ section[id] {
     grid-template-columns: 1fr !important;
   }
 
-  /* PortfolioAgent → single column */
+  /* PortfolioAgent → single column on mobile, 2col on tablet */
   .portfolio-grid {
     grid-template-columns: 1fr !important;
-    grid-auto-rows: 240px !important;
+    grid-auto-rows: 220px !important;
   }
   .portfolio-item {
     grid-area: unset !important;
   }
+}
 
-  /* ScrollDotNav — hidden on mobile */
-  .scroll-dot-nav {
-    display: none !important;
+@media (min-width: 641px) and (max-width: 1023px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-auto-rows: 280px !important;
   }
-
-  /* FloatingCTA — hidden on mobile */
-  .floating-cta {
-    display: none !important;
-  }
-
-  /* Section padding reduction */
-  section {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+  .portfolio-item {
+    grid-area: unset !important;
   }
 }
 

@@ -14,6 +14,7 @@ const links = [
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -41,6 +42,26 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // GSAP entrance animation for mobile menu
+  useEffect(() => {
+    if (!menuOpen || !menuRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        menuRef.current,
+        { y: -20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.35, ease: "power3.out" }
+      );
+      // Stagger links in
+      const links = menuRef.current!.querySelectorAll("a");
+      gsap.fromTo(
+        links,
+        { x: 20, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.3, stagger: 0.06, ease: "power2.out", delay: 0.1 }
+      );
+    });
+    return () => ctx.revert();
+  }, [menuOpen]);
 
   return (
     <>
@@ -168,7 +189,7 @@ export default function Navbar() {
       <button
         className="md:hidden"
         onClick={() => setMenuOpen(!menuOpen)}
-        style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }}
+        style={{ background: "none", border: "none", cursor: "pointer", padding: "12px", minWidth: "48px", minHeight: "48px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
         aria-label="תפריט"
         aria-expanded={menuOpen}
         aria-controls="mobile-menu"
@@ -194,6 +215,7 @@ export default function Navbar() {
       {menuOpen && (
         <div
           id="mobile-menu"
+          ref={menuRef}
           style={{
             position: "absolute",
             top: "100%",
@@ -201,7 +223,9 @@ export default function Navbar() {
             right: 0,
             background: "rgba(5,5,8,0.97)",
             backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
             padding: "32px 40px",
+            paddingBottom: "max(32px, calc(32px + env(safe-area-inset-bottom)))",
             display: "flex",
             flexDirection: "column",
             gap: "24px",

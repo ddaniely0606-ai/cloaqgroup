@@ -238,9 +238,10 @@ export default function HeroAgent() {
       });
     });
 
-    // Mousemove parallax — passive, scoped to section
+    // Mousemove parallax — passive, scoped to section; disabled on touch devices
     const section = sectionRef.current;
-    if (section) {
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (section && !isTouch) {
       section.addEventListener("mousemove", handleMouseMove, { passive: true });
     }
 

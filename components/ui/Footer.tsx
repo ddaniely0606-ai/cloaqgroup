@@ -16,6 +16,14 @@ export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const [showBackTop, setShowBackTop] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -61,7 +69,7 @@ export default function Footer() {
         style={{ borderTop: "1px solid rgba(5,150,105,0.15)", padding: "80px 40px 40px", background: "var(--bg)" }}
       >
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "60px", marginBottom: "64px" }} className="footer-grid">
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "2fr 1fr 1fr", gap: isMobile ? "40px" : "60px", marginBottom: "64px" }} className="footer-grid">
 
             {/* Brand column */}
             <div>
@@ -202,10 +210,12 @@ export default function Footer() {
         aria-label="חזרה למעלה"
         style={{
           position: "fixed",
-          bottom: "32px",
+          bottom: "max(32px, calc(32px + env(safe-area-inset-bottom)))",
           left: "32px",
-          width: "44px",
-          height: "44px",
+          width: "48px",
+          height: "48px",
+          minWidth: "48px",
+          minHeight: "48px",
           border: "1px solid #059669",
           background: "rgba(5,5,8,0.85)",
           display: "flex",

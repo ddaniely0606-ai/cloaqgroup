@@ -89,6 +89,7 @@ export default function ContactAgent() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
   const [textareaFocused, setTextareaFocused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -96,6 +97,13 @@ export default function ContactAgent() {
     message: "",
     honey: "",
   });
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -178,7 +186,7 @@ export default function ContactAgent() {
       id="contact"
       ref={sectionRef}
       className="cv-auto contact-bg"
-      style={{ padding: "120px 40px", position: "relative", overflow: "hidden" }}
+      style={{ padding: "clamp(64px, 10vw, 120px) clamp(20px, 4vw, 40px)", position: "relative", overflow: "hidden" }}
     >
       <span className="section-mark">§13 CONTACT</span>
       {/* ── Atmospheric layered background ─────────────────────────────── */}
@@ -223,6 +231,7 @@ export default function ContactAgent() {
           margin: "0 auto",
           position: "relative",
           zIndex: 1,
+          gridTemplateColumns: isMobile ? "1fr" : "3fr 2fr",
         }}
       >
 
@@ -469,9 +478,11 @@ export default function ContactAgent() {
           className="contact-pills-col"
           style={{
             display: "flex",
-            flexDirection: "column",
-            gap: "24px",
+            flexDirection: isMobile ? "row" : "column",
+            flexWrap: isMobile ? "wrap" : "nowrap",
+            gap: isMobile ? "12px" : "24px",
             position: "relative",
+            marginTop: isMobile ? "32px" : "0",
           }}
         >
           {/* Ambient glow behind pills */}
