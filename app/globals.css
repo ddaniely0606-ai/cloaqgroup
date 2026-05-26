@@ -31,7 +31,7 @@
   /* ── Typography tokens ── */
   --text:           #eef0f4;        /* primary readable text */
   --text-secondary: #aab0be;        /* body paragraphs, captions */
-  --muted:          #5a6070;        /* placeholder, disabled */
+  --muted:          #8a90a0;        /* placeholder, disabled — WCAG AA at 14px+ on dark bg */
   --on-emerald:     #ffffff;        /* text on emerald surfaces */
 
   /* ── Border tokens ── */
@@ -94,7 +94,7 @@
   --secondary:               #0c1120;
   --secondary-foreground:    #aab0be;
   --muted-bg:                #0c1120;
-  --muted-foreground:        #5a6070;
+  --muted-foreground:        #8a90a0;
   --accent:                  #059669;
   --accent-foreground:       #ffffff;
   --destructive:             oklch(0.577 0.245 27.325);
@@ -130,6 +130,15 @@
   --grain-opacity:  0.035;
   --shimmer-speed:  3s;
   --aurora-speed:   22s;
+
+  /* ── Purple accent (MythologyAgent) ── */
+  --purple:       #7c3aed;
+  --purple-light: #a78bfa;
+  --purple-glow:  rgba(124, 58, 237, 0.2);
+  --purple-dim:   rgba(124, 58, 237, 0.08);
+
+  /* ── Section anchor offset ── */
+  --nav-height: 80px;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -172,6 +181,10 @@ body {
 
 @media (pointer: coarse) {
   body { cursor: auto; }
+}
+
+section[id] {
+  scroll-margin-top: var(--nav-height);
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -703,6 +716,37 @@ body {
   animation: border-shine 3s linear infinite;
 }
 
+@keyframes float-x {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(12px); }
+}
+
+@keyframes blur-in {
+  from { filter: blur(12px); opacity: 0; }
+  to   { filter: blur(0);    opacity: 1; }
+}
+
+@keyframes weight-breathe {
+  0%, 100% { font-variation-settings: 'wght' 400; }
+  50%       { font-variation-settings: 'wght' 800; }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { transform: scale(1);   opacity: 0.5; }
+  50%       { transform: scale(1.6); opacity: 1;   }
+}
+
+@keyframes magnetic-bounce {
+  0%, 100% { transform: translateY(0);  }
+  40%       { transform: translateY(-8px); }
+  60%       { transform: translateY(-4px); }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 100% { opacity: 1;   }
+  20%, 22%, 24%                 { opacity: 0.4; }
+}
+
 /* ════════════════════════════════════════════════════════════
    BUTTON SYSTEM
    ════════════════════════════════════════════════════════════ */
@@ -990,6 +1034,104 @@ body {
 }
 
 /* ════════════════════════════════════════════════════════════
+   ATMOSPHERIC DEPTH UTILITIES
+   ════════════════════════════════════════════════════════════ */
+
+.atmo-hero {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%,   rgba(5,150,105,0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%,  rgba(5,150,105,0.07) 0%, transparent 55%),
+    conic-gradient(from 180deg at 50% 50%, rgba(5,150,105,0.03) 0deg, transparent 90deg, rgba(5,150,105,0.02) 180deg, transparent 360deg),
+    var(--bg);
+}
+
+.atmo-alt {
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 50%,   rgba(5,150,105,0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 85% 20%,   rgba(124,58,237,0.06) 0%, transparent 60%),
+    var(--bg2);
+}
+
+.atmo-gold {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%,   rgba(196,154,60,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 10% 80%,   rgba(5,150,105,0.08) 0%, transparent 60%),
+    var(--bg);
+}
+
+.atmo-contact {
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 40%,   rgba(5,150,105,0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 90% 60%,   rgba(196,154,60,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 100%, rgba(5,150,105,0.05) 0%, transparent 50%),
+    var(--bg2);
+}
+
+/* ── Text utilities ── */
+.text-outline-emerald {
+  -webkit-text-stroke: 1px var(--emerald-light);
+  color: transparent;
+}
+
+.text-outline-white {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+  color: transparent;
+}
+
+.text-shimmer-gold {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)) 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: text-shimmer var(--shimmer-speed) linear infinite;
+}
+
+.gradient-emerald {
+  background: linear-gradient(135deg, #34d399, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section identity mark ── */
+.section-code {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  font-family: var(--font-syne);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--emerald-light);
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Touch device optimisations ── */
+@media (pointer: coarse) {
+  .services-3d-card {
+    transform: none !important;
+  }
+  [data-magnetic] {
+    transform: none !important;
+  }
+}
+
+/* ── Blur-in animation class ── */
+.blur-in {
+  animation: blur-in 0.8s var(--ease-out) both;
+}
+
+/* ════════════════════════════════════════════════════════════
    TAILWIND v4 THEME INLINE BRIDGE
    ════════════════════════════════════════════════════════════ */
 
@@ -1085,4 +1227,127 @@ body {
   html {
     @apply font-sans;
   }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE LAYOUT FIXES
+   ════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* ContactAgent split → single column */
+  .contact-split {
+    grid-template-columns: 1fr !important;
+  }
+  .contact-pills-col {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    margin-top: 32px !important;
+  }
+
+  /* TeamAgent → single column */
+  .team-grid {
+    grid-template-columns: 1fr !important;
+  }
+  /* Reset asymmetric offsets on mobile */
+  .team-grid > div {
+    margin-top: 0 !important;
+  }
+
+  /* Footer grid → single column */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  /* ServicesAgent → single column */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* PortfolioAgent → single column */
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: 240px !important;
+  }
+  .portfolio-item {
+    grid-area: unset !important;
+  }
+
+  /* ScrollDotNav — hidden on mobile */
+  .scroll-dot-nav {
+    display: none !important;
+  }
+
+  /* FloatingCTA — hidden on mobile */
+  .floating-cta {
+    display: none !important;
+  }
+
+  /* Section padding reduction */
+  section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Stats grid on very small screens */
+  .stats-mobile-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ════════════════════════════════════════════════════════════ */
+
+/* Skip nav link */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 12px 24px;
+  background: var(--emerald);
+  color: white;
+  font-family: var(--font-heebo);
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s;
+}
+.skip-nav:focus {
+  top: 0;
+}
+
+/* Visible focus rings for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--emerald-light);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Remove focus ring for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Tap targets — min 48×48px on touch */
+@media (pointer: coarse) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* iOS safe area insets */
+.navbar-inner {
+  padding-right: max(40px, env(safe-area-inset-right));
+  padding-left: max(40px, env(safe-area-inset-left));
+}
+
+.whatsapp-btn-wrap {
+  bottom: max(32px, calc(32px + env(safe-area-inset-bottom)));
 }

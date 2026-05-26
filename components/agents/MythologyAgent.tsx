@@ -113,7 +113,7 @@ export default function MythologyAgent() {
           width: "900px",
           height: "600px",
           background:
-            "radial-gradient(ellipse, rgba(124,58,237,0.18) 0%, transparent 65%)",
+            "radial-gradient(ellipse, var(--purple-glow) 0%, transparent 65%)",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -129,7 +129,7 @@ export default function MythologyAgent() {
           right: 0,
           height: "1px",
           background:
-            "linear-gradient(to right, transparent, rgba(124,58,237,0.4), transparent)",
+            "linear-gradient(to right, transparent, color-mix(in srgb, var(--purple) 40%, transparent), transparent)",
         }}
       />
 
@@ -143,7 +143,7 @@ export default function MythologyAgent() {
           right: 0,
           height: "1px",
           background:
-            "linear-gradient(to right, transparent, rgba(124,58,237,0.4), transparent)",
+            "linear-gradient(to right, transparent, color-mix(in srgb, var(--purple) 40%, transparent), transparent)",
         }}
       />
 
@@ -162,7 +162,7 @@ export default function MythologyAgent() {
           letterSpacing: "0.1em",
           lineHeight: 1,
           color: "transparent",
-          WebkitTextStroke: "1px rgba(124,58,237,0.12)",
+          WebkitTextStroke: "1px color-mix(in srgb, var(--purple) 12%, transparent)",
           pointerEvents: "none",
           userSelect: "none",
           whiteSpace: "nowrap",
@@ -260,9 +260,9 @@ export default function MythologyAgent() {
             transition: "background 0.3s, transform 0.25s, box-shadow 0.3s",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#6d28d9";
+            e.currentTarget.style.background = "color-mix(in srgb, var(--purple) 85%, #000)";
             e.currentTarget.style.transform = "translateY(-3px)";
-            e.currentTarget.style.boxShadow = "0 12px 36px rgba(124,58,237,0.45)";
+            e.currentTarget.style.boxShadow = "0 12px 36px color-mix(in srgb, var(--purple) 45%, transparent)";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = "var(--purple)";
