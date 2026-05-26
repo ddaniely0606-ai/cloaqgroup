@@ -722,8 +722,8 @@ section[id] {
 }
 
 @keyframes blur-in {
-  from { filter: blur(12px); opacity: 0; }
-  to   { filter: blur(0);    opacity: 1; }
+  from { filter: blur(12px); opacity: 0; transform: translateY(20px); }
+  to   { filter: blur(0);    opacity: 1; transform: translateY(0);    }
 }
 
 @keyframes weight-breathe {
@@ -1351,3 +1351,54 @@ section[id] {
 .whatsapp-btn-wrap {
   bottom: max(32px, calc(32px + env(safe-area-inset-bottom)));
 }
+
+/* ── Text scramble utility ── */
+.scramble-text { font-variant-numeric: tabular-nums; }
+
+/* ── Section identity mark ── */
+.section-mark {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-family: var(--font-syne, sans-serif);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: rgba(52,211,153,0.3);
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+}
+
+/* ── Aleph watermark ── */
+.aleph-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  font-size: 42vw;
+  line-height: 1;
+  font-weight: 900;
+  color: rgba(52,211,153,0.012);
+  -webkit-text-stroke: 1px rgba(52,211,153,0.025);
+  will-change: transform;
+}
+
+/* ── 47-sec tour button ── */
+.tour-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(52,211,153,0.4);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  transition: color 0.3s;
+  padding: 4px 8px;
+}
+.tour-btn:hover { color: #34d399; }
+
+/* ── Floating CTA y-init ── */
+.floating-cta-pill { transform: translateX(-50%) translateY(-10px); }

@@ -6,6 +6,8 @@
 
 import LenisProvider from "@/components/providers/LenisProvider";
 import Navbar from "@/components/ui/Navbar";
+import AlephWatermark from "@/components/ui/AlephWatermark";
+import KonamiEasterEgg from "@/components/ui/KonamiEasterEgg";
 import HeroAgent from "@/components/agents/HeroAgent";
 import LogoStripAgent from "@/components/agents/LogoStripAgent";
 import StatsAgent from "@/components/agents/StatsAgent";
@@ -32,6 +34,7 @@ export default function Home() {
   return (
     <LenisProvider>
     <main className="grain">
+      <AlephWatermark />
       {/* ── Global chrome ─────────────────────────────────────────── */}
       <CursorAgent />
       <Preloader />
@@ -118,6 +121,7 @@ export default function Home() {
       {/* ── Utilities ─────────────────────────────────────────────── */}
       <AgentsPanel />
       <WhatsAppButton />
+      <KonamiEasterEgg />
     </main>
     </LenisProvider>
   );
