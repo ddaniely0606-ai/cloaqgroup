@@ -174,33 +174,23 @@ export default function StatsAgent() {
         ease: "none",
       });
 
-      /* Per-slide count-up using scrub progress */
+      /* Per-slide count-up — scrub-driven via onUpdate progress */
       stats.forEach((stat, i) => {
         const el = numberRefs.current[i];
         if (!el) return;
 
         const slideStart = i / stats.length;
-        const slideCenter = (i + 0.5) / stats.length;
+        const slideEnd   = (i + 0.55) / stats.length;
 
-        const proxy = { val: 0 };
-        gsap.fromTo(
-          proxy,
-          { val: 0 },
-          {
-            val: stat.value,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: outer,
-              start: `${slideStart * 100}% top`,
-              end: `${slideCenter * 100}% top`,
-              scrub: 0.8,
-              onUpdate: (self) => {
-                el.textContent = String(Math.round(self.progress * stat.value));
-              },
-            },
-            duration: 1,
-          }
-        );
+        ScrollTrigger.create({
+          trigger: outer,
+          start: `${slideStart * 100}% top`,
+          end: `${slideEnd * 100}% top`,
+          scrub: 0.8,
+          onUpdate: (self) => {
+            el.textContent = String(Math.round(self.progress * stat.value));
+          },
+        });
       });
 
       /* Slide-in animations for labels — each slide fades in as it enters */
