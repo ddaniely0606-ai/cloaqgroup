@@ -42,6 +42,12 @@ const stats = [
   },
 ];
 
+/* ─── Hebrew number formatter ───────────────────────────────────────────── */
+function formatStat(val: number, suffix: string): string {
+  if (suffix.includes("M") || suffix.includes("מ")) return suffix;
+  return `${Math.round(val).toLocaleString("he-IL")}${suffix}`;
+}
+
 /* ─── Mobile fallback card ──────────────────────────────────────────────── */
 function MobileStatCard({ stat }: { stat: typeof stats[0] }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -59,17 +65,22 @@ function MobileStatCard({ stat }: { stat: typeof stats[0] }) {
     return () => observer.disconnect();
   }, []);
 
+  /* Elastic count-up via GSAP — overshoot 10% then settle */
   useEffect(() => {
     if (!active) return;
-    let start = 0;
     const target = stat.value;
-    const step = target / (1800 / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { setCount(target); clearInterval(timer); }
-      else setCount(Math.floor(start));
-    }, 16);
-    return () => clearInterval(timer);
+    const obj = { val: 0 };
+
+    const ctx = gsap.context(() => {
+      gsap.to(obj, {
+        val: target,
+        duration: 2.2,
+        ease: "elastic.out(1, 0.3)",
+        onUpdate: () => setCount(Math.round(obj.val)),
+      });
+    });
+
+    return () => ctx.revert();
   }, [active, stat.value]);
 
   return (
