@@ -196,7 +196,9 @@ export default function ProcessAgent() {
       // SVG timeline draw — scrub on scroll
       const svgLine = svgLineRef.current;
       if (svgLine) {
-        const totalLength = svgLine.getTotalLength ? svgLine.getTotalLength() : 600;
+        let totalLength = 600;
+        try { totalLength = svgLine.getTotalLength(); } catch (_) {}
+        if (!totalLength) totalLength = 600;
         gsap.set(svgLine, { strokeDasharray: totalLength, strokeDashoffset: totalLength });
         gsap.to(svgLine, {
           strokeDashoffset: 0,

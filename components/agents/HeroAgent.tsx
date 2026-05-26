@@ -160,7 +160,9 @@ export default function HeroAgent() {
 
       // SVG underline draw from right-to-left after AGENCY reveal
       if (underlinePathRef.current) {
-        const totalLength = underlinePathRef.current.getTotalLength();
+        let totalLength = 200;
+        try { totalLength = underlinePathRef.current.getTotalLength(); } catch (_) {}
+        if (!totalLength) totalLength = 200;
         gsap.set(underlinePathRef.current, {
           strokeDasharray: totalLength,
           strokeDashoffset: totalLength,

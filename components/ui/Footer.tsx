@@ -66,7 +66,9 @@ export default function Footer() {
   useEffect(() => {
     const path = signatureRef.current;
     if (!path) return;
-    const length = path.getTotalLength();
+    let length = 400;
+    try { length = path.getTotalLength(); } catch (_) {}
+    if (!length) length = 400;
     gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
     const trigger = ScrollTrigger.create({
       trigger: path,
