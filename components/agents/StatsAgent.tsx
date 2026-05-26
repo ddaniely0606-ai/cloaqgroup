@@ -328,6 +328,7 @@ export default function StatsAgent() {
       {/* Sticky viewport container */}
       <div
         ref={stickyRef}
+        data-cursor="drag"
         style={{
           position: "sticky",
           top: 0,

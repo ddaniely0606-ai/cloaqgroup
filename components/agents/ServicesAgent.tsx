@@ -85,10 +85,13 @@ const ServiceCard = React.forwardRef<
     else if (forwardedRef) forwardedRef.current = el;
   };
 
-  // Tilt + shine
+  // Tilt + shine — disabled on touch devices
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
+
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) return;
 
     // GSAP quickTo for smooth tilt
     const qRotX = gsap.quickTo(card, "rotateX", { duration: 0.4, ease: "power2.out" });
@@ -319,7 +322,7 @@ export default function ServicesAgent() {
       id="services"
       ref={sectionRef}
       className="cv-auto"
-      style={{ padding: "120px 40px", background: "var(--bg)", position: "relative" }}
+      style={{ padding: "clamp(64px, 10vw, 120px) clamp(20px, 4vw, 40px)", background: "var(--bg)", position: "relative" }}
     >
       {/* §05 Section identity mark */}
       <span
@@ -358,7 +361,7 @@ export default function ServicesAgent() {
         </div>
 
         {/* Perspective wrapper for 3D tilt */}
-        <div style={{ perspective: "1000px", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1px", background: "rgba(5,150,105,0.12)" }}>
+        <div className="services-grid" style={{ perspective: "1000px", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))", gap: "1px", background: "rgba(5,150,105,0.12)" }}>
           {services.map((service, i) => {
             const Icon = service.icon;
             return (
