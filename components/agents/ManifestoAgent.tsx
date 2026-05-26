@@ -6,10 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const lines = [
-  { en: "MYTH", he: "מיתוס לא נבנה בפרסומות. הוא נחרת בתודעה." },
-  { en: "STORY", he: "הסיפור הנכון ממיר גוללים ללקוחות." },
-  { en: "LEGACY", he: "מורשת היא הנכס היחיד שמתחזק עם הזמן." },
-  { en: "SCALE", he: "סקייל בלי בסיס הוא רעש. אנחנו בונים את שניהם." },
+  { en: "STRATEGY", he: "אסטרטגיה", desc: "אנחנו לא יוצרים מודעות. אנחנו בונים רגשות שמוכרים." },
+  { en: "CREATION", he: "יצירה", desc: "כל פיקסל שלנו יושב על מחקר. כל מילה — על כוונה." },
+  { en: "PERFORMANCE", he: "ביצועים", desc: "הביצועים שלנו מדידים. המורשת שלנו — לא." },
+  { en: "LEGACY", he: "מורשת", desc: "הלקוחות שלנו לא קונים שירות. הם קונים עתיד." },
 ];
 
 export default function ManifestoAgent() {
@@ -54,6 +54,25 @@ export default function ManifestoAgent() {
         overflow: "hidden",
       }}
     >
+      {/* §04 Section identity mark */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "24px",
+          left: "24px",
+          fontFamily: "var(--font-syne)",
+          fontSize: "0.6rem",
+          letterSpacing: "0.3em",
+          color: "rgba(52,211,153,0.3)",
+          textTransform: "uppercase",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      >
+        §04 MANIFESTO
+      </span>
+
       {/* Atmospheric left glow */}
       <div style={{
         position: "absolute", top: "30%", right: "-5%",
@@ -115,9 +134,15 @@ export default function ManifestoAgent() {
               <h3 style={{
                 fontWeight: 900, fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
                 color: "#ffffff", lineHeight: 1.15,
+                marginBottom: "16px",
               }}>
                 {line.he}
               </h3>
+              <p style={{
+                color: "#8a8a9a", fontSize: "0.9rem", lineHeight: 1.6,
+              }}>
+                {line.desc}
+              </p>
             </div>
           ))}
         </div>
@@ -131,25 +156,19 @@ export default function ManifestoAgent() {
             lineHeight: 1.05,
             marginBottom: "32px",
           }}>
-            אנחנו לא מריצים{" "}
+            אנחנו{" "}
             <span style={{
               background: "linear-gradient(135deg, #6ee7b7, #34d399, #059669)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
             }}>
-              קמפיינים.
+              נגד קמפיינים גנריים.
             </span>
             <br />
-            אנחנו הופכים מותגים{" "}
-            <span style={{ color: "#ffffff" }}>למיתוסים.</span>
+            נגד תקציבים מבוזבזים. נגד שיווק{" "}
+            <span style={{ color: "#ffffff" }}>שאף אחד לא זוכר.</span>
           </h2>
-          <p style={{
-            color: "#8a8a9a", fontSize: "1.1rem", lineHeight: 1.8,
-            maxWidth: "620px",
-          }}>
-            כל מותג שפועל בשוק הישראלי יכול לבחור: להיות נשכח, או להפוך למיתוס. Mythos בנויה לאלה שבוחרים נצח.
-          </p>
         </div>
       </div>
     </section>

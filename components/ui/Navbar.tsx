@@ -13,12 +13,26 @@ const links = [
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(navRef.current, { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.6 });
+
+      // Logo heartbeat — subtle scale pulse every ~7.5s
+      if (logoRef.current) {
+        gsap.to(logoRef.current, {
+          scale: 1.02,
+          duration: 0.25,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+          repeatDelay: 7,
+          transformOrigin: "left center",
+        });
+      }
     }, navRef);
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -29,8 +43,14 @@ export default function Navbar() {
   }, []);
 
   return (
+    <>
+    <a href="#hero" className="skip-nav">
+      דלג לתוכן הראשי
+    </a>
     <nav
+      id="navbar"
       ref={navRef}
+      aria-label="תפריט ניווט ראשי"
       style={{
         position: "fixed",
         top: 0,
@@ -51,6 +71,7 @@ export default function Navbar() {
       {/* Logo */}
       <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
         <Image
+          ref={logoRef}
           src="/logo.jpg"
           alt="Mythos Agency"
           width={130}
@@ -83,6 +104,41 @@ export default function Navbar() {
         ))}
       </div>
 
+      {/* 47-second page tour */}
+      <button
+        onClick={() => {
+          window.scrollTo({ top: 0 });
+          const startTime = performance.now();
+          const totalHeight = document.body.scrollHeight - window.innerHeight;
+          const duration = 47000;
+          const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+            window.scrollTo(0, ease * totalHeight);
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }}
+        className="hidden md:block"
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          color: "rgba(52,211,153,0.45)",
+          fontSize: "0.65rem",
+          letterSpacing: "0.25em",
+          fontFamily: "var(--font-syne, sans-serif)",
+          transition: "color 0.3s",
+          padding: "4px 8px",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#34d399")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(52,211,153,0.45)")}
+        aria-label="סיור 47 שניות בדף"
+      >
+        47 SEC TOUR
+      </button>
+
       <a
         href="#contact"
         className="hidden md:block"
@@ -114,6 +170,8 @@ export default function Navbar() {
         onClick={() => setMenuOpen(!menuOpen)}
         style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }}
         aria-label="תפריט"
+        aria-expanded={menuOpen}
+        aria-controls="mobile-menu"
       >
         {[0, 1, 2].map((i) => (
           <div
@@ -135,6 +193,7 @@ export default function Navbar() {
 
       {menuOpen && (
         <div
+          id="mobile-menu"
           style={{
             position: "absolute",
             top: "100%",
@@ -167,5 +226,6 @@ export default function Navbar() {
         </div>
       )}
     </nav>
+    </>
   );
 }

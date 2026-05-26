@@ -237,6 +237,25 @@ export default function StatsAgent() {
           position: "relative",
         }}
       >
+        {/* §03 Section identity mark */}
+        <span
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: "24px",
+            left: "24px",
+            fontFamily: "var(--font-syne)",
+            fontSize: "0.6rem",
+            letterSpacing: "0.3em",
+            color: "rgba(52,211,153,0.3)",
+            textTransform: "uppercase",
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+        >
+          §03 STATS
+        </span>
+
         <div style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -264,6 +283,25 @@ export default function StatsAgent() {
         overflow: "hidden",
       }}
     >
+      {/* §03 Section identity mark */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "24px",
+          left: "24px",
+          fontFamily: "var(--font-syne)",
+          fontSize: "0.6rem",
+          letterSpacing: "0.3em",
+          color: "rgba(52,211,153,0.3)",
+          textTransform: "uppercase",
+          pointerEvents: "none",
+          zIndex: 11,
+        }}
+      >
+        §03 STATS
+      </span>
+
       {/* Sticky viewport container */}
       <div
         ref={stickyRef}

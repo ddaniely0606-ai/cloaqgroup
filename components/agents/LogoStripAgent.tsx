@@ -18,7 +18,8 @@ export default function LogoStripAgent() {
   const doubledRow2 = [...clients.slice(5), ...clients, ...clients];
 
   return (
-    <div
+    <section
+      className="cv-auto"
       style={{
         padding: "32px 0",
         background: "var(--bg2)",
@@ -28,6 +29,25 @@ export default function LogoStripAgent() {
         position: "relative",
       }}
     >
+      {/* §02 Section identity mark */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "24px",
+          left: "24px",
+          fontFamily: "var(--font-syne)",
+          fontSize: "0.6rem",
+          letterSpacing: "0.3em",
+          color: "rgba(52,211,153,0.3)",
+          textTransform: "uppercase",
+          pointerEvents: "none",
+          zIndex: 3,
+        }}
+      >
+        §02 LOGOS
+      </span>
+
       {/* Edge fades */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none",
@@ -102,6 +122,6 @@ export default function LogoStripAgent() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

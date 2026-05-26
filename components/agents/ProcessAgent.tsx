@@ -211,6 +211,25 @@ export default function ProcessAgent() {
       className="cv-auto"
       style={{ padding: "120px 40px", background: "var(--bg2)", position: "relative", overflow: "hidden" }}
     >
+      {/* §06 Section identity mark */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "24px",
+          left: "24px",
+          fontFamily: "var(--font-syne)",
+          fontSize: "0.6rem",
+          letterSpacing: "0.3em",
+          color: "rgba(52,211,153,0.3)",
+          textTransform: "uppercase",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      >
+        §06 PROCESS
+      </span>
+
       {/* Background radial */}
       <div style={{
         position: "absolute", top: "50%", right: "-10%", transform: "translateY(-50%)",

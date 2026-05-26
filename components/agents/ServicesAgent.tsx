@@ -14,6 +14,7 @@ const services = [
     title: "אסטרטגיית מותג",
     titleEn: "Brand Strategy",
     desc: "אנחנו בונים זהויות מותג שלא רק בולטות — הן הופכות לבלתי נשכחות. מהמיצוב ועד לקול המותג.",
+    metric: "+380% ממוצע Brand Lift",
   },
   {
     icon: TrendingUp,
@@ -21,6 +22,7 @@ const services = [
     title: "פרסום ממומן",
     titleEn: "Paid Advertising",
     desc: "קמפיינים ממוקדי לייזר שהופכים תקציב פרסום לצמיחה אמיתית — Meta, Google, TikTok ועוד.",
+    metric: "-60% עלות רכישה",
   },
   {
     icon: PenTool,
@@ -28,6 +30,7 @@ const services = [
     title: "יצירת תוכן",
     titleEn: "Content Creation",
     desc: "מקונספט ועד ביצוע — כל נכס מוכן לתפוס את תשומת הלב וּלהחזיק בה.",
+    metric: "40M+ צפיות אורגניות",
   },
   {
     icon: Search,
@@ -35,6 +38,7 @@ const services = [
     title: "שליטה ב-SEO",
     titleEn: "SEO Domination",
     desc: "אנחנו מציבים את המותג שלך בראש תוצאות החיפוש — ושומרים אותו שם.",
+    metric: "#1 על גוגל לענף",
   },
   {
     icon: Share2,
@@ -42,6 +46,7 @@ const services = [
     title: "רשתות חברתיות",
     titleEn: "Social Media",
     desc: "נוכחות חברתית אסטרטגית שבונה קהלים ממעורבים ומהפכת עוקבים ללקוחות.",
+    metric: "×4 עוקבים ב-90 יום",
   },
   {
     icon: Film,
@@ -49,14 +54,15 @@ const services = [
     title: "שיווק וידאו",
     titleEn: "Video Marketing",
     desc: "סרטי מותג קולנועיים ופרסומות וידאו שמעצרות גוללים במקום.",
+    metric: "×8 שיעור מעורבות",
   },
 ];
 
 // ─── ServiceCard ──────────────────────────────────────────────────────────────
 const ServiceCard = React.forwardRef<
   HTMLDivElement,
-  { icon: LucideIcon; number: string; title: string; titleEn: string; desc: string }
->(({ icon: Icon, number, title, titleEn, desc }, forwardedRef) => {
+  { icon: LucideIcon; number: string; title: string; titleEn: string; desc: string; metric: string }
+>(({ icon: Icon, number, title, titleEn, desc, metric }, forwardedRef) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const shineRef = useRef<HTMLDivElement>(null);
 
@@ -174,6 +180,9 @@ const ServiceCard = React.forwardRef<
       <p className="brand-en" style={{ fontSize: "0.7rem", letterSpacing: "0.2em", color: "#34d399", marginBottom: "16px", textTransform: "uppercase" }}>
         {titleEn}
       </p>
+      <p style={{ color: "#c4b341", fontSize: "0.75rem", fontWeight: 700, marginBottom: "16px" }}>
+        {metric}
+      </p>
       <p style={{ color: "#8a8a9a", fontSize: "0.9rem", lineHeight: 1.7 }}>
         {desc}
       </p>
@@ -238,8 +247,27 @@ export default function ServicesAgent() {
       id="services"
       ref={sectionRef}
       className="cv-auto"
-      style={{ padding: "120px 40px", background: "var(--bg)" }}
+      style={{ padding: "120px 40px", background: "var(--bg)", position: "relative" }}
     >
+      {/* §05 Section identity mark */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "24px",
+          left: "24px",
+          fontFamily: "var(--font-syne)",
+          fontSize: "0.6rem",
+          letterSpacing: "0.3em",
+          color: "rgba(52,211,153,0.3)",
+          textTransform: "uppercase",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      >
+        §05 SERVICES
+      </span>
+
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "72px" }}>
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
@@ -270,6 +298,7 @@ export default function ServicesAgent() {
                 title={service.title}
                 titleEn={service.titleEn}
                 desc={service.desc}
+                metric={service.metric}
               />
             );
           })}

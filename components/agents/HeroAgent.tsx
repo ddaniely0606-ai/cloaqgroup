@@ -4,6 +4,14 @@ import dynamic from "next/dynamic";
 import { gsap } from "gsap";
 import MagneticWrapper from "@/components/ui/MagneticWrapper";
 
+// Rotating subline copy — cycles every 4 seconds
+const SUBLINES = [
+  "אנחנו הופכים מותגים לבלתי ניתנים להתעלמות.",
+  "240 לקוחות. ₪85M מנוהל. אפס קמפיינים גנריים.",
+  "SEO, תוכן, מיתוג — הכל תחת קורת גג אחת.",
+  "אם אתם כאן, כנראה שאתם מחפשים משהו שלא מצאתם.",
+];
+
 const ParticleCanvas = dynamic(() => import("./ParticleCanvas"), { ssr: false });
 
 // Hoisted outside component — stable reference, no rerender cost
@@ -22,7 +30,6 @@ export default function HeroAgent() {
   const agencyWrapRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
-  const sublineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrollLineRef = useRef<HTMLDivElement>(null);
@@ -41,6 +48,10 @@ export default function HeroAgent() {
   // Ticker state
   const [tickerIndex, setTickerIndex] = useState(0);
   const tickerIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Subline rotation state
+  const [sublineIndex, setSublineIndex] = useState(0);
+  const sublineIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Hero parallax on mousemove
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -135,14 +146,6 @@ export default function HeroAgent() {
         "-=0.55"
       );
 
-      // English sub-line
-      tl.fromTo(
-        sublineRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
-        "-=0.45"
-      );
-
       // CTA row
       tl.fromTo(
         ctaRef.current,
@@ -210,6 +213,11 @@ export default function HeroAgent() {
       setTickerIndex((prev) => (prev + 1) % TICKER_STATS.length);
     }, 3000);
 
+    // Subline rotation cycle — 4s interval, GSAP clip-path handled in SublineDisplay
+    sublineIntervalRef.current = setInterval(() => {
+      setSublineIndex((prev) => (prev + 1) % SUBLINES.length);
+    }, 4000);
+
     return () => {
       ctx.revert();
       if (section) {
@@ -217,6 +225,9 @@ export default function HeroAgent() {
       }
       if (tickerIntervalRef.current) {
         clearInterval(tickerIntervalRef.current);
+      }
+      if (sublineIntervalRef.current) {
+        clearInterval(sublineIntervalRef.current);
       }
     };
   }, [handleMouseMove]);
@@ -237,6 +248,25 @@ export default function HeroAgent() {
         background: "var(--bg)",
       }}
     >
+      {/* §01 Section identity mark */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "24px",
+          left: "24px",
+          fontFamily: "var(--font-syne)",
+          fontSize: "0.6rem",
+          letterSpacing: "0.3em",
+          color: "rgba(52,211,153,0.3)",
+          textTransform: "uppercase",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      >
+        §01 HERO
+      </span>
+
       {/* Three.js particle field */}
       <ParticleCanvas />
 
@@ -443,22 +473,8 @@ export default function HeroAgent() {
           מותגים הופכים למיתוסים.
         </p>
 
-        {/* English sub-line */}
-        <p
-          ref={sublineRef}
-          className="brand-en"
-          style={{
-            fontSize: "clamp(0.75rem, 1.5vw, 0.9rem)",
-            fontWeight: 400,
-            color: "#4ade80",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            marginBottom: "52px",
-            fontFamily: "var(--font-syne)",
-          }}
-        >
-          Where Brands Become Legends
-        </p>
+        {/* Rotating Hebrew subline */}
+        <SublineDisplay index={sublineIndex} />
 
         {/* CTA row — wrapped in MagneticWrapper */}
         <div
@@ -543,6 +559,80 @@ export default function HeroAgent() {
         />
       </div>
     </section>
+  );
+}
+
+// ─── SublineDisplay ──────────────────────────────────────────────────────────
+// Clips out old line, clips in new line via GSAP clipPath animation
+interface SublineDisplayProps {
+  index: number;
+}
+
+function SublineDisplay({ index }: SublineDisplayProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const currentRef = useRef<HTMLParagraphElement>(null);
+  const prevIndex = useRef(index);
+
+  useEffect(() => {
+    if (!currentRef.current) return;
+    const isFirstRender = prevIndex.current === index && index === 0;
+
+    if (isFirstRender) {
+      // First render — just clip in immediately
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          currentRef.current,
+          { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+          { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 0.6, ease: "power3.out" }
+        );
+      });
+      return () => ctx.revert();
+    }
+
+    if (prevIndex.current === index) return;
+    prevIndex.current = index;
+
+    const el = currentRef.current;
+    const ctx = gsap.context(() => {
+      // Clip out the outgoing text (already replaced by React), then clip in the new
+      gsap.fromTo(
+        el,
+        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
+        { clipPath: "inset(0 0% 0 0)", opacity: 1, duration: 0.6, ease: "power3.out" }
+      );
+    });
+    return () => ctx.revert();
+  }, [index]);
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        height: "2.2em",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: "52px",
+      }}
+    >
+      <p
+        ref={currentRef}
+        style={{
+          fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+          fontWeight: 500,
+          color: "#f5f5f7",
+          letterSpacing: "0.02em",
+          margin: 0,
+          fontFamily: "var(--font-heebo)",
+          textAlign: "center",
+          direction: "rtl",
+          clipPath: "inset(0 100% 0 0)",
+        }}
+      >
+        {SUBLINES[index]}
+      </p>
+    </div>
   );
 }
 
