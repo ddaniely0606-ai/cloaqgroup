@@ -63,6 +63,27 @@ export default function Navbar() {
     return () => ctx.revert();
   }, [menuOpen]);
 
+  // Task 5: Focus trap for mobile menu
+  useEffect(() => {
+    if (!menuOpen || !menuRef.current) return;
+    const focusable = menuRef.current.querySelectorAll<HTMLElement>("a, button");
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first?.focus();
+
+    const trap = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setMenuOpen(false); return; }
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener("keydown", trap);
+    return () => document.removeEventListener("keydown", trap);
+  }, [menuOpen]);
+
   return (
     <>
     <a href="#hero" className="skip-nav">
@@ -216,6 +237,9 @@ export default function Navbar() {
         <div
           id="mobile-menu"
           ref={menuRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="תפריט ניווט"
           style={{
             position: "absolute",
             top: "100%",

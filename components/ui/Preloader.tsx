@@ -36,6 +36,9 @@ export default function Preloader() {
   return (
     <div
       ref={overlayRef}
+      role="status"
+      aria-live="polite"
+      aria-label="הדף בטעינה"
       style={{
         position: "fixed", inset: 0, zIndex: 9999,
         background: "#050508",

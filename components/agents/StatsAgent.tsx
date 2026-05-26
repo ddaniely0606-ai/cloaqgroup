@@ -162,7 +162,11 @@ function MobileStatCard({ stat, ringPercent }: { stat: typeof stats[0]; ringPerc
           }}
         >
           {stat.prefix && <span style={{ color: "var(--emerald-light)", fontSize: "0.6em" }}>{stat.prefix}</span>}
-          <span>{count}</span>
+          <span
+            aria-live="polite"
+            aria-atomic="true"
+            aria-label={`${count}${stat.suffix} ${stat.label}`}
+          >{count}</span>
           <span style={{ color: "var(--emerald-light)", fontSize: "0.65em" }}>{stat.suffix}</span>
         </div>
       </div>
@@ -515,7 +519,12 @@ export default function StatsAgent() {
                         {stat.prefix}
                       </span>
                     )}
-                    <span ref={(el) => { numberRefs.current[i] = el; }}>0</span>
+                    <span
+                      ref={(el) => { numberRefs.current[i] = el; }}
+                      aria-live="polite"
+                      aria-atomic="true"
+                      aria-label={`${stat.value}${stat.suffix} ${stat.label}`}
+                    >0</span>
                     <span style={{ color: "var(--emerald-light)", fontSize: "0.45em", verticalAlign: "middle", marginInlineStart: "2px" }}>
                       {stat.suffix}
                     </span>
