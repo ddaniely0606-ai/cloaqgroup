@@ -165,6 +165,7 @@ function TeamCard({ member }: { member: typeof team[0] }) {
   return (
     <div
       className="team-card"
+      data-cursor="view"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

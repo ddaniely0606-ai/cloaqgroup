@@ -54,6 +54,31 @@ export default function ManifestoAgent() {
         overflow: "hidden",
       }}
     >
+      {/* Animated gradient background — cinematic atmosphere */}
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        background: "linear-gradient(135deg, #020408 0%, #04080f 30%, #02060b 60%, #050a10 100%)",
+        zIndex: 0,
+      }} />
+      {/* Animated aurora layer */}
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        background: "radial-gradient(ellipse 120% 80% at 20% 50%, rgba(5,150,105,0.08) 0%, transparent 60%), radial-gradient(ellipse 80% 120% at 80% 50%, rgba(124,58,237,0.06) 0%, transparent 60%)",
+        animation: "aurora-drift 18s ease-in-out infinite alternate",
+        zIndex: 0,
+      }} />
+      {/* Grain overlay */}
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E\")",
+        zIndex: 0,
+        opacity: 0.4,
+        pointerEvents: "none",
+      }} />
+
       {/* §04 Section identity mark */}
       <span
         aria-hidden="true"
@@ -79,15 +104,17 @@ export default function ManifestoAgent() {
         width: "500px", height: "600px",
         background: "radial-gradient(ellipse, rgba(5,150,105,0.12) 0%, transparent 65%)",
         pointerEvents: "none",
+        zIndex: 0,
       }} />
 
       {/* Horizontal rule top */}
       <div style={{
         position: "absolute", top: 0, left: 0, right: 0, height: "1px",
         background: "linear-gradient(to right, transparent, rgba(5,150,105,0.3), transparent)",
+        zIndex: 1,
       }} />
 
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 1 }}>
 
         {/* Kicker */}
         <p style={{

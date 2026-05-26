@@ -100,6 +100,34 @@ export default function TestimonialsAgent() {
 }
 
 const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
+  const starsRef = useRef<HTMLDivElement>(null);
+  const animatedRef = useRef(false);
+
+  useEffect(() => {
+    const el = starsRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animatedRef.current) {
+          animatedRef.current = true;
+          const ctx = gsap.context(() => {
+            gsap.fromTo(
+              Array.from(el.children),
+              { opacity: 0, scale: 0.5 },
+              { opacity: 1, scale: 1, stagger: 0.08, duration: 0.25, ease: "back.out(2)" }
+            );
+          });
+          return () => ctx.revert();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       className="quote-highlight"
@@ -114,9 +142,9 @@ const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof t
         WebkitBackdropFilter: "blur(24px) saturate(1.6)",
         boxShadow: "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
       }}>
-      <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
+      <div ref={starsRef} style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
         {Array(5).fill(0).map((_, i) => (
-          <Star key={i} size={14} fill="#059669" color="#059669" />
+          <Star key={i} size={14} fill="#059669" color="#059669" style={{ opacity: 0 }} />
         ))}
       </div>
       <p style={{ color: "#c4c4d4", fontSize: "0.9rem", lineHeight: 1.7, marginBottom: "20px" }}>
@@ -124,7 +152,9 @@ const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof t
       </p>
       <div>
         <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>{t.name}</p>
-        <p className="brand-en" style={{ color: "#34d399", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>{t.company}</p>
+        <span style={{ fontSize: "0.65rem", color: "var(--emerald)", letterSpacing: "0.15em", textTransform: "uppercase" }}>
+          {t.company}
+        </span>
       </div>
     </div>
   );
