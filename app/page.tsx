@@ -95,6 +95,17 @@ export default function Home() {
       {/* Animation: scale 0.92→1, opacity 0→1, stagger 0.1s         */}
       <TeamAgent />
 
+      {/* ── Origin Story ──────────────────────────────────────────── */}
+      {/* Origin Story */}
+      <section id="origin" style={{ padding: "80px 40px", maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
+        <span style={{ color: "rgba(52,211,153,0.5)", fontSize: "0.65rem", letterSpacing: "0.3em", display: "block", marginBottom: "24px" }}>§ HAI ZE HITCHIL</span>
+        <blockquote style={{ fontSize: "1.25rem", lineHeight: 1.8, color: "#c4c4d4", fontStyle: "normal" }}>
+          &ldquo;בשנת 2019, דניאל ישב בקפה בתל אביב ושאל שאלה פשוטה:<br />
+          <em style={{ color: "#fff", fontStyle: "normal" }}>למה מותגים ישראלים לא יכולים להיות מיתוסים?</em><br />
+          שלוש שנים אחר כך — 240 לקוחות. ₪85M מנוהל. תשובה אחת: <span style={{ color: "var(--emerald-light)" }}>כן, יכולים.</span>&rdquo;
+        </blockquote>
+      </section>
+
       {/* ── 10  MYTHOLOGY CHAMBER ─────────────────────────────────── */}
       {/* NEW SECTION — full-bleed cinematic "become a myth" moment    */}
       {/* Large background word "MYTHOS" in outline text, parallax    */}
