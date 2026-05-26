@@ -6,10 +6,26 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const lines = [
-  { en: "STRATEGY", he: "אסטרטגיה", desc: "אנחנו לא יוצרים מודעות. אנחנו בונים רגשות שמוכרים." },
-  { en: "CREATION", he: "יצירה", desc: "כל פיקסל שלנו יושב על מחקר. כל מילה — על כוונה." },
-  { en: "PERFORMANCE", he: "ביצועים", desc: "הביצועים שלנו מדידים. המורשת שלנו — לא." },
-  { en: "LEGACY", he: "מורשת", desc: "הלקוחות שלנו לא קונים שירות. הם קונים עתיד." },
+  {
+    label: "01",
+    he: "אנחנו לא יוצרים מודעות",
+    desc: "אנחנו בונים רגשות שמוכרים. כל קמפיין שלנו יושב על מחקר עמוק — לא על אינטואיציה.",
+  },
+  {
+    label: "02",
+    he: "כל פיקסל יושב על כוונה",
+    desc: "כל מילה, כל צבע, כל תמונה — נבחרו בכוונה. שיווק גנרי? זה לא מה שאנחנו עושים.",
+  },
+  {
+    label: "03",
+    he: "הביצועים מדידים. המורשת — לא.",
+    desc: "ROI ברור, נתונים שקופים, תוצאות שאפשר לראות. אבל מה שנשאר אחרי הקמפיין — זה המיתוס.",
+  },
+  {
+    label: "04",
+    he: "הלקוחות שלנו לא קונים שירות",
+    desc: "הם קונים עתיד. שותפות ארוכת טווח עם סוכנות שמחויבת להצלחה שלכם כמו שלה.",
+  },
 ];
 
 export default function ManifestoAgent() {
@@ -149,14 +165,14 @@ export default function ManifestoAgent() {
                 color: "rgba(5,150,105,0.06)", lineHeight: 1,
                 fontFamily: "var(--font-syne)", pointerEvents: "none", userSelect: "none",
               }}>
-                0{i + 1}
+                {line.label}
               </span>
 
               <p className="brand-en" style={{
                 fontSize: "0.65rem", letterSpacing: "0.4em", color: "#34d399",
                 textTransform: "uppercase", marginBottom: "20px",
               }}>
-                {line.en}
+                {line.label}
               </p>
               <h3 style={{
                 fontWeight: 900, fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
@@ -172,6 +188,26 @@ export default function ManifestoAgent() {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Enemy framing banner */}
+        <div style={{
+          marginTop: "48px",
+          borderTop: "1px solid rgba(196,154,60,0.15)",
+          borderBottom: "1px solid rgba(196,154,60,0.15)",
+          padding: "32px",
+          textAlign: "center",
+        }}>
+          <p style={{
+            fontFamily: "var(--font-syne)",
+            fontSize: "1.2rem",
+            letterSpacing: "0.05em",
+            color: "rgba(196,154,60,0.8)",
+            lineHeight: 1.6,
+            margin: 0,
+          }}>
+            &ldquo;אנחנו נגד קמפיינים גנריים. נגד תקציבים מבוזבזים. נגד שיווק שאף אחד לא זוכר.&rdquo;
+          </p>
         </div>
 
         {/* Closing statement */}

@@ -51,6 +51,17 @@ export default function HeroAgent() {
   const mythosGhostQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
   const agencyGhostQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
 
+  // UTM-aware sub-headline
+  const [utmSubline, setUtmSubline] = useState<string | null>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get("src") || params.get("utm_source");
+    if (src === "linkedin") setUtmSubline("היי, אנשי לינקדאין — שמחים שהגעתם.");
+    else if (src === "facebook" || src === "fb") setUtmSubline("היי, חברים מפייסבוק — אתם במקום הנכון.");
+    else if (src === "google") setUtmSubline("מצאתם אותנו בגוגל — עוד מיליון אנשים כבר יודעים למה.");
+  }, []);
+
   // Ticker state
   const [tickerIndex, setTickerIndex] = useState(0);
   const tickerIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -560,6 +571,7 @@ export default function HeroAgent() {
         {/* Hebrew tagline */}
         <p
           ref={taglineRef}
+          className="hero-headline-breathe"
           style={{
             fontSize: "clamp(1.05rem, 2.4vw, 1.35rem)",
             fontWeight: 600,

@@ -5,6 +5,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ─── Ring config ────────────────────────────────────────────────────────── */
+// Target fill percentages per stat
+const RING_PERCENTS = [85, 72, 92, 98];
+const FULL_DASH = 2 * Math.PI * 52; // ≈ 326.73 for desktop r=52
+const FULL_DASH_MOBILE = 2 * Math.PI * 34; // ≈ 213.63 for mobile r=34
+
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 const stats = [
   {
@@ -49,8 +55,9 @@ function formatStat(val: number, suffix: string): string {
 }
 
 /* ─── Mobile fallback card ──────────────────────────────────────────────── */
-function MobileStatCard({ stat }: { stat: typeof stats[0] }) {
+function MobileStatCard({ stat, ringPercent }: { stat: typeof stats[0]; ringPercent: number }) {
   const ref = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<SVGCircleElement>(null);
   const [active, setActive] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -70,6 +77,8 @@ function MobileStatCard({ stat }: { stat: typeof stats[0] }) {
     if (!active) return;
     const target = stat.value;
     const obj = { val: 0 };
+    const ring = ringRef.current;
+    const targetOffset = FULL_DASH_MOBILE * (1 - ringPercent / 100);
 
     const ctx = gsap.context(() => {
       gsap.to(obj, {
@@ -78,10 +87,16 @@ function MobileStatCard({ stat }: { stat: typeof stats[0] }) {
         ease: "elastic.out(1, 0.3)",
         onUpdate: () => setCount(Math.round(obj.val)),
       });
+      if (ring) {
+        gsap.fromTo(ring,
+          { strokeDashoffset: FULL_DASH_MOBILE },
+          { strokeDashoffset: targetOffset, duration: 2.2, ease: "power3.out" }
+        );
+      }
     });
 
     return () => ctx.revert();
-  }, [active, stat.value]);
+  }, [active, stat.value, ringPercent]);
 
   return (
     <div
@@ -107,22 +122,49 @@ function MobileStatCard({ stat }: { stat: typeof stats[0] }) {
       }}>
         {stat.sublabel}
       </p>
-      <div
-        style={{
-          fontSize: "clamp(3.5rem, 14vw, 5rem)",
-          fontWeight: 900,
-          fontFamily: "var(--font-syne)",
-          color: "var(--gold)",
-          lineHeight: 1,
-          marginBottom: "20px",
-          direction: "ltr",
-          position: "relative",
-          textShadow: "0 0 40px rgba(196,154,60,0.40), 0 0 80px rgba(196,154,60,0.15)",
-        }}
-      >
-        {stat.prefix && <span style={{ color: "var(--emerald-light)", fontSize: "0.6em" }}>{stat.prefix}</span>}
-        <span>{count}</span>
-        <span style={{ color: "var(--emerald-light)", fontSize: "0.65em" }}>{stat.suffix}</span>
+      {/* Number with SVG ring behind */}
+      <div style={{ position: "relative", display: "inline-block", marginBottom: "20px" }}>
+        <svg
+          width="80"
+          height="80"
+          viewBox="0 0 80 80"
+          aria-hidden="true"
+          style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", pointerEvents: "none", overflow: "visible" }}
+        >
+          {/* Background ring */}
+          <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(196,154,60,0.15)" strokeWidth="3" />
+          {/* Progress ring */}
+          <circle
+            ref={ringRef}
+            cx="40"
+            cy="40"
+            r="34"
+            fill="none"
+            stroke="var(--gold)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray={FULL_DASH_MOBILE}
+            strokeDashoffset={FULL_DASH_MOBILE}
+            transform="rotate(-90 40 40)"
+            style={{ filter: "drop-shadow(0 0 4px rgba(196,154,60,0.5))" }}
+          />
+        </svg>
+        <div
+          style={{
+            fontSize: "clamp(3.5rem, 14vw, 5rem)",
+            fontWeight: 900,
+            fontFamily: "var(--font-syne)",
+            color: "var(--gold)",
+            lineHeight: 1,
+            direction: "ltr",
+            position: "relative",
+            textShadow: "0 0 40px rgba(196,154,60,0.40), 0 0 80px rgba(196,154,60,0.15)",
+          }}
+        >
+          {stat.prefix && <span style={{ color: "var(--emerald-light)", fontSize: "0.6em" }}>{stat.prefix}</span>}
+          <span>{count}</span>
+          <span style={{ color: "var(--emerald-light)", fontSize: "0.65em" }}>{stat.suffix}</span>
+        </div>
       </div>
       <p style={{ color: "var(--text)", fontWeight: 700, fontSize: "1rem", position: "relative" }}>
         {stat.label}
@@ -138,6 +180,7 @@ export default function StatsAgent() {
   const trackRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const ringRefs = useRef<(SVGCircleElement | null)[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
   /* detect mobile once on client */
@@ -202,6 +245,16 @@ export default function StatsAgent() {
           onEnter: () => {
             const obj = { val: 0 };
             const target = stat.value;
+            const ring = ringRefs.current[i];
+            const targetOffset = FULL_DASH * (1 - RING_PERCENTS[i] / 100);
+
+            /* Animate ring fill in sync with count-up */
+            if (ring) {
+              gsap.fromTo(ring,
+                { strokeDashoffset: FULL_DASH },
+                { strokeDashoffset: targetOffset, duration: 1.4, ease: "power3.out" }
+              );
+            }
 
             /* Phase 1 — overshoot to 112% */
             gsap.to(obj, {
@@ -287,7 +340,7 @@ export default function StatsAgent() {
           margin: "0 auto",
         }}>
           {stats.map((stat, i) => (
-            <MobileStatCard key={i} stat={stat} />
+            <MobileStatCard key={i} stat={stat} ringPercent={RING_PERCENTS[i]} />
           ))}
         </div>
       </section>
@@ -409,29 +462,64 @@ export default function StatsAgent() {
                   {stat.sublabel}
                 </p>
 
-                {/* Giant number */}
-                <div
-                  style={{
-                    fontSize: "clamp(6rem, 20vw, 14rem)",
-                    fontWeight: 900,
-                    fontFamily: "var(--font-syne)",
-                    color: "var(--gold)",
-                    lineHeight: 1,
-                    marginBottom: "32px",
-                    direction: "ltr",
-                    textShadow: "0 0 60px rgba(196,154,60,0.35), 0 0 120px rgba(196,154,60,0.12)",
-                    letterSpacing: "-0.03em",
-                  }}
-                >
-                  {stat.prefix && (
-                    <span style={{ color: "var(--emerald-light)", fontSize: "0.5em", verticalAlign: "middle", marginInlineEnd: "4px" }}>
-                      {stat.prefix}
+                {/* Giant number with radial ring */}
+                <div style={{ position: "relative", display: "inline-block", marginBottom: "32px" }}>
+                  {/* SVG ring — absolutely positioned behind number */}
+                  <svg
+                    width="120"
+                    height="120"
+                    viewBox="0 0 120 120"
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%,-50%)",
+                      pointerEvents: "none",
+                      overflow: "visible",
+                    }}
+                  >
+                    {/* Background ring */}
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(196,154,60,0.15)" strokeWidth="3" />
+                    {/* Progress ring */}
+                    <circle
+                      ref={(el) => { ringRefs.current[i] = el; }}
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="none"
+                      stroke="var(--gold)"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeDasharray={FULL_DASH}
+                      strokeDashoffset={FULL_DASH}
+                      transform="rotate(-90 60 60)"
+                      style={{ filter: "drop-shadow(0 0 6px rgba(196,154,60,0.6))" }}
+                    />
+                  </svg>
+                  <div
+                    style={{
+                      fontSize: "clamp(6rem, 20vw, 14rem)",
+                      fontWeight: 900,
+                      fontFamily: "var(--font-syne)",
+                      color: "var(--gold)",
+                      lineHeight: 1,
+                      direction: "ltr",
+                      textShadow: "0 0 60px rgba(196,154,60,0.35), 0 0 120px rgba(196,154,60,0.12)",
+                      letterSpacing: "-0.03em",
+                      position: "relative",
+                    }}
+                  >
+                    {stat.prefix && (
+                      <span style={{ color: "var(--emerald-light)", fontSize: "0.5em", verticalAlign: "middle", marginInlineEnd: "4px" }}>
+                        {stat.prefix}
+                      </span>
+                    )}
+                    <span ref={(el) => { numberRefs.current[i] = el; }}>0</span>
+                    <span style={{ color: "var(--emerald-light)", fontSize: "0.45em", verticalAlign: "middle", marginInlineStart: "2px" }}>
+                      {stat.suffix}
                     </span>
-                  )}
-                  <span ref={(el) => { numberRefs.current[i] = el; }}>0</span>
-                  <span style={{ color: "var(--emerald-light)", fontSize: "0.45em", verticalAlign: "middle", marginInlineStart: "2px" }}>
-                    {stat.suffix}
-                  </span>
+                  </div>
                 </div>
 
                 {/* Hebrew label */}

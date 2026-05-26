@@ -731,6 +731,16 @@ section[id] {
   50%       { font-variation-settings: 'wght' 800; }
 }
 
+.hero-headline-breathe {
+  animation: weight-breathe 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-headline-breathe {
+    animation: none;
+  }
+}
+
 @keyframes dot-pulse {
   0%, 100% { transform: scale(1);   opacity: 0.5; }
   50%       { transform: scale(1.6); opacity: 1;   }
