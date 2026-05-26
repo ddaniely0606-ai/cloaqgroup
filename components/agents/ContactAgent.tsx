@@ -492,19 +492,6 @@ export default function ContactAgent() {
         </div>
       </div>
 
-      {/* Mobile: hide right column */}
-      <style>{`
-        @media (max-width: 1024px) {
-          #contact [style*="grid-template-columns: 3fr 2fr"] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-        @media (max-width: 1024px) {
-          #contact .stat-pill:nth-child(n) {
-            display: none;
-          }
-        }
-      `}</style>
     </section>
   );
 }

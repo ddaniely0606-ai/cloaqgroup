@@ -840,6 +840,14 @@ body {
     radial-gradient(circle at 95% 50%, rgba(196, 154, 60, 0.06) 0%, transparent 40%);
 }
 
+/* Contact split-screen grid — collapses to 1col on tablet/mobile */
+.contact-split {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 80px;
+  align-items: center;
+}
+
 /* ════════════════════════════════════════════════════════════
    LAYOUT UTILITIES
    ════════════════════════════════════════════════════════════ */
