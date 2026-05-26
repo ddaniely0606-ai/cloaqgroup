@@ -29,6 +29,7 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import ScrollDotNav from "@/components/ui/ScrollDotNav";
 import FloatingCTA from "@/components/ui/FloatingCTA";
 import CursorAgent from "@/components/ui/CursorAgent";
+import ExitIntent from "@/components/ui/ExitIntent";
 
 export default function Home() {
   return (
@@ -122,6 +123,7 @@ export default function Home() {
       <AgentsPanel />
       <WhatsAppButton />
       <KonamiEasterEgg />
+      <ExitIntent />
     </main>
     </LenisProvider>
   );

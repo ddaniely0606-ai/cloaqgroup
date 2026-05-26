@@ -15,8 +15,20 @@ const taglineWords = "WE BUILD BRANDS HISTORY REMEMBERS.".split(" ");
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
+  const signatureRef = useRef<SVGPathElement>(null);
   const [showBackTop, setShowBackTop] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Task 4: time-on-page counter
+  const [elapsed, setElapsed] = useState(0);
+  const startRef = useRef(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - startRef.current) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -48,6 +60,20 @@ export default function Footer() {
     }, footerRef);
 
     return () => ctx.revert();
+  }, []);
+
+  // Task 2: SVG signature stroke animation
+  useEffect(() => {
+    const path = signatureRef.current;
+    if (!path) return;
+    const length = path.getTotalLength();
+    gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+    const trigger = ScrollTrigger.create({
+      trigger: path,
+      start: "top 90%",
+      onEnter: () => gsap.to(path, { strokeDashoffset: 0, duration: 1.5, ease: "power2.out" }),
+    });
+    return () => trigger.kill();
   }, []);
 
   useEffect(() => {
@@ -184,11 +210,42 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Task 2: Handwritten SVG signature */}
+          <svg
+            viewBox="0 0 240 60"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            style={{ width: "180px", height: "45px", margin: "0 auto 24px", display: "block" }}
+          >
+            <path
+              ref={signatureRef}
+              d="M10 45 C15 20, 25 15, 30 30 C35 45, 40 20, 50 25 C60 30, 55 40, 65 35 C75 30, 70 15, 85 20 C100 25, 95 45, 110 40 C120 35, 115 20, 130 25 C145 30, 140 45, 155 42 C165 40, 162 25, 175 28 C188 31, 190 45, 200 42 C210 39, 215 25, 230 30"
+              stroke="rgba(196,154,60,0.6)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+          </svg>
+
           {/* Bottom bar */}
           <div style={{ borderTop: "1px solid rgba(5,150,105,0.12)", paddingTop: "32px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
             <p style={{ color: "#8a8a9a", fontSize: "0.75rem", letterSpacing: "0.1em" }}>
               © {new Date().getFullYear()} MYTHOS AGENCY. כל הזכויות שמורות.
             </p>
+            {/* Task 3: Made in Israel badge */}
+            <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.75rem", letterSpacing: "0.05em" }}>
+              תוצרת ישראל 🇮🇱 &nbsp;|&nbsp; עם ❤️ מתל אביב
+            </span>
+            {/* Task 4: Time on page counter */}
+            <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.7rem" }}>
+              {(() => {
+                const mins = Math.floor(elapsed / 60);
+                const secs = elapsed % 60;
+                return `בילית ${mins > 0 ? `${mins}:${String(secs).padStart(2, "0")}` : `${secs} שניות`} בדף`;
+              })()}
+            </span>
             <p
               ref={taglineRef}
               className="brand-en"

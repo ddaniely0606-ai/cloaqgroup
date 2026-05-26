@@ -1,9 +1,102 @@
 "use client";
 import { useEffect, useRef, useCallback } from "react";
+import * as THREE from "three";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
+/* ─── Gold particle background ───────────────────────────────────────────── */
+function GoldParticles() {
+  const mountRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount) return;
+
+    const isMobile = window.innerWidth < 768;
+    const count = isMobile ? 1200 : 3000;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, mount.clientWidth / mount.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    renderer.setSize(mount.clientWidth, mount.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setClearColor(0x000000, 0);
+    mount.appendChild(renderer.domElement);
+    camera.position.z = 2.5;
+
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+
+    for (let i = 0; i < count; i++) {
+      positions[i * 3]     = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+
+      // Gold color variation
+      const t = Math.random();
+      if (t > 0.7) {
+        // gold-light: #f0c674
+        colors[i * 3] = 0.94; colors[i * 3 + 1] = 0.78; colors[i * 3 + 2] = 0.45;
+      } else if (t > 0.35) {
+        // gold: #c49a3c
+        colors[i * 3] = 0.77; colors[i * 3 + 1] = 0.60; colors[i * 3 + 2] = 0.24;
+      } else {
+        // dim gold
+        colors[i * 3] = 0.50; colors[i * 3 + 1] = 0.38; colors[i * 3 + 2] = 0.12;
+      }
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: 0.012,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.55,
+      sizeAttenuation: true,
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    let animId: number;
+    const clock = new THREE.Clock();
+
+    const animate = () => {
+      animId = requestAnimationFrame(animate);
+      const elapsed = clock.getElapsedTime();
+      particles.rotation.x = elapsed * 0.018;
+      particles.rotation.y = elapsed * 0.028;
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    const handleResize = () => {
+      if (!mount) return;
+      camera.aspect = mount.clientWidth / mount.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(mount.clientWidth, mount.clientHeight);
+    };
+    window.addEventListener("resize", handleResize, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", handleResize);
+      if (mount.contains(renderer.domElement)) {
+        mount.removeChild(renderer.domElement);
+      }
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
+    };
+  }, []);
+
+  return <div ref={mountRef} style={{ position: "absolute", inset: 0, zIndex: 0 }} />;
+}
 
 export default function CTAAgent() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,6 +137,9 @@ export default function CTAAgent() {
         textAlign: "center",
       }}
     >
+      {/* Gold particle field */}
+      <GoldParticles />
+
       <span className="section-mark">§12 CTA</span>
       {/* Background radial glow */}
       <div style={{

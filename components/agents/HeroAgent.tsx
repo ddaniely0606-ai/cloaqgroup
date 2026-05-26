@@ -584,8 +584,36 @@ export default function HeroAgent() {
           מותגים הופכים למיתוסים.
         </p>
 
-        {/* Rotating Hebrew subline */}
-        <SublineDisplay index={sublineIndex} />
+        {/* Rotating Hebrew subline — or UTM-personalized static line */}
+        {utmSubline !== null ? (
+          <div
+            style={{
+              height: "2.2em",
+              overflow: "hidden",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "52px",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+                fontWeight: 500,
+                color: "var(--gold-light, #f0c674)",
+                letterSpacing: "0.02em",
+                margin: 0,
+                fontFamily: "var(--font-heebo)",
+                textAlign: "center",
+                direction: "rtl",
+              }}
+            >
+              {utmSubline}
+            </p>
+          </div>
+        ) : (
+          <SublineDisplay index={sublineIndex} />
+        )}
 
         {/* CTA row — wrapped in MagneticWrapper */}
         <div

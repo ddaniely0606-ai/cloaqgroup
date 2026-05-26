@@ -13,6 +13,7 @@ const steps = [
     title: "גילוי ואבחון",
     titleEn: "Discovery",
     desc: "שיחה עמוקה עם הצוות שלך. אנחנו חופרים לתוך המותג, המתחרים, והקהל שלך — לא מניחים כלום מראש.",
+    detail: "שואלים שאלות שהמתחרים שלכם מפחדים לשאול",
   },
   {
     number: "02",
@@ -20,6 +21,7 @@ const steps = [
     title: "אסטרטגיה ומיצוב",
     titleEn: "Strategy",
     desc: "מסמך אסטרטגיה מותאם אישית: מיצוב, USP, קהל יעד, מפת תחרות — הכל מגובה בנתונים.",
+    detail: "בונים מפה ברורה ממצב קיים למצב רצוי — עם KPIs ריאליים",
   },
   {
     number: "03",
@@ -27,6 +29,7 @@ const steps = [
     title: "קריאייטיב ועיצוב",
     titleEn: "Creative",
     desc: "הפקת נכסי מותג: ויזואלים, וידאו, קופי — כל מה שצריך כדי לשבות את הקהל שלך.",
+    detail: "מייצרים תוכן, עיצוב ומסרים שגורמים לאנשים לעצור ולהקשיב",
   },
   {
     number: "04",
@@ -34,6 +37,7 @@ const steps = [
     title: "השקה והפצה",
     titleEn: "Launch",
     desc: "הפעלת קמפיינים מרובי ערוצים — Meta, Google, TikTok, SEO — עם מוניטורינג בזמן אמת.",
+    detail: "מפעילים את הקמפיין בתזמון מדויק לאורך כל הערוצים הנכונים",
   },
   {
     number: "05",
@@ -41,6 +45,7 @@ const steps = [
     title: "מדידה ואופטימיזציה",
     titleEn: "Optimize",
     desc: "דוחות שבועיים שקופים. A/B טסטים, הורדת CAC, הגדלת ROAS — נתונים שמספרים את הסיפור האמיתי.",
+    detail: "מנתחים נתונים בזמן אמת ומשנים מה שצריך — ללא אגו",
   },
   {
     number: "06",
@@ -48,6 +53,7 @@ const steps = [
     title: "צמיחה וסקייל",
     titleEn: "Scale",
     desc: "כשמוצאים את הנוסחה המנצחת, מכפילים אותה. מגדילים תקציבים, פותחים שווקים חדשים, בונים לטווח ארוך.",
+    detail: "לא עוצרים עד שהתוצאות מדברות בשבילנו — ואז מכפילים",
   },
 ];
 
@@ -163,6 +169,9 @@ function ProcessStep({ step, index }: { step: typeof steps[0]; index: number }) 
       </p>
       <p style={{ fontSize: "0.9rem", color: hovered ? "#c4c4d4" : "#8a8a9a", lineHeight: 1.7, transition: "color 0.3s" }}>
         {step.desc}
+      </p>
+      <p style={{ fontSize: "0.8rem", color: "#8a8a9a", marginTop: "8px", lineHeight: 1.6, fontStyle: "italic" }}>
+        {step.detail}
       </p>
     </div>
   );
