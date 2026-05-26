@@ -36,6 +36,9 @@ export default function HeroAgent() {
   const parallaxLayerRef = useRef<HTMLDivElement>(null);
   const underlinePathRef = useRef<SVGPathElement>(null);
   const tickerRef = useRef<HTMLDivElement>(null);
+  // Ghost layer refs — outline duplicate behind each headline row
+  const mythosGhostRef = useRef<HTMLDivElement>(null);
+  const agencyGhostRef = useRef<HTMLDivElement>(null);
 
   // Parallax quickTo refs — stored outside state to avoid rerenders
   const mythosQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
@@ -44,6 +47,9 @@ export default function HeroAgent() {
   const agencyQY = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
   const layerQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
   const layerQY = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  // Ghost quickTo refs — inverse direction, half strength
+  const mythosGhostQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
+  const agencyGhostQX = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
 
   // Ticker state
   const [tickerIndex, setTickerIndex] = useState(0);
@@ -70,6 +76,10 @@ export default function HeroAgent() {
     agencyQX.current?.(-dx * 14);
     agencyQY.current?.(-dy * 8);
 
+    // Ghost layers — half strength, same direction as foreground (depth offset)
+    mythosGhostQX.current?.(-dx * 8);
+    agencyGhostQX.current?.(-dx * 6);
+
     // Parallax layer drifts same direction but slower
     layerQX.current?.(dx * 30);
     layerQY.current?.(dy * 18);
@@ -90,6 +100,12 @@ export default function HeroAgent() {
         layerQX.current = gsap.quickTo(parallaxLayerRef.current, "x", { duration: 1.0, ease: "power2.out" });
         layerQY.current = gsap.quickTo(parallaxLayerRef.current, "y", { duration: 1.0, ease: "power2.out" });
       }
+      if (mythosGhostRef.current) {
+        mythosGhostQX.current = gsap.quickTo(mythosGhostRef.current, "x", { duration: 0.8, ease: "power2.out" });
+      }
+      if (agencyGhostRef.current) {
+        agencyGhostQX.current = gsap.quickTo(agencyGhostRef.current, "x", { duration: 0.8, ease: "power2.out" });
+      }
 
       const tl = gsap.timeline({ delay: 0.4 });
 
@@ -103,6 +119,16 @@ export default function HeroAgent() {
         { y: 0, opacity: 1, rotateX: 0, duration: 1.1, stagger: 0.065, ease: "power4.out" }
       );
 
+      // Ghost MYTHOS — starts slightly before main (creates depth perception)
+      if (mythosGhostRef.current) {
+        tl.fromTo(
+          mythosGhostRef.current.querySelectorAll("span"),
+          { y: 160, opacity: 0, rotateX: -50, transformOrigin: "50% 100%" },
+          { y: 0, opacity: 1, rotateX: 0, duration: 1.1, stagger: 0.065, ease: "power4.out" },
+          "<-0.1"
+        );
+      }
+
       // AGENCY — offset start for cascade feel
       tl.fromTo(
         agencyLetters,
@@ -110,6 +136,16 @@ export default function HeroAgent() {
         { y: 0, opacity: 1, rotateX: 0, duration: 1.0, stagger: 0.06, ease: "power4.out" },
         "-=0.65"
       );
+
+      // Ghost AGENCY — trails slightly behind AGENCY reveal
+      if (agencyGhostRef.current) {
+        tl.fromTo(
+          agencyGhostRef.current.querySelectorAll("span"),
+          { y: 130, opacity: 0, rotateX: -35, transformOrigin: "50% 100%" },
+          { y: 0, opacity: 1, rotateX: 0, duration: 1.0, stagger: 0.06, ease: "power4.out" },
+          "<-0.1"
+        );
+      }
 
       // SVG underline draw from right-to-left after AGENCY reveal
       if (underlinePathRef.current) {
@@ -360,7 +396,38 @@ export default function HeroAgent() {
         }}
       >
         {/* MYTHOS */}
-        <div style={{ overflow: "hidden", perspective: "900px", marginBottom: "-0.04em" }}>
+        <div style={{ overflow: "hidden", perspective: "900px", marginBottom: "-0.04em", position: "relative" }}>
+          {/* Ghost layer — outline text behind MYTHOS, offset slightly for depth */}
+          <div
+            ref={mythosGhostRef}
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "4px",
+              display: "flex",
+              userSelect: "none",
+              pointerEvents: "none",
+            }}
+          >
+            {MYTHOS_LETTERS.map((letter, i) => (
+              <span
+                key={`ghost-mythos-${i}`}
+                style={{
+                  fontFamily: "var(--font-syne, sans-serif)",
+                  fontWeight: 900,
+                  fontSize: "clamp(4.8rem, 18vw, 13.5rem)",
+                  WebkitTextStroke: "1px rgba(52,211,153,0.12)",
+                  color: "transparent",
+                  letterSpacing: "0.14em",
+                  lineHeight: 0.87,
+                  display: "inline-block",
+                }}
+              >
+                {letter}
+              </span>
+            ))}
+          </div>
           <div
             ref={mythosRef}
             className="brand-en"
@@ -385,6 +452,37 @@ export default function HeroAgent() {
 
         {/* AGENCY — emerald gradient + SVG underline */}
         <div ref={agencyWrapRef} style={{ overflow: "hidden", perspective: "900px", position: "relative" }}>
+          {/* Ghost layer — outline text behind AGENCY, offset slightly for depth */}
+          <div
+            ref={agencyGhostRef}
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "4px",
+              display: "flex",
+              userSelect: "none",
+              pointerEvents: "none",
+            }}
+          >
+            {AGENCY_LETTERS.map((letter, i) => (
+              <span
+                key={`ghost-agency-${i}`}
+                style={{
+                  fontFamily: "var(--font-syne, sans-serif)",
+                  fontWeight: 900,
+                  fontSize: "clamp(4.8rem, 18vw, 13.5rem)",
+                  WebkitTextStroke: "1px rgba(52,211,153,0.12)",
+                  color: "transparent",
+                  letterSpacing: "0.14em",
+                  lineHeight: 0.87,
+                  display: "inline-block",
+                }}
+              >
+                {letter}
+              </span>
+            ))}
+          </div>
           <div
             ref={agencyRef}
             className="brand-en"
