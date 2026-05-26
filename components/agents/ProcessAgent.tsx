@@ -183,6 +183,7 @@ export default function ProcessAgent() {
   const headingRef = useRef<HTMLDivElement>(null);
   const svgLineRef = useRef<SVGLineElement>(null);
   const svgContainerRef = useRef<HTMLDivElement>(null);
+  const progressLineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -208,6 +209,19 @@ export default function ProcessAgent() {
           },
         });
       }
+
+      // Reading progress line — scrub-driven height on left edge
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: (self) => {
+          if (progressLineRef.current) {
+            progressLineRef.current.style.height = `${self.progress * 100}%`;
+          }
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -220,6 +234,10 @@ export default function ProcessAgent() {
       className="cv-auto"
       style={{ padding: "120px 40px", background: "var(--bg2)", position: "relative", overflow: "hidden" }}
     >
+      {/* Reading progress line — left edge rail */}
+      <div style={{ position: "absolute", top: 0, left: 0, width: "2px", height: "100%", background: "rgba(52,211,153,0.1)", zIndex: 2, pointerEvents: "none" }} />
+      <div ref={progressLineRef} style={{ position: "absolute", top: 0, left: 0, width: "2px", height: "0%", background: "var(--emerald-light)", zIndex: 2, pointerEvents: "none", transformOrigin: "top center", boxShadow: "0 0 6px rgba(52,211,153,0.6)" }} />
+
       {/* §06 Section identity mark */}
       <span
         aria-hidden="true"

@@ -60,6 +60,7 @@ const faqSchema = {
 export default function FAQAgent() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
+  const progressLineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -68,6 +69,19 @@ export default function FAQAgent() {
         { y: 60, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: headingRef.current, start: "top 80%" } }
       );
+
+      // Reading progress line — scrub-driven height on left edge
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: (self) => {
+          if (progressLineRef.current) {
+            progressLineRef.current.style.height = `${self.progress * 100}%`;
+          }
+        },
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -85,6 +99,10 @@ export default function FAQAgent() {
         className="cv-auto relative overflow-hidden"
         style={{ padding: "120px 40px", background: "var(--bg)" }}
       >
+        {/* Reading progress line — left edge rail */}
+        <div style={{ position: "absolute", top: 0, left: 0, width: "2px", height: "100%", background: "rgba(52,211,153,0.1)", zIndex: 2, pointerEvents: "none" }} />
+        <div ref={progressLineRef} style={{ position: "absolute", top: 0, left: 0, width: "2px", height: "0%", background: "var(--emerald-light)", zIndex: 2, pointerEvents: "none", transformOrigin: "top center", boxShadow: "0 0 6px rgba(52,211,153,0.6)" }} />
+
         <span className="section-mark">§11 FAQ</span>
         {/* Top divider */}
         <div
