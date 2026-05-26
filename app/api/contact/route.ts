@@ -10,23 +10,97 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#x27;");
 }
 
-export async function POST(req: NextRequest) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const { name, email, company, message } = await req.json();
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
-  if (!name || !email || !message) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const window = 15 * 60 * 1000; // 15 minutes
+  const limit = 5;
+  const entry = rateLimitMap.get(ip);
+  if (!entry || entry.resetAt < now) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + window });
+    return true;
+  }
+  if (entry.count >= limit) return false;
+  entry.count++;
+  return true;
+}
+
+const securityHeaders = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+};
+
+export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for") ?? "unknown";
+
+  if (!checkRateLimit(ip)) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429, headers: securityHeaders }
+    );
   }
 
-  const safeName = escapeHtml(String(name));
-  const safeEmail = escapeHtml(String(email));
-  const safeCompany = company ? escapeHtml(String(company)) : "";
-  const safeMessage = escapeHtml(String(message));
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const body = await req.json() as Record<string, unknown>;
+  const { name, email, company, message } = body;
+
+  if (!name || !email || !message) {
+    return NextResponse.json(
+      { error: "Missing required fields" },
+      { status: 400, headers: securityHeaders }
+    );
+  }
+
+  const nameStr = String(name);
+  const emailStr = String(email);
+  const companyStr = company ? String(company) : "";
+  const messageStr = String(message);
+
+  // Length validation
+  if (nameStr.length > 100) {
+    return NextResponse.json(
+      { error: "Name must be 100 characters or fewer" },
+      { status: 400, headers: securityHeaders }
+    );
+  }
+  if (emailStr.length > 254) {
+    return NextResponse.json(
+      { error: "Email must be 254 characters or fewer" },
+      { status: 400, headers: securityHeaders }
+    );
+  }
+  if (companyStr.length > 200) {
+    return NextResponse.json(
+      { error: "Company name must be 200 characters or fewer" },
+      { status: 400, headers: securityHeaders }
+    );
+  }
+  if (messageStr.length > 2000) {
+    return NextResponse.json(
+      { error: "Message must be 2000 characters or fewer" },
+      { status: 400, headers: securityHeaders }
+    );
+  }
+
+  // Email format validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailStr)) {
+    return NextResponse.json(
+      { error: "Invalid email address format" },
+      { status: 400, headers: securityHeaders }
+    );
+  }
+
+  const safeName = escapeHtml(nameStr);
+  const safeEmail = escapeHtml(emailStr);
+  const safeCompany = companyStr ? escapeHtml(companyStr) : "";
+  const safeMessage = escapeHtml(messageStr);
 
   const { error } = await resend.emails.send({
     from: "Mythos Agency Contact <onboarding@resend.dev>",
     to: ["ddyTM@proton.me"],
-    replyTo: email,
+    replyTo: emailStr,
     subject: `הודעה חדשה מ-${safeName}${safeCompany ? ` — ${safeCompany}` : ""}`,
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; background: #050508; color: #f5f5f7; padding: 40px; border: 1px solid rgba(5,150,105,0.2);">
@@ -46,8 +120,11 @@ export async function POST(req: NextRequest) {
   });
 
   if (error) {
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to send email" },
+      { status: 500, headers: securityHeaders }
+    );
   }
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true }, { headers: securityHeaders });
 }

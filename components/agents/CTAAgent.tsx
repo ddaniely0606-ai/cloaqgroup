@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -88,7 +88,7 @@ export default function CTAAgent() {
           color: "#8a8a9a", fontSize: "1.1rem", lineHeight: 1.7,
           marginBottom: "52px", maxWidth: "560px", margin: "0 auto 52px",
         }}>
-          240+ מותגים כבר הפכו לאגדה. הגיע הזמן שלכם להיכנס להיסטוריה.
+          240+ מותגים בחרו בנצח על פני ממוצע. המיתוס שלכם ממתין.
         </p>
 
         <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
