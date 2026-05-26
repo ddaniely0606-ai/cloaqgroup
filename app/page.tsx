@@ -4,6 +4,7 @@
 //   Myth Opens → Proof → Promise → Journey → Work → Believers → Word → Become → CTA
 // ─────────────────────────────────────────────────────────────────────────────
 
+import LenisProvider from "@/components/providers/LenisProvider";
 import Navbar from "@/components/ui/Navbar";
 import HeroAgent from "@/components/agents/HeroAgent";
 import LogoStripAgent from "@/components/agents/LogoStripAgent";
@@ -28,6 +29,7 @@ import SmoothScroll from "@/components/ui/SmoothScroll";
 
 export default function Home() {
   return (
+    <LenisProvider>
     <main className="grain">
       {/* ── Global chrome ─────────────────────────────────────────── */}
       <SmoothScroll />
@@ -115,5 +117,6 @@ export default function Home() {
       <AgentsPanel />
       <WhatsAppButton />
     </main>
+    </LenisProvider>
   );
 }
