@@ -909,6 +909,10 @@ body {
   /* Contact form: 2col → 1col */
   .grid-cols-2 { grid-template-columns: 1fr !important; }
 
+  /* Contact split: hide decorative right column, stack to 1col */
+  .contact-split { grid-template-columns: 1fr !important; }
+  .contact-pills-col { display: none !important; }
+
   /* Agents panel */
   .agents-panel { display: none !important; }
 
