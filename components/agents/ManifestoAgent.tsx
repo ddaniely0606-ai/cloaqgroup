@@ -6,10 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const lines = [
-  { en: "MYTH", he: "מיתוס הוא הכוח האמיתי." },
-  { en: "STORY", he: "סיפור טוב שווה יותר מכל פרסומת." },
-  { en: "LEGACY", he: "מורשת בונה אימפריות." },
-  { en: "SCALE", he: "גדילה היא המדד היחיד שחשוב." },
+  { en: "MYTH", he: "מיתוס לא נבנה בפרסומות. הוא נחרת בתודעה." },
+  { en: "STORY", he: "הסיפור הנכון ממיר גוללים ללקוחות." },
+  { en: "LEGACY", he: "מורשת היא הנכס היחיד שמתחזק עם הזמן." },
+  { en: "SCALE", he: "סקייל בלי בסיס הוא רעש. אנחנו בונים את שניהם." },
 ];
 
 export default function ManifestoAgent() {
