@@ -132,7 +132,7 @@ const ServiceCard = React.forwardRef<
     };
   }, []);
 
-  // Expand / collapse detail panel with GSAP
+  // Expand / collapse detail panel with GSAP (maxHeight avoids height:auto issues)
   useEffect(() => {
     const detail = detailRef.current;
     if (!detail) return;
@@ -140,11 +140,11 @@ const ServiceCard = React.forwardRef<
       if (expanded) {
         gsap.fromTo(
           detail,
-          { height: 0, opacity: 0 },
-          { height: "auto", opacity: 1, duration: 0.4, ease: "power2.out" }
+          { maxHeight: 0, opacity: 0 },
+          { maxHeight: 200, opacity: 1, duration: 0.4, ease: "power2.out" }
         );
       } else {
-        gsap.to(detail, { height: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+        gsap.to(detail, { maxHeight: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
       }
     });
     return () => ctx.revert();
@@ -235,7 +235,7 @@ const ServiceCard = React.forwardRef<
       {/* Expandable detail panel */}
       <div
         ref={detailRef}
-        style={{ height: 0, opacity: 0, overflow: "hidden" }}
+        style={{ maxHeight: 0, opacity: 0, overflow: "hidden" }}
       >
         <div style={{ paddingTop: "20px", borderTop: "1px solid rgba(5,150,105,0.2)", marginTop: "20px" }}>
           <p style={{ color: "#c4b341", fontSize: "0.9rem", fontWeight: 700, marginBottom: "12px" }}>
