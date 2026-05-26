@@ -187,13 +187,14 @@ export default function ContactAgent() {
       }} />
 
       {/* ── Content ──────────────────────────────────────────────────────── */}
-      <div style={{
-        maxWidth: "1280px",
-        margin: "0 auto",
-        position: "relative",
-        zIndex: 1,
-      }}
+      <div
         className="contact-split"
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+          position: "relative",
+          zIndex: 1,
+        }}
       >
 
         {/* ── LEFT COLUMN: heading + form ─── */}

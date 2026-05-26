@@ -182,7 +182,9 @@ export default function StatsAgent() {
         const slideStart = i / stats.length;
         const slideCenter = (i + 0.5) / stats.length;
 
+        const proxy = { val: 0 };
         gsap.fromTo(
+          proxy,
           { val: 0 },
           {
             val: stat.value,
