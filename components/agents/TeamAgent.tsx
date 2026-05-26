@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 const team = [
   {
     initials: "DA",
+    roleCode: "CEO",
     name: "דניאל אביב",
     nameEn: "Daniel Aviv",
     role: "מנכ\"ל ואסטרטג ראשי",
@@ -17,6 +18,7 @@ const team = [
   },
   {
     initials: "SL",
+    roleCode: "CCO",
     name: "שרה לוי",
     nameEn: "Sarah Levi",
     role: "מנהלת קריאייטיב",
@@ -25,6 +27,7 @@ const team = [
   },
   {
     initials: "OB",
+    roleCode: "CPO",
     name: "אור בן-דוד",
     nameEn: "Or Ben-David",
     role: "ראש Performance",
@@ -33,6 +36,7 @@ const team = [
   },
   {
     initials: "NK",
+    roleCode: "CMO",
     name: "נועה כהן",
     nameEn: "Noa Cohen",
     role: "ראשת תוכן ווידאו",
@@ -47,15 +51,25 @@ export default function TeamAgent() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(headingRef.current,
+      gsap.fromTo(
+        headingRef.current,
         { y: 60, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, scrollTrigger: { trigger: headingRef.current, start: "top 80%" } }
       );
 
       gsap.utils.toArray<HTMLElement>(".team-card").forEach((card, i) => {
-        gsap.fromTo(card,
-          { y: 80, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, delay: i * 0.12, ease: "power3.out", scrollTrigger: { trigger: card, start: "top 88%" } }
+        const fromX = i % 2 === 0 ? -80 : 80;
+        gsap.fromTo(
+          card,
+          { x: fromX, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.7,
+            delay: i * 0.15,
+            ease: "power3.out",
+            scrollTrigger: { trigger: card, start: "top 88%" },
+          }
         );
       });
     }, sectionRef);
@@ -78,12 +92,33 @@ export default function TeamAgent() {
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
             הצוות <span style={{ color: "#34d399" }}>שיוצר מיתוסים</span>
           </h2>
+          <p style={{ color: "#34d399", fontSize: "0.85rem", marginTop: "16px" }}>
+            40+ שנות ניסיון משולבות בצוות
+          </p>
         </div>
 
-        <div className="team-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "24px" }}>
-          {team.map((member, i) => (
-            <TeamCard key={i} member={member} />
-          ))}
+        <div
+          className="team-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "24px",
+          }}
+        >
+          {team.map((member, i) => {
+            // Asymmetric stagger: row 0 → [normal, offset], row 1 → [offset, normal]
+            const row = Math.floor(i / 2);
+            const col = i % 2;
+            const isOffset = (row === 0 && col === 1) || (row === 1 && col === 0);
+            return (
+              <div
+                key={i}
+                style={{ marginTop: isOffset ? "48px" : "0px" }}
+              >
+                <TeamCard member={member} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -92,6 +127,30 @@ export default function TeamAgent() {
 
 function TeamCard({ member }: { member: typeof team[0] }) {
   const [hovered, setHovered] = React.useState(false);
+  const initialsRef = useRef<HTMLSpanElement>(null);
+  const roleCodeRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (hovered) {
+        gsap.to(initialsRef.current, { opacity: 0, duration: 0.2, ease: "power2.in" });
+        gsap.fromTo(
+          roleCodeRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.25, delay: 0.15, ease: "power2.out" }
+        );
+      } else {
+        gsap.to(roleCodeRef.current, { opacity: 0, duration: 0.2, ease: "power2.in" });
+        gsap.fromTo(
+          initialsRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.25, delay: 0.15, ease: "power2.out" }
+        );
+      }
+    });
+
+    return () => ctx.revert();
+  }, [hovered]);
 
   return (
     <div
@@ -99,7 +158,8 @@ function TeamCard({ member }: { member: typeof team[0] }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        overflow: "hidden", cursor: "pointer",
+        overflow: "hidden",
+        cursor: "pointer",
         transform: hovered ? "translateY(-6px)" : "translateY(0)",
         boxShadow: hovered ? "0 24px 60px rgba(5,150,105,0.3)" : "0 0 0 rgba(0,0,0,0)",
         transition: "transform 0.35s ease, box-shadow 0.35s ease",
@@ -111,15 +171,33 @@ function TeamCard({ member }: { member: typeof team[0] }) {
           position: "absolute", inset: 0,
           background: "radial-gradient(ellipse at 50% 80%, rgba(5,150,105,0.35) 0%, transparent 60%)",
         }} />
+        {/* Initials watermark */}
         <div style={{
           position: "absolute", inset: 0,
           display: "flex", alignItems: "center", justifyContent: "center",
         }}>
-          <span className="brand-en" style={{
-            fontFamily: "var(--font-syne)", fontSize: "5rem", fontWeight: 900,
-            color: "rgba(255,255,255,0.12)", letterSpacing: "0.1em",
-          }}>
+          <span
+            ref={initialsRef}
+            className="brand-en"
+            style={{
+              fontFamily: "var(--font-syne)", fontSize: "5rem", fontWeight: 900,
+              color: "rgba(255,255,255,0.12)", letterSpacing: "0.1em",
+              position: "absolute",
+            }}
+          >
             {member.initials}
+          </span>
+          <span
+            ref={roleCodeRef}
+            className="brand-en"
+            style={{
+              fontFamily: "var(--font-syne)", fontSize: "5rem", fontWeight: 900,
+              color: "rgba(52,211,153,0.35)", letterSpacing: "0.1em",
+              position: "absolute",
+              opacity: 0,
+            }}
+          >
+            {member.roleCode}
           </span>
         </div>
         {/* Social icons overlay */}
