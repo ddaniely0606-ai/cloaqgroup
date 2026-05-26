@@ -180,6 +180,7 @@ export default function ContactAgent() {
       className="cv-auto contact-bg"
       style={{ padding: "120px 40px", position: "relative", overflow: "hidden" }}
     >
+      <span className="section-mark">§13 CONTACT</span>
       {/* ── Atmospheric layered background ─────────────────────────────── */}
 
       {/* Layer 1: Primary emerald radial — left-center anchor */}
@@ -228,6 +229,11 @@ export default function ContactAgent() {
         {/* ── LEFT COLUMN: heading + form ─── */}
         <div>
           <div ref={headingRef} style={{ marginBottom: "56px" }}>
+            {/* Scarcity badge */}
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", border: "1px solid rgba(5,150,105,0.35)", padding: "6px 14px", marginBottom: "24px" }}>
+              <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34d399", animation: "pulse-glow 2s ease infinite" }} />
+              <span style={{ fontSize: "0.72rem", color: "#8a8a9a", letterSpacing: "0.1em" }}>אנחנו לוקחים 3 לקוחות חדשים ברבעון</span>
+            </div>
             <p
               className="brand-en"
               style={{
@@ -437,10 +443,21 @@ export default function ContactAgent() {
                       }
                     }}
                   >
-                    {sending ? "שולח..." : "שלח הודעה"}
+                    {sending ? "שולח..." : "שלחו לנו אתגר →"}
                     <Send size={16} aria-hidden="true" />
                   </button>
                 </div>
+                {/* Israeli hours indicator */}
+                <p style={{ fontSize: "0.72rem", color: "var(--muted)", marginTop: "16px", direction: "rtl" }}>
+                  זמינים א׳-ה׳ 09:00-18:00 · {(() => {
+                    const now = new Date();
+                    const hour = parseInt(now.toLocaleString("he-IL", { timeZone: "Asia/Jerusalem", hour: "numeric", hour12: false }));
+                    const day = now.toLocaleString("he-IL", { timeZone: "Asia/Jerusalem", weekday: "short" });
+                    const isWeekend = day.includes("שב") || day.includes("שישי");
+                    const isOpen = !isWeekend && hour >= 9 && hour < 18;
+                    return isOpen ? <><span style={{ color: "#34d399" }}>●</span> פתוחים עכשיו</> : <><span style={{ color: "#8a8a9a" }}>●</span> סגורים כרגע</>;
+                  })()}
+                </p>
               </form>
             )}
           </div>

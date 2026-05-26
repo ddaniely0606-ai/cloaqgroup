@@ -15,7 +15,8 @@ const services = [
     title: "אסטרטגיית מותג",
     titleEn: "Brand Strategy",
     desc: "אנחנו בונים זהויות מותג שלא רק בולטות — הן הופכות לבלתי נשכחות. מהמיצוב ועד לקול המותג.",
-    metric: "+380% ממוצע Brand Lift",
+    metric: "+380% brand lift ממוצע",
+    ctaText: "בנו את המותג שלכם",
   },
   {
     icon: TrendingUp,
@@ -23,7 +24,8 @@ const services = [
     title: "פרסום ממומן",
     titleEn: "Paid Advertising",
     desc: "קמפיינים ממוקדי לייזר שהופכים תקציב פרסום לצמיחה אמיתית — Meta, Google, TikTok ועוד.",
-    metric: "-60% עלות רכישה",
+    metric: "עלות רכישה נמוכה ב-60%",
+    ctaText: "הפעילו קמפיין",
   },
   {
     icon: PenTool,
@@ -32,6 +34,7 @@ const services = [
     titleEn: "Content Creation",
     desc: "מקונספט ועד ביצוע — כל נכס מוכן לתפוס את תשומת הלב וּלהחזיק בה.",
     metric: "40M+ צפיות אורגניות",
+    ctaText: "ייצרו תוכן שנזכרים",
   },
   {
     icon: Search,
@@ -39,7 +42,8 @@ const services = [
     title: "שליטה ב-SEO",
     titleEn: "SEO Domination",
     desc: "אנחנו מציבים את המותג שלך בראש תוצאות החיפוש — ושומרים אותו שם.",
-    metric: "#1 על גוגל לענף",
+    metric: "₪12M פייפליין מ-SEO",
+    ctaText: "עלו למקום הראשון",
   },
   {
     icon: Share2,
@@ -47,7 +51,8 @@ const services = [
     title: "רשתות חברתיות",
     titleEn: "Social Media",
     desc: "נוכחות חברתית אסטרטגית שבונה קהלים ממעורבים ומהפכת עוקבים ללקוחות.",
-    metric: "×4 עוקבים ב-90 יום",
+    metric: "×4 בעוקבים תוך 90 יום",
+    ctaText: "בנו קהילה",
   },
   {
     icon: Film,
@@ -55,17 +60,23 @@ const services = [
     title: "שיווק וידאו",
     titleEn: "Video Marketing",
     desc: "סרטי מותג קולנועיים ופרסומות וידאו שמעצרות גוללים במקום.",
-    metric: "×8 שיעור מעורבות",
+    metric: "×8 engagement rate",
+    ctaText: "צרו ווידאו מרגש",
   },
 ];
 
 // ─── ServiceCard ──────────────────────────────────────────────────────────────
 const ServiceCard = React.forwardRef<
   HTMLDivElement,
-  { icon: LucideIcon; number: string; title: string; titleEn: string; desc: string; metric: string }
->(({ icon: Icon, number, title, titleEn, desc, metric }, forwardedRef) => {
+  { icon: LucideIcon; number: string; title: string; titleEn: string; desc: string; metric: string; ctaText: string }
+>(({ icon: Icon, number, title, titleEn, desc, metric, ctaText }, forwardedRef) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const shineRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const detailRef = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState(false);
+
+  const scramble = useTextScramble(title);
 
   // Merge forwarded ref and internal ref
   const setRefs = (el: HTMLDivElement | null) => {
@@ -74,6 +85,7 @@ const ServiceCard = React.forwardRef<
     else if (forwardedRef) forwardedRef.current = el;
   };
 
+  // Tilt + shine
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
@@ -88,13 +100,12 @@ const ServiceCard = React.forwardRef<
       const cy = rect.top + rect.height / 2;
       const dx = e.clientX - cx;
       const dy = e.clientY - cy;
-      const tiltX = (dx / (rect.width / 2)) * 8;   // ±8 deg around Y axis
-      const tiltY = -(dy / (rect.height / 2)) * 8;  // ±8 deg around X axis
+      const tiltX = (dx / (rect.width / 2)) * 8;
+      const tiltY = -(dy / (rect.height / 2)) * 8;
 
       qRotY(tiltX);
       qRotX(tiltY);
 
-      // Shine effect via CSS vars
       const pctX = ((e.clientX - rect.left) / rect.width) * 100;
       const pctY = ((e.clientY - rect.top) / rect.height) * 100;
       if (shineRef.current) {
@@ -118,16 +129,35 @@ const ServiceCard = React.forwardRef<
     };
   }, []);
 
+  // Expand / collapse detail panel with GSAP
+  useEffect(() => {
+    const detail = detailRef.current;
+    if (!detail) return;
+    const ctx = gsap.context(() => {
+      if (expanded) {
+        gsap.fromTo(
+          detail,
+          { height: 0, opacity: 0 },
+          { height: "auto", opacity: 1, duration: 0.4, ease: "power2.out" }
+        );
+      } else {
+        gsap.to(detail, { height: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
+      }
+    });
+    return () => ctx.revert();
+  }, [expanded]);
+
   return (
     <div
       ref={setRefs}
+      onClick={() => setExpanded((v) => !v)}
       style={{
         padding: "40px",
         background: "rgba(0,0,0,0.45)",
         backdropFilter: "blur(20px) saturate(1.5)",
         WebkitBackdropFilter: "blur(20px) saturate(1.5)",
         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
-        cursor: "default",
+        cursor: "pointer",
         position: "relative",
         overflow: "hidden",
         transformStyle: "preserve-3d",
@@ -138,6 +168,7 @@ const ServiceCard = React.forwardRef<
         const t = e.currentTarget;
         t.style.background = "rgba(5,150,105,0.09)";
         t.style.boxShadow = "0 20px 50px rgba(5,150,105,0.3), inset 0 1px 0 rgba(255,255,255,0.04)";
+        scramble(titleRef.current);
       }}
       onMouseLeave={(e) => {
         const t = e.currentTarget;
@@ -155,7 +186,6 @@ const ServiceCard = React.forwardRef<
           pointerEvents: "none",
           transition: "opacity 0.3s",
           background: "radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(52,211,153,0.12) 0%, transparent 60%)",
-          // CSS custom properties initialised in onMove
         } as React.CSSProperties}
       />
 
@@ -175,18 +205,59 @@ const ServiceCard = React.forwardRef<
         </span>
       </div>
 
-      <h3 style={{ fontWeight: 800, fontSize: "1.2rem", color: "#fff", marginBottom: "6px" }}>
-        {title}
-      </h3>
+      {/* Title row with expand chevron */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "6px" }}>
+        <h3 ref={titleRef} style={{ fontWeight: 800, fontSize: "1.2rem", color: "#fff", margin: 0 }}>
+          {title}
+        </h3>
+        <ChevronDown
+          size={18}
+          color="#34d399"
+          style={{
+            flexShrink: 0,
+            marginInlineStart: "12px",
+            transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 0.3s ease",
+          }}
+        />
+      </div>
+
       <p className="brand-en" style={{ fontSize: "0.7rem", letterSpacing: "0.2em", color: "#34d399", marginBottom: "16px", textTransform: "uppercase" }}>
         {titleEn}
-      </p>
-      <p style={{ color: "#c4b341", fontSize: "0.75rem", fontWeight: 700, marginBottom: "16px" }}>
-        {metric}
       </p>
       <p style={{ color: "#8a8a9a", fontSize: "0.9rem", lineHeight: 1.7 }}>
         {desc}
       </p>
+
+      {/* Expandable detail panel */}
+      <div
+        ref={detailRef}
+        style={{ height: 0, opacity: 0, overflow: "hidden" }}
+      >
+        <div style={{ paddingTop: "20px", borderTop: "1px solid rgba(5,150,105,0.2)", marginTop: "20px" }}>
+          <p style={{ color: "#c4b341", fontSize: "0.9rem", fontWeight: 700, marginBottom: "12px" }}>
+            {metric}
+          </p>
+          <a
+            href="#contact"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              color: "#34d399",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.75"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
+          >
+            {ctaText} ←
+          </a>
+        </div>
+      </div>
     </div>
   );
 });
@@ -300,6 +371,7 @@ export default function ServicesAgent() {
                 titleEn={service.titleEn}
                 desc={service.desc}
                 metric={service.metric}
+                ctaText={service.ctaText}
               />
             );
           })}

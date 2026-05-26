@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -29,6 +29,14 @@ export default function MythologyAgent() {
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
 
+  // B) Cursor-driven parallax on the watermark word
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!bgWordRef.current) return;
+    const xOffset = (e.clientX - window.innerWidth / 2) * 0.04;
+    const yOffset = (e.clientY - window.innerHeight / 2) * 0.04;
+    gsap.to(bgWordRef.current, { x: xOffset, y: yOffset, duration: 1.2, ease: "power1.out" });
+  }, []);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -36,6 +44,12 @@ export default function MythologyAgent() {
           trigger: sectionRef.current,
           start: "top 65%",
           once: true,
+          // A) Transition from black pre-entry to actual section background
+          onEnter: () => {
+            if (sectionRef.current) {
+              sectionRef.current.style.background = "var(--bg2)";
+            }
+          },
         },
       });
 
@@ -58,13 +72,13 @@ export default function MythologyAgent() {
         },
       });
 
-      // Beat 2 — headline chars stagger in
+      // Beat 2 — C) headline chars stagger in: 0.03s stagger, 0.55s dur, blur clears as char reveals
       const chars = headingRef.current?.querySelectorAll(".myth-char");
       if (chars && chars.length > 0) {
         tl.fromTo(
           chars,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.5, stagger: 0.04, ease: "power3.out" },
+          { y: 40, opacity: 0, filter: "blur(4px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, stagger: 0.03, ease: "power3.out" },
           "-=0.2"
         );
       }
@@ -82,10 +96,23 @@ export default function MythologyAgent() {
         { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" },
         "-=0.2"
       );
+
+      // Beat 4 — D) golden glow after reveal completes
+      tl.to(
+        headingRef.current,
+        { textShadow: "0 0 60px rgba(196,154,60,0.3)", duration: 1.5, ease: "power2.out" },
+        "+=0.2"
+      );
     }, sectionRef);
 
-    return () => ctx.revert();
-  }, []);
+    // B) passive mousemove parallax on watermark
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    return () => {
+      ctx.revert();
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [handleMouseMove]);
 
   const headline = "המותג שלך יכול להפוך למיתוס.";
 
@@ -96,8 +123,11 @@ export default function MythologyAgent() {
       className="cv-auto"
       style={{
         position: "relative",
+        minHeight: "100vh",
         padding: "180px 40px",
-        background: "var(--bg2)",
+        // A) Pre-entry black moment — transitions to var(--bg2) when ScrollTrigger fires
+        background: "#000",
+        transition: "background 0.5s ease",
         overflow: "hidden",
         textAlign: "center",
       }}
