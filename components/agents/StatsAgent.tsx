@@ -184,7 +184,8 @@ export default function StatsAgent() {
 
         gsap.fromTo(
           { val: 0 },
-          { val: stat.value,
+          {
+            val: stat.value,
             ease: "power2.out",
             scrollTrigger: {
               trigger: outer,
@@ -195,6 +196,7 @@ export default function StatsAgent() {
                 el.textContent = String(Math.round(self.progress * stat.value));
               },
             },
+            duration: 1,
           }
         );
       });

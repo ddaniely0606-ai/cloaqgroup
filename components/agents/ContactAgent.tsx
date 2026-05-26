@@ -192,11 +192,9 @@ export default function ContactAgent() {
         margin: "0 auto",
         position: "relative",
         zIndex: 1,
-        display: "grid",
-        gridTemplateColumns: "3fr 2fr",
-        gap: "80px",
-        alignItems: "center",
-      }}>
+      }}
+        className="contact-split"
+      >
 
         {/* ── LEFT COLUMN: heading + form ─── */}
         <div>
@@ -374,6 +372,7 @@ export default function ContactAgent() {
         {/* ── RIGHT COLUMN: decorative stat pills ─── */}
         <div
           ref={rightColRef}
+          className="contact-pills-col"
           style={{
             display: "flex",
             flexDirection: "column",
