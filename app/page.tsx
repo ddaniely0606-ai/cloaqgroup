@@ -24,18 +24,20 @@ import AgentsPanel from "@/components/ui/AgentsPanel";
 import Preloader from "@/components/ui/Preloader";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import ScrollProgress from "@/components/ui/ScrollProgress";
-import CustomCursor from "@/components/ui/CustomCursor";
-import SmoothScroll from "@/components/ui/SmoothScroll";
+import ScrollDotNav from "@/components/ui/ScrollDotNav";
+import FloatingCTA from "@/components/ui/FloatingCTA";
+import CursorAgent from "@/components/ui/CursorAgent";
 
 export default function Home() {
   return (
     <LenisProvider>
     <main className="grain">
       {/* ── Global chrome ─────────────────────────────────────────── */}
-      <SmoothScroll />
-      <CustomCursor />
+      <CursorAgent />
       <Preloader />
       <ScrollProgress />
+      <ScrollDotNav />
+      <FloatingCTA />
       <Navbar />
 
       {/* ── 01  HERO ──────────────────────────────────────────────── */}

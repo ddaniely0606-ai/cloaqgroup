@@ -3,6 +3,7 @@ import { Syne, Heebo, Geist } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -282,7 +283,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </body>
     </html>
   );
 }
