@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,6 +13,8 @@ const testimonials = [
   { name: "מיכל ברנשטיין", company: "Meridian Apparel", text: "תוכן הוידאו שהם יצרו הגיע ל-40M צפיות אורגניות. המותג שלנו הפך לרגע תרבותי." },
   { name: "אסף גולן", company: "Solstice Beauty", text: "תוך 90 יום שלטנו בקטגוריה שלנו בגוגל. אף סוכנות שעבדנו איתה לא התקרבה לזה." },
   { name: "תמר אלמוג", company: "Vantage Capital", text: "Mythos Agency לא מריצים קמפיינים. הם הופכים מותגים למיתוסים. שווה כל שקל ויותר." },
+  { name: "יוסי מזרחי", company: "Aurora Brands", text: "תוך 6 חודשים עם Mythos, הפכנו מ-startup לא מוכר למותג שכולם מכירים בתחום שלנו. הם לא מוכרים שירות — הם מוכרים עתיד." },
+  { name: "רותם שפירא", company: "Pinnacle Media", text: "ה-ROI הממוצע שלנו עלה ב-290% ברבעון הראשון. Mythos Agency הם לא סוכנות — הם שותפים לנצח." },
 ];
 
 export default function TestimonialsAgent() {
@@ -25,6 +27,31 @@ export default function TestimonialsAgent() {
         { y: 60, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, scrollTrigger: { trigger: headingRef.current, start: "top 80%" } }
       );
+
+      // IntersectionObserver for quote-highlight animation
+      const cards = document.querySelectorAll(".quote-highlight");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            gsap.fromTo(
+              el,
+              { boxShadow: "0 0 24px rgba(52, 211, 153, 0.4)" },
+              {
+                boxShadow: "0 0 0px rgba(52, 211, 153, 0)",
+                duration: 0.8,
+                ease: "power2.out",
+              }
+            );
+          }
+        });
+      }, { threshold: 0.3 });
+
+      cards.forEach((card) => observer.observe(card));
+
+      return () => {
+        observer.disconnect();
+      };
     }, sectionRef);
 
     return () => ctx.revert();
@@ -40,9 +67,12 @@ export default function TestimonialsAgent() {
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
             קולות המיתוס
           </p>
-          <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
+          <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1, marginBottom: "20px" }}>
             הם <span style={{ color: "#34d399" }}>הפכו</span> למיתוס
           </h2>
+          <p className="brand-en" style={{ color: "#8a8a9a", fontSize: "0.85rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
+            240+ BRANDS. ONE VERDICT.
+          </p>
         </div>
       </div>
 
@@ -69,17 +99,19 @@ export default function TestimonialsAgent() {
 
 const TestimonialCard = React.memo(function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
   return (
-    <div style={{
-      flexShrink: 0,
-      width: "360px",
-      padding: "32px",
-      margin: "0 8px",
-      border: "1px solid rgba(5,150,105,0.15)",
-      background: "rgba(0,0,0,0.55)",
-      backdropFilter: "blur(24px) saturate(1.6)",
-      WebkitBackdropFilter: "blur(24px) saturate(1.6)",
-      boxShadow: "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
-    }}>
+    <div
+      className="quote-highlight"
+      style={{
+        flexShrink: 0,
+        width: "360px",
+        padding: "32px",
+        margin: "0 8px",
+        border: "1px solid rgba(5,150,105,0.15)",
+        background: "rgba(0,0,0,0.55)",
+        backdropFilter: "blur(24px) saturate(1.6)",
+        WebkitBackdropFilter: "blur(24px) saturate(1.6)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)",
+      }}>
       <div style={{ display: "flex", gap: "4px", marginBottom: "16px" }}>
         {Array(5).fill(0).map((_, i) => (
           <Star key={i} size={14} fill="#059669" color="#059669" />

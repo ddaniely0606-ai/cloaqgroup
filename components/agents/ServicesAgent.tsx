@@ -1,8 +1,9 @@
-﻿"use client";
-import { useEffect, useRef } from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Target, TrendingUp, PenTool, Search, Share2, Film } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,26 +52,177 @@ const services = [
   },
 ];
 
+// ─── ServiceCard ──────────────────────────────────────────────────────────────
+const ServiceCard = React.forwardRef<
+  HTMLDivElement,
+  { icon: LucideIcon; number: string; title: string; titleEn: string; desc: string }
+>(({ icon: Icon, number, title, titleEn, desc }, forwardedRef) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const shineRef = useRef<HTMLDivElement>(null);
+
+  // Merge forwarded ref and internal ref
+  const setRefs = (el: HTMLDivElement | null) => {
+    (cardRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+    if (typeof forwardedRef === "function") forwardedRef(el);
+    else if (forwardedRef) forwardedRef.current = el;
+  };
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    // GSAP quickTo for smooth tilt
+    const qRotX = gsap.quickTo(card, "rotateX", { duration: 0.4, ease: "power2.out" });
+    const qRotY = gsap.quickTo(card, "rotateY", { duration: 0.4, ease: "power2.out" });
+
+    const onMove = (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const tiltX = (dx / (rect.width / 2)) * 8;   // ±8 deg around Y axis
+      const tiltY = -(dy / (rect.height / 2)) * 8;  // ±8 deg around X axis
+
+      qRotY(tiltX);
+      qRotX(tiltY);
+
+      // Shine effect via CSS vars
+      const pctX = ((e.clientX - rect.left) / rect.width) * 100;
+      const pctY = ((e.clientY - rect.top) / rect.height) * 100;
+      if (shineRef.current) {
+        shineRef.current.style.setProperty("--mouse-x", `${pctX}%`);
+        shineRef.current.style.setProperty("--mouse-y", `${pctY}%`);
+        shineRef.current.style.opacity = "1";
+      }
+    };
+
+    const onLeave = () => {
+      gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.8, ease: "elastic.out(1, 0.5)" });
+      if (shineRef.current) shineRef.current.style.opacity = "0";
+    };
+
+    card.addEventListener("mousemove", onMove, { passive: true });
+    card.addEventListener("mouseleave", onLeave, { passive: true });
+
+    return () => {
+      card.removeEventListener("mousemove", onMove);
+      card.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={setRefs}
+      style={{
+        padding: "40px",
+        background: "rgba(0,0,0,0.45)",
+        backdropFilter: "blur(20px) saturate(1.5)",
+        WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+        cursor: "default",
+        position: "relative",
+        overflow: "hidden",
+        transformStyle: "preserve-3d",
+        willChange: "transform",
+        transition: "background 0.4s, box-shadow 0.35s",
+      }}
+      onMouseEnter={(e) => {
+        const t = e.currentTarget;
+        t.style.background = "rgba(5,150,105,0.09)";
+        t.style.boxShadow = "0 20px 50px rgba(5,150,105,0.3), inset 0 1px 0 rgba(255,255,255,0.04)";
+      }}
+      onMouseLeave={(e) => {
+        const t = e.currentTarget;
+        t.style.background = "rgba(0,0,0,0.45)";
+        t.style.boxShadow = "inset 0 1px 0 rgba(255,255,255,0.03)";
+      }}
+    >
+      {/* Shine overlay */}
+      <div
+        ref={shineRef}
+        style={{
+          position: "absolute",
+          inset: 0,
+          opacity: 0,
+          pointerEvents: "none",
+          transition: "opacity 0.3s",
+          background: "radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(52,211,153,0.12) 0%, transparent 60%)",
+          // CSS custom properties initialised in onMove
+        } as React.CSSProperties}
+      />
+
+      {/* Top border */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(to right, transparent, rgba(5,150,105,0.5), transparent)", opacity: 0.6 }} />
+
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "32px" }}>
+        <div style={{
+          width: "48px", height: "48px",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          border: "1px solid rgba(5,150,105,0.35)",
+        }}>
+          <Icon size={20} color="#34d399" />
+        </div>
+        <span className="brand-en" style={{ fontSize: "3rem", fontWeight: 900, color: "rgba(5,150,105,0.12)", lineHeight: 1 }}>
+          {number}
+        </span>
+      </div>
+
+      <h3 style={{ fontWeight: 800, fontSize: "1.2rem", color: "#fff", marginBottom: "6px" }}>
+        {title}
+      </h3>
+      <p className="brand-en" style={{ fontSize: "0.7rem", letterSpacing: "0.2em", color: "#34d399", marginBottom: "16px", textTransform: "uppercase" }}>
+        {titleEn}
+      </p>
+      <p style={{ color: "#8a8a9a", fontSize: "0.9rem", lineHeight: 1.7 }}>
+        {desc}
+      </p>
+    </div>
+  );
+});
+ServiceCard.displayName = "ServiceCard";
+
+// ─── ServicesAgent ────────────────────────────────────────────────────────────
 export default function ServicesAgent() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
+  const countRef = useRef<HTMLSpanElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Heading reveal
       gsap.fromTo(
         headingRef.current,
         { y: 60, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: headingRef.current, start: "top 80%" } }
       );
 
+      // Count-up "06"
+      if (countRef.current) {
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: 6,
+          duration: 1.4,
+          ease: "power2.out",
+          scrollTrigger: { trigger: headingRef.current, start: "top 80%" },
+          onUpdate() {
+            if (countRef.current) {
+              countRef.current.textContent = String(Math.round(obj.val)).padStart(2, "0");
+            }
+          },
+        });
+      }
+
+      // Card stagger — alternating sides
       cardsRef.current.forEach((card, i) => {
         if (!card) return;
+        const fromX = i % 2 === 0 ? -60 : 60;
         gsap.fromTo(
           card,
-          { y: 70, opacity: 0 },
+          { x: fromX, y: 40, opacity: 0 },
           {
-            y: 0, opacity: 1, duration: 0.7, delay: (i % 3) * 0.1,
+            x: 0, y: 0, opacity: 1, duration: 0.75,
             ease: "power3.out",
             scrollTrigger: { trigger: card, start: "top 88%" },
           }
@@ -91,14 +243,22 @@ export default function ServicesAgent() {
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div ref={headingRef} style={{ marginBottom: "72px" }}>
           <p style={{ color: "#34d399", fontSize: "0.75rem", letterSpacing: "0.35em", textTransform: "uppercase", marginBottom: "16px" }}>
-            מה אנחנו יוצרים
+            מה אנחנו יוצרים —{" "}
+            <span className="brand-en" ref={countRef} style={{ fontFamily: "var(--font-syne)", fontWeight: 900 }}>
+              00
+            </span>{" "}
+            שירותים
           </p>
           <h2 style={{ fontWeight: 900, fontSize: "clamp(2.5rem, 6vw, 5rem)", color: "#fff", lineHeight: 1.1 }}>
-            הכלים <span style={{ background: "linear-gradient(135deg, #34d399, #059669, #86efac)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>שיוצרים אגדות</span>
+            הכלים{" "}
+            <span style={{ background: "linear-gradient(135deg, #34d399, #059669, #86efac)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              שיוצרים אגדות
+            </span>
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1px", background: "rgba(5,150,105,0.12)" }}>
+        {/* Perspective wrapper for 3D tilt */}
+        <div style={{ perspective: "1000px", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "1px", background: "rgba(5,150,105,0.12)" }}>
           {services.map((service, i) => {
             const Icon = service.icon;
             return (
@@ -118,62 +278,3 @@ export default function ServicesAgent() {
     </section>
   );
 }
-
-import React from "react";
-import type { LucideIcon } from "lucide-react";
-
-const ServiceCard = React.forwardRef<
-  HTMLDivElement,
-  { icon: LucideIcon; number: string; title: string; titleEn: string; desc: string }
->(({ icon: Icon, number, title, titleEn, desc }, ref) => {
-  const [hovered, setHovered] = React.useState(false);
-
-  return (
-    <div
-      ref={ref}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        padding: "40px",
-        background: hovered ? "rgba(5,150,105,0.09)" : "rgba(0,0,0,0.45)",
-        backdropFilter: "blur(20px) saturate(1.5)",
-        WebkitBackdropFilter: "blur(20px) saturate(1.5)",
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hovered ? "0 20px 50px rgba(5,150,105,0.3), inset 0 1px 0 rgba(255,255,255,0.04)" : "inset 0 1px 0 rgba(255,255,255,0.03)",
-        transition: "background 0.4s, transform 0.35s ease, box-shadow 0.35s ease",
-        cursor: "default",
-        position: "relative",
-        overflow: "hidden",
-        zIndex: hovered ? 1 : 0,
-      }}
-    >
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: hovered ? "linear-gradient(to right, transparent, rgba(5,150,105,0.7), transparent)" : "transparent", transition: "background 0.4s" }} />
-      <div style={{ position: "absolute", bottom: 0, left: 0, height: "1px", width: hovered ? "100%" : "0%", background: "#059669", transition: "width 0.5s ease" }} />
-
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "32px" }}>
-        <div style={{
-          width: "48px", height: "48px",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          border: `1px solid ${hovered ? "rgba(5,150,105,0.6)" : "rgba(5,150,105,0.25)"}`,
-          transition: "border 0.3s",
-        }}>
-          <Icon size={20} color="#34d399" />
-        </div>
-        <span className="brand-en" style={{ fontSize: "3rem", fontWeight: 900, color: hovered ? "rgba(5,150,105,0.3)" : "rgba(5,150,105,0.1)", transition: "color 0.3s", lineHeight: 1 }}>
-          {number}
-        </span>
-      </div>
-
-      <h3 style={{ fontWeight: 800, fontSize: "1.2rem", color: hovered ? "#d1fae5" : "#fff", marginBottom: "6px", transition: "color 0.3s" }}>
-        {title}
-      </h3>
-      <p className="brand-en" style={{ fontSize: "0.7rem", letterSpacing: "0.2em", color: "#34d399", marginBottom: "16px", textTransform: "uppercase" }}>
-        {titleEn}
-      </p>
-      <p style={{ color: hovered ? "#c4c4d4" : "#8a8a9a", fontSize: "0.9rem", lineHeight: 1.7, transition: "color 0.3s" }}>
-        {desc}
-      </p>
-    </div>
-  );
-});
-ServiceCard.displayName = "ServiceCard";

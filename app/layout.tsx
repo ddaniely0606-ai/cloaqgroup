@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
-const jsonLd = {
+const jsonLdOrg = {
   "@context": "https://schema.org",
   "@type": "MarketingAgency",
   "@id": "https://mythos-agency.vercel.app",
   "name": "Mythos Agency",
   "alternateName": ["Mythos", "Mythos Marketing"],
-  "description": "סוכנות שיווק דיגיטלי פרימיום לשוק הישראלי. אנחנו הופכים מותגים לבלתי ניתנים להתעלמות עם אסטרטגיית מותג, פרסום ממומן, SEO, תוכן ווידאו, וניהול מדיה חברתית.",
+  "description": "סוכנות שיווק דיגיטלי פרימיום שהופכת מותגים למיתוסים. 240+ מותגים. ₪85M+ תקציב מנוהל. 380% צמיחה ממוצעת.",
   "url": "https://mythos-agency.vercel.app",
   "image": {
     "@type": "ImageObject",
@@ -70,7 +70,69 @@ const jsonLd = {
     "addressRegion": "IL"
   },
   "priceRange": "₪₪₪",
-  "foundingDate": "2024"
+  "foundingDate": "2024",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "שירותי שיווק דיגיטלי",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "אסטרטגיית מותג",
+        "description": "בניית אסטרטגיית מותג חזקה ומיתוסיות"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "פרסום ממומן",
+        "description": "Google, Facebook ו-Meta campaigns בביצועים גבוהים"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "יצירת תוכן",
+        "description": "תוכן מלא שמגדיל ממוצע וטוען מותגים למיתוסים"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "SEO ו-Organic",
+        "description": "אופטימיזציה למנועי חיפוש וגדילה אורגנית"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "ניהול מדיה חברתית",
+        "description": "ניהול שיווקי חכם ברשתות חברתיות"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "יצירת וידאו",
+        "description": "ייצור וידאו בעלי משפעה ורזולוציה"
+      }
+    ]
+  },
+  "award": [
+    {
+      "@type": "Thing",
+      "name": "סוכנות השיווק הדיגיטלי המובילה בישראל 2024"
+    }
+  ],
+  "knowsAbout": [
+    "Digital Marketing",
+    "Brand Strategy",
+    "Performance Marketing",
+    "SEO",
+    "Social Media Marketing",
+    "Video Production"
+  ]
+};
+
+const jsonLdWebsite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Mythos Agency",
+  "url": "https://mythos-agency.vercel.app",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://mythos-agency.vercel.app/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
 };
 
 const syne = Syne({
@@ -89,11 +151,15 @@ const heebo = Heebo({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mythos-agency.vercel.app"),
-  title: "Mythos Agency | סוכנות שיווק דיגיטלי לשוק הישראלי",
+  title: "Mythos Agency | הסוכנות שהופכת מותגים למיתוסים",
   description:
-    "Mythos Agency — הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. אנחנו הופכים מותגים לבלתי ניתנים להתעלמות עם אסטרטגיית מותג, פרסום ממומן, SEO, וווידאו. 200+ מותגים מדווחים עם תוצאות מוכחות.",
+    "240+ מותגים שהפכו לאגדה. ₪85M+ תקציב פרסום מנוהל. 380% צמיחה ממוצעת. Mythos Agency — הסוכנות שמאחורי המותגים המובילים בישראל.",
   keywords: [
     "סוכנות שיווק דיגיטלי ישראל",
+    "סוכנות מיתוג ישראל",
+    "שיווק דיגיטלי תל אביב",
+    "performance marketing israel",
+    "brand mythologization",
     "סוכנות פרסום ישראל",
     "אסטרטגיית מותג",
     "Mythos Agency",
@@ -118,7 +184,7 @@ export const metadata: Metadata = {
   classification: "Marketing & Advertising",
   openGraph: {
     title: "Mythos Agency | סוכנות שיווק שמשלטת בשוק",
-    description: "הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. אנחנו הופכים מותגים לבלתי ניתנים להתעלמות. 200+ מותגים. תוצאות מוכחות.",
+    description: "240+ מותגים שהפכו לאגדה. ₪85M+ תקציב פרסום מנוהל. 380% צמיחה ממוצעת. Mythos Agency הופכת מותגים למיתוסים.",
     type: "website",
     locale: "he_IL",
     alternateLocale: ["en_US"],
@@ -144,7 +210,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mythos Agency | סוכנות שיווק שמשלטת בשוק",
-    description: "הכוח השיווקי שמאחורי מותגים שמשלטים בשוק שלהם. אנחנו הופכים מותגים לבלתי ניתנים להתעלמות.",
+    description: "הסוכנות שהופכת מותגים למיתוסים. 240+ מותגים בחרו בנצח על פני ממוצע.",
     images: ["https://mythos-agency.vercel.app/og-image.png"],
     creator: "@mythos_agency"
   },
@@ -212,7 +278,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           id="json-ld-org"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}
+        />
+        <Script
+          id="json-ld-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
         />
       </head>
       <body className="antialiased">{children}</body>
