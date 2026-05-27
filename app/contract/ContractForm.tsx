@@ -166,7 +166,7 @@ function ContractDocument({
         </p>
         <h2 className="text-2xl md:text-3xl font-bold mb-1">הסכם שותפות עסקית</h2>
         <p style={{ color: "#34d399" }} className="text-4xl font-black tracking-widest mt-2">
-          CLOAQGROUP
+          ורטקס מדיה
         </p>
         <p style={{ color: "#9ca3af" }} className="text-sm mt-3">
           {dateStr}
@@ -186,7 +186,7 @@ function ContractDocument({
         <Clause title="סעיף 1 — מהות השותפות">
           <p>
             הצדדים מסכימים בזאת להקים ולנהל שותפות עסקית תחת השם המסחרי{" "}
-            <strong>&quot;CloaqGroup&quot;</strong> (להלן: &quot;השותפות&quot;), לצורך
+            <strong>&quot;ורטקס מדיה&quot;</strong> (להלן: &quot;השותפות&quot;), לצורך
             פעילות עסקית משותפת בתחום השיווק הדיגיטלי, יצירת תוכן, ניהול
             מותגים, שירותי מדיה וכל פעילות עסקית נלווית שתוסכם פה-אחד על ידי
             השותפים.
@@ -478,7 +478,7 @@ function ContractDocument({
               borderTop: "1px solid #e5e7eb",
             }}
           >
-            מסמך זה הינו הסכם משפטי מחייב • CloaqGroup Partnership Agreement •{" "}
+            מסמך זה הינו הסכם משפטי מחייב • ורטקס מדיה Partnership Agreement •{" "}
             {dateStr}
           </p>
         </div>
@@ -654,7 +654,7 @@ export default function ContractForm() {
             className="text-xs tracking-[0.3em] uppercase font-medium"
             style={{ color: "#059669", fontFamily: "var(--font-syne)" }}
           >
-            CloaqGroup
+            ורטקס מדיה
           </p>
           <h1
             className="text-3xl md:text-4xl font-bold text-white"
@@ -966,8 +966,8 @@ export default function ContractForm() {
 
         {/* ── Footer ── */}
         <div className="text-center text-[#4a4a5a] text-xs pb-8 space-y-1">
-          <p>מסמך זה הינו הסכם משפטי מחייב בין שותפי CloaqGroup</p>
-          <p>© {today.getFullYear()} CloaqGroup — כל הזכויות שמורות</p>
+          <p>מסמך זה הינו הסכם משפטי מחייב בין שותפי ורטקס מדיה</p>
+          <p>© {today.getFullYear()} ורטקס מדיה — כל הזכויות שמורות</p>
         </div>
       </div>
     </div>

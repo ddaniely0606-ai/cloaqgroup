@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import ContractForm from "./ContractForm";
 
 export const metadata: Metadata = {
-  title: "הסכם שותפות — CloaqGroup",
-  description: "הסכם שותפות עסקית רשמי בין שותפי CloaqGroup",
+  title: "הסכם שותפות — ורטקס מדיה",
+  description: "הסכם שותפות עסקית רשמי בין שותפי ורטקס מדיה",
   robots: "noindex, nofollow",
 };
 

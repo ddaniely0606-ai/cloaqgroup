@@ -22,20 +22,20 @@ export async function POST(req: NextRequest) {
 
     const pdfBuffer = Buffer.from(pdfBase64, "base64");
     const partnerNames = partners.map((p) => p.name).join(" | ");
-    const fileName = `CloaqGroup-Partnership-Agreement.pdf`;
+    const fileName = `Vertex-Media-Partnership-Agreement.pdf`;
 
     const emailPromises = emails.map((email) =>
       resend.emails.send({
-        from: "CloaqGroup <onboarding@resend.dev>",
+        from: "ורטקס מדיה <onboarding@resend.dev>",
         to: [email],
-        subject: `הסכם שותפות CloaqGroup — נחתם ב-${date}`,
+        subject: `הסכם שותפות ורטקס מדיה — נחתם ב-${date}`,
         html: `
           <div dir="rtl" style="font-family: Arial, Helvetica, sans-serif; max-width: 620px; margin: 0 auto; background: #050508; color: #f5f5f7; border-radius: 16px; overflow: hidden;">
 
             <!-- Header -->
             <div style="background: #111827; padding: 40px 48px; text-align: center; border-bottom: 1px solid rgba(5,150,105,0.3);">
               <p style="color: #34d399; font-size: 11px; letter-spacing: 0.25em; margin: 0 0 8px; text-transform: uppercase;">Partnership Agreement</p>
-              <p style="color: #ffffff; font-size: 28px; font-weight: 900; margin: 0; letter-spacing: 0.15em;">CLOAQGROUP</p>
+              <p style="color: #ffffff; font-size: 28px; font-weight: 900; margin: 0; letter-spacing: 0.15em;">ורטקס מדיה</p>
             </div>
 
             <!-- Body -->
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
 
               <p style="color: #f5f5f7; line-height: 1.8; margin: 0 0 16px;">שלום,</p>
               <p style="color: #8a8a9a; line-height: 1.8; margin: 0 0 16px;">
-                הסכם השותפות של <strong style="color: #f5f5f7;">CloaqGroup</strong> נחתם רשמית על ידי כל השותפים.<br/>
+                הסכם השותפות של <strong style="color: #f5f5f7;">ורטקס מדיה</strong> נחתם רשמית על ידי כל השותפים.<br/>
                 השותפים: <strong style="color: #34d399;">${partnerNames}</strong>
               </p>
 
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
             <!-- Footer -->
             <div style="padding: 20px 48px; border-top: 1px solid rgba(5,150,105,0.15); text-align: center;">
               <p style="color: #4a4a5a; font-size: 11px; margin: 0;">
-                CloaqGroup Partnership Agreement • ${date}<br/>
+                ורטקס מדיה Partnership Agreement • ${date}<br/>
                 מסמך זה הינו הסכם משפטי מחייב
               </p>
             </div>
